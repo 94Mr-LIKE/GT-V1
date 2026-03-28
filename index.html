@@ -4,618 +4,472 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>個人決策風格問卷</title>
-<meta name="description" content="三軸 × 27 型。30 題，約 5-8 分鐘。找出你的做事風格、能量來源、內心羅盤。">
-<meta property="og:title" content="個人決策風格問卷">
-<meta property="og:description" content="30 題找出你的決策風格">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧭</text></svg>">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<meta name="description" content="三軸 × 27 型 × 靈根系統 · 30 題找出你的做事風格、能量來源、內心羅盤">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>☀</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=Quicksand:wght@500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#0a0a10;--bg2:#13131d;--bg3:#1c1c2a;--bg4:#262638;--tx:#eeeef5;--tx2:#9898ac;--tx3:#5c5c72;--bd:#2a2a3e;--r:14px;--a1:#7c6cf0;--a2:#a69bff;--ok:#2ecc71;--wn:#f1c40f;--er:#e74c3c}
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:"Noto Sans TC",sans-serif;background:var(--bg);color:var(--tx);line-height:1.75;-webkit-font-smoothing:antialiased}
-.wrap{max-width:680px;margin:0 auto;padding:16px}
-.hidden{display:none!important}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes pop{0%{transform:scale(.94);opacity:0}70%{transform:scale(1.01)}100%{transform:scale(1);opacity:1}}
+@keyframes barGrow{from{width:0}to{width:var(--w)}}
+@keyframes dotSlide{from{left:50%}to{left:var(--pos)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes shine{from{left:-100%}to{left:200%}}
+@keyframes glow{0%,100%{box-shadow:0 0 8px var(--gc)}50%{box-shadow:0 0 20px var(--gc)}}
+@keyframes orbit1{0%{transform:translate(0,0) scale(1);opacity:.6}25%{transform:translate(80px,-60px) scale(1.2);opacity:.9}50%{transform:translate(160px,10px) scale(.8);opacity:.5}75%{transform:translate(60px,50px) scale(1.1);opacity:.8}100%{transform:translate(0,0) scale(1);opacity:.6}}
+@keyframes orbit2{0%{transform:translate(0,0) scale(.8);opacity:.5}33%{transform:translate(-70px,-80px) scale(1.3);opacity:.9}66%{transform:translate(-140px,20px) scale(.7);opacity:.4}100%{transform:translate(0,0) scale(.8);opacity:.5}}
+@keyframes orbit3{0%{transform:translate(0,0);opacity:.7}50%{transform:translate(40px,-90px);opacity:1}100%{transform:translate(0,0);opacity:.7}}
+@keyframes sparkle{0%,100%{opacity:0;transform:scale(0) rotate(0)}50%{opacity:1;transform:scale(1) rotate(180deg)}}
+@keyframes runeGlow{0%,100%{text-shadow:0 0 10px rgba(249,115,22,.3),0 0 30px rgba(249,115,22,.1)}50%{text-shadow:0 0 20px rgba(249,115,22,.6),0 0 50px rgba(249,115,22,.2),0 0 80px rgba(217,70,239,.1)}}
 
-/* Header */
-.hdr{text-align:center;padding:48px 0 36px}
-.hdr h1{font-family:"Space Grotesk",sans-serif;font-size:1.6rem;font-weight:700;letter-spacing:2px;color:var(--a2)}
-.hdr .sub{color:var(--tx3);font-size:.88rem;margin-top:6px}
-
-/* Welcome */
-.hero{text-align:center;margin-bottom:24px}
-.hero h2{font-size:1.35rem;font-weight:700;margin-bottom:6px;color:var(--tx)}
-.hero p{color:var(--tx2);font-size:.9rem}
-.info{background:var(--bg2);border-radius:var(--r);padding:22px;margin-bottom:16px;border:1px solid var(--bd)}
-.info h3{font-size:1rem;font-weight:600;margin-bottom:12px}
-.info p{color:var(--tx2);font-size:.88rem;margin-bottom:8px}
-.info p:last-child{margin-bottom:0}
-
-/* Button */
-.btn{display:block;width:100%;padding:16px;border:none;border-radius:10px;font-size:1rem;font-weight:600;cursor:pointer;transition:all .2s;font-family:inherit}
-.btn-go{background:linear-gradient(135deg,var(--a1),var(--a2));color:#fff}
-.btn-go:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(124,108,240,.35)}
-.btn-go:disabled{background:var(--bg3);color:var(--tx3);cursor:not-allowed;transform:none;box-shadow:none}
-.btn-alt{background:transparent;color:var(--a2);border:2px solid var(--a1);margin-top:12px}
-.btn-alt:hover{background:rgba(124,108,240,.1)}
-
-/* Progress */
-.prog{position:sticky;top:0;z-index:50;background:var(--bg);padding:14px 0 10px;border-bottom:1px solid var(--bd)}
-.prog-bar{background:var(--bg3);border-radius:5px;height:6px;overflow:hidden}
-.prog-fill{background:linear-gradient(90deg,var(--a1),var(--a2));height:100%;width:0;transition:width .35s}
-.prog-txt{text-align:center;color:var(--tx3);font-size:.8rem;margin-top:8px}
-
-/* Question */
-.qcard{background:var(--bg2);border-radius:var(--r);padding:22px;margin-bottom:14px;border:2px solid transparent;transition:border-color .3s}
-.qcard.done{border-color:var(--a1)}
-.qnum{font-family:"Space Grotesk",sans-serif;font-size:.75rem;color:var(--tx3);letter-spacing:1px;margin-bottom:8px}
-.qtxt{font-size:.95rem;font-weight:500;margin-bottom:16px;line-height:1.8}
-.opts{display:flex;flex-direction:column;gap:10px}
-.opt{display:flex;align-items:flex-start;padding:14px;background:var(--bg);border-radius:10px;cursor:pointer;border:2px solid transparent;transition:all .2s;-webkit-tap-highlight-color:transparent}
-.opt:hover{background:var(--bg3);border-color:var(--bd)}
-.opt.sel{background:rgba(124,108,240,.12);border-color:var(--a1)}
-.opt input{display:none}
-.dot{width:20px;height:20px;border:2px solid var(--tx3);border-radius:50%;margin-right:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;transition:border-color .2s}
-.opt.sel .dot{border-color:var(--a1)}
-.opt.sel .dot::after{content:"";width:10px;height:10px;background:var(--a1);border-radius:50%}
-.opt-t{font-size:.9rem;color:var(--tx2);line-height:1.7}
-.opt.sel .opt-t{color:var(--tx)}
-
-/* Results */
-.res-section{margin-bottom:20px}
-.res-card{background:var(--bg2);border-radius:var(--r);padding:24px;margin-bottom:16px;border:1px solid var(--bd)}
-.res-card h3{font-size:1.05rem;font-weight:600;margin-bottom:16px}
-
-/* Type Header */
-.type-hdr{text-align:center;padding:32px 20px;border-radius:var(--r);margin-bottom:20px;position:relative;overflow:hidden}
-.type-code{font-family:"Space Grotesk",sans-serif;font-size:2.8rem;font-weight:700;letter-spacing:6px;margin-bottom:6px}
-.type-name{font-size:1.5rem;font-weight:700;margin-bottom:4px}
-.type-en{font-size:.85rem;color:var(--tx2)}
-
-/* Axis bars */
-.axis{margin-bottom:18px}
-.axis-label{display:flex;justify-content:space-between;margin-bottom:8px;font-size:.82rem}
-.axis-label span:first-child{color:var(--tx2)}
-.axis-label span:last-child{font-family:"Space Grotesk",sans-serif;font-weight:600}
-.axis-track{position:relative;height:32px;background:var(--bg);border-radius:16px;overflow:hidden}
-.axis-center{position:absolute;left:50%;top:0;width:2px;height:100%;background:var(--tx3);opacity:.3;transform:translateX(-1px)}
-.axis-fill{position:absolute;top:0;height:100%;border-radius:16px;transition:all .6s ease-out}
-.axis-marker{position:absolute;top:50%;width:14px;height:14px;background:#fff;border-radius:50%;transform:translate(-50%,-50%);box-shadow:0 0 8px rgba(0,0,0,.5);transition:left .6s ease-out;z-index:2}
-.axis-ends{display:flex;justify-content:space-between;font-size:.72rem;color:var(--tx3);margin-top:6px;padding:0 4px}
-.axis-val{text-align:center;margin-top:4px}
-.axis-val span{font-family:"Space Grotesk",sans-serif;font-size:1.5rem;font-weight:700}
-
-/* Type desc */
-.type-desc{font-size:.92rem;color:var(--tx2);line-height:2;padding:18px;background:var(--bg);border-radius:10px;border-left:3px solid var(--a1);margin-bottom:16px}
-.type-detail{margin-bottom:20px}
-.type-detail h4{font-size:.95rem;font-weight:600;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--bd)}
-.type-detail p{font-size:.88rem;color:var(--tx2);line-height:1.8;padding:12px;background:var(--bg);border-radius:8px}
-
-/* Share */
-.share-box{background:var(--bg2);border-radius:var(--r);padding:20px;text-align:center;margin-bottom:16px;border:1px solid var(--bd)}
-.share-box p{color:var(--tx2);font-size:.85rem;margin-bottom:12px}
-.share-code{font-family:"Space Grotesk",sans-serif;font-size:1.1rem;font-weight:600;color:var(--a2);background:var(--bg);padding:10px 20px;border-radius:8px;display:inline-block;letter-spacing:3px;cursor:pointer;transition:all .2s}
-.share-code:hover{background:var(--bg3)}
-.copied{color:var(--ok)!important}
-
-/* Footer */
-.ftr{text-align:center;padding:32px 0 16px;color:var(--tx3);font-size:.75rem}
-.ftr a{color:var(--a2);text-decoration:none}
-
-@media(max-width:500px){
-  .wrap{padding:12px}
-  .hdr h1{font-size:1.3rem}
-  .type-code{font-size:2.2rem}
-  .axis-ends{font-size:.65rem}
+:root{
+--bg:#FFFBF5;--bg2:#FFF7ED;--bg3:#FFF1E0;--card:#FFF;--tx:#1a1a2e;--tx2:#4a4a6a;--tx3:#8888a0;--bd:#f0e8dd;--bd2:#e8ddd0;
+--axA:#F97316;--axA2:#FDBA74;--axAl:#FFF7ED;
+--axB:#06B6D4;--axB2:#67E8F9;--axBl:#ECFEFF;
+--axC:#D946EF;--axC2:#E879F9;--axCl:#FDF4FF;
+--acc:#F59E0B;--acc2:#FBBF24;--ok:#10B981;
+--rJin:#C8A951;--rMu:#22C55E;--rHuo:#EF4444;--rShui:#3B82F6;--rTu:#B45309;--rYue:#A78BFA;
+--rLei:#EAB308;--rFeng:#14B8A6;--rBing:#38BDF8;
+--r:18px;--r2:14px;--sh:0 2px 12px rgba(0,0,0,.04),0 1px 3px rgba(0,0,0,.06);--sh2:0 4px 20px rgba(0,0,0,.06);
 }
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{font-family:"Nunito",sans-serif;background:var(--bg);color:var(--tx);line-height:1.75;-webkit-font-smoothing:antialiased}
+body::before{content:'';position:fixed;top:-200px;right:-200px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(249,115,22,.07),transparent 70%);pointer-events:none}
+body::after{content:'';position:fixed;bottom:-150px;left:-150px;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(6,182,212,.05),transparent 70%);pointer-events:none}
+.wrap{max-width:640px;margin:0 auto;padding:20px;position:relative;z-index:1}
+.hidden{display:none!important}
+.mono{font-family:"JetBrains Mono",monospace}
+.disp{font-family:"Quicksand",sans-serif;font-weight:700}
+
+/* BTN */
+.btn{display:block;width:100%;padding:16px;border:none;border-radius:var(--r2);font-size:1rem;font-weight:700;cursor:pointer;transition:all .25s;font-family:inherit;position:relative;overflow:hidden}
+.btn-go{background:linear-gradient(135deg,var(--axA),#FB923C);color:#fff;box-shadow:0 4px 16px rgba(249,115,22,.3)}
+.btn-go::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);animation:shine 3s infinite}
+.btn-go:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(249,115,22,.4)}
+.btn-go:disabled{background:#d4d4d8;color:#a1a1aa;cursor:not-allowed;transform:none;box-shadow:none}
+.btn-go:disabled::after{display:none}
+.btn-alt{background:var(--card);color:var(--axA);border:2px solid var(--axA2);margin-top:10px;box-shadow:var(--sh)}
+.btn-alt:hover{background:var(--axAl)}
+
+/* WELCOME */
+.hero{text-align:center;padding:48px 0 32px;animation:fadeUp .7s ease-out}
+.hero-icon{font-size:2.8rem;margin-bottom:10px;animation:float 3s ease-in-out infinite}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border-radius:20px;background:rgba(249,115,22,.08);border:1.5px solid var(--acc2);font-size:.7rem;color:var(--axA);font-weight:700;letter-spacing:1px;margin-bottom:18px}
+.hero h1{font-size:2.2rem;line-height:1.25;margin-bottom:10px}
+.hero h1 em{font-style:normal;background:linear-gradient(135deg,var(--axA),var(--axC));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero p{color:var(--tx2);font-size:.9rem;max-width:380px;margin:0 auto}
+.axes-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:24px 0;animation:fadeUp .7s ease-out .1s both}
+.ax-chip{background:var(--card);border-radius:var(--r2);padding:16px 10px;text-align:center;box-shadow:var(--sh);border:2px solid transparent;transition:all .3s}
+.ax-chip:nth-child(1){border-color:var(--axA2)}.ax-chip:nth-child(2){border-color:var(--axB2)}.ax-chip:nth-child(3){border-color:var(--axC2)}
+.ax-chip:hover{transform:translateY(-3px);box-shadow:var(--sh2)}
+.ax-chip .icon{font-size:1.4rem;margin-bottom:4px}
+.ax-chip .lbl{font-size:.8rem;font-weight:700;margin-bottom:2px}
+.ax-chip:nth-child(1) .lbl{color:var(--axA)}.ax-chip:nth-child(2) .lbl{color:var(--axB)}.ax-chip:nth-child(3) .lbl{color:var(--axC)}
+.ax-chip .rng{font-size:.65rem;color:var(--tx3)}
+.icard{background:var(--card);border-radius:var(--r);padding:20px;margin-bottom:10px;box-shadow:var(--sh);border:1px solid var(--bd);animation:fadeUp .7s ease-out .2s both}
+.icard h3{font-size:.88rem;font-weight:700;margin-bottom:8px}
+.icard p{color:var(--tx2);font-size:.82rem;padding-left:14px;margin-bottom:4px;position:relative}
+.icard p::before{content:'→';position:absolute;left:0;color:var(--acc)}
+
+/* PROGRESS */
+.prog{position:sticky;top:0;z-index:50;background:rgba(255,251,245,.94);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:12px 0 10px;border-bottom:1px solid var(--bd)}
+.prog-inner{display:flex;align-items:center;gap:12px}
+.prog-bar{flex:1;background:var(--bg3);border-radius:6px;height:7px;overflow:hidden}
+.prog-fill{background:linear-gradient(90deg,var(--axA),var(--axC));height:100%;width:0;transition:width .4s;border-radius:6px}
+.prog-num{font-size:.8rem;color:var(--tx3);font-weight:600}.prog-num b{color:var(--tx);font-weight:800}
+.page-ind{text-align:center;margin-bottom:14px;font-size:.78rem;color:var(--tx3);font-weight:600}
+
+/* QUESTIONS */
+.qcard{background:var(--card);border:2px solid var(--bd);border-radius:var(--r);padding:22px;margin-bottom:10px;box-shadow:var(--sh);transition:all .3s;animation:fadeUp .4s ease-out both}
+.qcard.done{border-color:var(--ok);border-color:rgba(16,185,129,.4)}
+.qnum{display:inline-block;padding:2px 10px;border-radius:8px;font-size:.68rem;font-weight:700;letter-spacing:1px;background:var(--bg3);color:var(--tx3);margin-bottom:8px}
+.qtxt{font-size:.93rem;font-weight:600;margin-bottom:14px;line-height:1.85}
+.opts{display:flex;flex-direction:column;gap:7px}
+.opt{display:flex;align-items:flex-start;padding:12px 14px;background:var(--bg);border-radius:var(--r2);cursor:pointer;border:2px solid transparent;transition:all .2s;-webkit-tap-highlight-color:transparent}
+.opt:hover{background:var(--bg2);border-color:var(--bd2)}
+.opt.sel{background:linear-gradient(135deg,rgba(249,115,22,.06),rgba(217,70,239,.06));border-color:var(--axA2);box-shadow:0 2px 10px rgba(249,115,22,.1)}
+.opt input{display:none}
+.dot{width:18px;height:18px;border:2.5px solid #d4d4d8;border-radius:50%;margin-right:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;transition:all .25s}
+.opt.sel .dot{border-color:var(--axA);background:var(--axA)}
+.opt.sel .dot::after{content:'';width:7px;height:7px;background:#fff;border-radius:50%}
+.opt-t{font-size:.85rem;color:var(--tx2);line-height:1.7;transition:color .2s}
+.opt.sel .opt-t{color:var(--tx);font-weight:600}
+
+/* NAV */
+.nav-row{display:flex;gap:10px;margin-top:14px}
+.nav-row .btn{flex:1}
+.btn-prev{background:var(--card);color:var(--tx2);border:2px solid var(--bd)}
+.btn-prev:hover{border-color:var(--bd2);background:var(--bg2)}
+
+/* RESULTS */
+@keyframes auraGlow{0%,100%{transform:scale(1);opacity:.4}50%{transform:scale(1.08);opacity:.7}}
+@keyframes rootOrbit{from{transform:rotate(0deg) translateX(68px) rotate(0deg)}to{transform:rotate(360deg) translateX(68px) rotate(-360deg)}}
+@keyframes charFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes cardShine{0%{background-position:200% 50%}100%{background-position:-200% 50%}}
+
+.res-enter{animation:pop .5s ease-out}
+.type-banner{text-align:center;padding:0;border-radius:var(--r);position:relative;overflow:hidden;margin-bottom:14px;border:2px solid var(--bd);box-shadow:var(--sh2)}
+.banner-bg{padding:30px 20px 24px;position:relative;overflow:hidden}
+.banner-bg::before{content:'';position:absolute;inset:0;opacity:.1}
+.banner-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent 30%,rgba(255,255,255,.5) 50%,transparent 70%);background-size:200% 100%;animation:cardShine 4s ease-in-out infinite}
+
+.char-stage{position:relative;width:160px;height:160px;margin:0 auto 12px;animation:charFloat 4s ease-in-out infinite}
+.char-aura{position:absolute;inset:8px;border-radius:50%;animation:auraGlow 3s ease-in-out infinite}
+.char-body{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:4.5rem;filter:drop-shadow(0 4px 12px rgba(0,0,0,.1))}
+.root-orbit{position:absolute;top:50%;left:50%;width:0;height:0}
+.root-orb{position:absolute;font-size:1.2rem;animation:rootOrbit var(--dur) linear infinite;animation-delay:var(--del);filter:drop-shadow(0 0 4px rgba(0,0,0,.15))}
+
+.type-badge{display:inline-block;padding:4px 14px;border-radius:10px;font-size:.68rem;font-weight:700;letter-spacing:2px;background:rgba(255,255,255,.75);color:var(--tx3);border:1px solid var(--bd);margin-bottom:4px;backdrop-filter:blur(4px);position:relative;z-index:2}
+.type-code{font-size:2.6rem;font-weight:800;letter-spacing:7px;margin-bottom:2px;position:relative;z-index:2;animation:fadeUp .5s ease-out .1s both}
+.type-name{font-size:1.6rem;font-weight:800;margin-bottom:2px;position:relative;z-index:2;animation:fadeUp .5s ease-out .15s both}
+.type-en{font-size:.82rem;color:var(--tx3);position:relative;z-index:2;animation:fadeUp .5s ease-out .2s both}
+.root-tags{display:flex;justify-content:center;flex-wrap:wrap;gap:5px;margin-top:10px;position:relative;z-index:2;animation:fadeUp .5s ease-out .25s both}
+.root-tag{display:inline-flex;align-items:center;gap:3px;padding:4px 10px;border-radius:8px;font-size:.72rem;font-weight:700;background:rgba(255,255,255,.75);backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,.6)}
+.variant-tag{background:rgba(255,255,255,.9);border:1.5px dashed}
+
+.rcard{background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:22px;margin-bottom:12px;box-shadow:var(--sh)}
+.rcard h3{font-size:.92rem;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+
+/* SPIRIT ROOTS */
+.roots-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.root-chip{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:12px;font-size:.82rem;font-weight:700;border:2px solid;background:#fff}
+.root-chip .ri{font-size:1rem}
+.variant-banner{margin-top:14px;padding:14px 18px;border-radius:var(--r2);border:2px dashed;position:relative;overflow:hidden}
+.variant-banner::before{content:'';position:absolute;inset:0;opacity:.06}
+.variant-banner h4{font-size:.88rem;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.variant-banner p{font-size:.82rem;color:var(--tx2);line-height:1.8}
+
+/* AXIS VIS */
+.axis-vis{margin-bottom:20px;animation:fadeUp .5s ease-out both}
+.axis-vis:nth-child(2){animation-delay:.08s}.axis-vis:nth-child(3){animation-delay:.16s}
+.axis-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:7px}
+.axis-name{font-size:.82rem;font-weight:700}.axis-score{font-size:1.4rem;font-weight:800}
+.axis-track{position:relative;height:36px;background:var(--bg3);border-radius:18px;overflow:visible;margin-bottom:5px;border:2px solid var(--bd)}
+.axis-track-inner{position:absolute;inset:3px;border-radius:15px;overflow:hidden}
+.axis-mid{position:absolute;left:50%;top:3px;bottom:3px;width:2px;background:var(--bd2);z-index:2}
+.axis-bar{position:absolute;top:0;height:100%;border-radius:15px;animation:barGrow .8s cubic-bezier(.25,.46,.45,.94) forwards}
+.axis-marker{position:absolute;top:50%;width:18px;height:18px;border-radius:50%;transform:translate(-50%,-50%);z-index:3;border:3px solid #fff;animation:dotSlide .8s cubic-bezier(.25,.46,.45,.94) forwards}
+.axis-labels{display:flex;justify-content:space-between;font-size:.68rem;color:var(--tx3);font-weight:600;position:relative}
+.axis-labels .mid{position:absolute;left:50%;transform:translateX(-50%)}
+
+.type-prose{font-size:.9rem;color:var(--tx2);line-height:2;padding:18px;background:var(--bg);border-radius:var(--r2);margin-bottom:12px;border-left:4px solid var(--acc)}
+.dblock{margin-bottom:12px}
+.dblock h4{font-size:.86rem;font-weight:700;margin-bottom:6px;padding-bottom:6px;border-bottom:1px solid var(--bd)}
+.dblock p{font-size:.84rem;color:var(--tx2);line-height:1.85;padding:12px;background:var(--bg);border-radius:var(--r2)}
+.ax-exp{padding:14px 16px;background:var(--bg);border-radius:var(--r2);margin-bottom:8px;border-left:4px solid}
+.ax-exp h4{font-size:.84rem;font-weight:700;margin-bottom:4px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.ax-exp .str{font-size:.68rem;font-weight:600;padding:2px 8px;border-radius:8px;background:rgba(0,0,0,.06)}
+.ax-exp p{font-size:.82rem;color:var(--tx2);line-height:1.85}
+.share-area{text-align:center;padding:20px;background:var(--card);border:2px dashed var(--bd2);border-radius:var(--r);margin-bottom:12px}
+.share-area p{color:var(--tx3);font-size:.8rem;margin-bottom:10px;font-weight:600}
+.share-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:var(--r2);background:var(--bg);border:2px solid var(--axA2);color:var(--axA);font-size:1rem;font-weight:700;letter-spacing:3px;cursor:pointer;transition:all .25s;font-family:"JetBrains Mono",monospace}
+.share-btn:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(249,115,22,.15)}
+.share-btn.copied{background:rgba(16,185,129,.1);border-color:var(--ok);color:var(--ok)}
+.disc{font-size:.74rem;color:var(--tx3);line-height:1.85;padding:14px;border:1px solid var(--bd);border-radius:var(--r2);text-align:center;background:var(--card);margin-bottom:12px}
+/* PARTICLES */
+.particles{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+.orb{position:absolute;border-radius:50%;filter:blur(1px)}
+.orb-1{width:12px;height:12px;background:radial-gradient(circle,#FBBF24,#F97316);top:15%;left:10%;animation:orbit1 8s ease-in-out infinite}
+.orb-2{width:8px;height:8px;background:radial-gradient(circle,#67E8F9,#06B6D4);top:20%;right:15%;animation:orbit2 10s ease-in-out infinite}
+.orb-3{width:10px;height:10px;background:radial-gradient(circle,#E879F9,#D946EF);bottom:30%;left:20%;animation:orbit3 7s ease-in-out infinite}
+.orb-4{width:6px;height:6px;background:radial-gradient(circle,#FCD34D,#F59E0B);top:40%;right:10%;animation:orbit1 12s ease-in-out infinite reverse}
+.orb-5{width:9px;height:9px;background:radial-gradient(circle,#A78BFA,#8B5CF6);bottom:20%;right:25%;animation:orbit2 9s ease-in-out infinite}
+.orb-6{width:7px;height:7px;background:radial-gradient(circle,#34D399,#10B981);top:60%;left:8%;animation:orbit3 11s ease-in-out infinite reverse}
+.sparkle-dot{position:absolute;width:4px;height:4px;background:#FBBF24;border-radius:50%}
+.sparkle-dot::before,.sparkle-dot::after{content:'';position:absolute;background:#FBBF24;border-radius:50%}
+.sparkle-dot::before{width:12px;height:2px;top:1px;left:-4px}
+.sparkle-dot::after{width:2px;height:12px;top:-4px;left:1px}
+.sp1{top:25%;left:25%;animation:sparkle 3s ease-in-out infinite}
+.sp2{top:15%;right:20%;animation:sparkle 4s ease-in-out infinite 1s}
+.sp3{bottom:35%;left:15%;animation:sparkle 3.5s ease-in-out infinite .5s}
+.sp4{bottom:25%;right:12%;animation:sparkle 4.5s ease-in-out infinite 1.5s}
+.sp5{top:50%;left:50%;animation:sparkle 3s ease-in-out infinite 2s}
+
+/* HERO XIANXIA */
+.hero-rune{font-size:3.4rem;margin-bottom:8px;animation:float 3s ease-in-out infinite;display:inline-block;filter:drop-shadow(0 0 12px rgba(249,115,22,.3))}
+.hero h1{font-size:2.2rem;line-height:1.3;margin-bottom:6px;position:relative}
+.hero h1 em{font-style:normal;background:linear-gradient(135deg,var(--axA),#EF4444,var(--axC));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:runeGlow 3s ease-in-out infinite;font-size:2.8rem;display:block;margin-top:4px}
+.hero-sub{color:var(--tx2);font-size:.88rem;margin-top:8px;font-weight:500}
+
+.ftr{display:none}
+
+@media(max-width:500px){.wrap{padding:14px}.hero h1{font-size:1.8rem}.hero h1 em{font-size:2.2rem}.type-code{font-size:2.4rem;letter-spacing:5px}.type-name{font-size:1.3rem}}
 </style>
 </head>
 <body>
 <div class="wrap">
-
-<header class="hdr">
-  <h1>個人決策風格問卷</h1>
-  <p class="sub">三軸定位 · 30 題 · 約 5-8 分鐘</p>
-</header>
-
-<div id="welcome">
-  <div class="hero">
-    <h2>你做事的風格是什麼？</h2>
-    <p>從日常行為找出你的傾向，不問你「是什麼人」，只看你「怎麼做」</p>
-  </div>
-  <div class="info">
-    <h3>📋 說明</h3>
-    <p>→ 共 30 題，每題 4 個選項，選最接近你的那個</p>
-    <p>→ 沒有對錯，沒有好壞，每個選項都是正常的生活選擇</p>
-    <p>→ 不要想太久，選你「通常會怎麼做」，不是「覺得應該怎麼做」</p>
-  </div>
-  <div class="info">
-    <h3>📊 你會得到什麼</h3>
-    <p>→ 三條軸的分數：做事風格、能量來源、內心羅盤</p>
-    <p>→ 你的類型代碼和描述</p>
-    <p>→ 每條軸 -10 到 +10 的連續光譜，中間也是一種類型</p>
-  </div>
-  <button class="btn btn-go" onclick="startQuiz()">開始作答</button>
+<div id="welcome" style="position:relative">
+<div class="particles">
+<div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div>
+<div class="orb orb-4"></div><div class="orb orb-5"></div><div class="orb orb-6"></div>
+<div class="sparkle-dot sp1"></div><div class="sparkle-dot sp2"></div><div class="sparkle-dot sp3"></div>
+<div class="sparkle-dot sp4"></div><div class="sparkle-dot sp5"></div>
+</div>
+<div class="hero">
+<div class="hero-rune">◈</div>
+<div class="hero-badge">✦ 30 題 · 三軸定位 · 靈根覺醒</div>
+<h1>測你的<em>修仙靈根</em></h1>
+<div class="hero-sub">五行歸位 · 變異覺醒 · 你的靈根由你的行為決定</div>
+</div>
+<div class="axes-row">
+<div class="ax-chip"><div class="icon">⚔️🌿</div><div class="lbl">做事風格</div><div class="rng">金 ↔ 木</div></div>
+<div class="ax-chip"><div class="icon">🔥🌊</div><div class="lbl">能量來源</div><div class="rng">火 ↔ 水</div></div>
+<div class="ax-chip"><div class="icon">🏔️🌙</div><div class="lbl">內心羅盤</div><div class="rng">土 ↔ 月</div></div>
+</div>
+<div class="icard"><h3>⚔️ 每題 4 個選項，選最接近你的</h3><p>沒有對錯，選「通常會怎麼做」</p><p>30 題測出你的靈根組合與變異屬性</p></div>
+<button class="btn btn-go" onclick="go()">開始測試 ◈</button>
 </div>
 
 <div id="quiz" class="hidden">
-  <div class="prog">
-    <div class="prog-bar"><div class="prog-fill" id="pFill"></div></div>
-    <div class="prog-txt" id="pTxt">0 / 30</div>
-  </div>
-  <div id="qWrap"></div>
-  <button class="btn btn-go" id="subBtn" onclick="calcResult()" disabled>查看結果</button>
+<div class="prog"><div class="prog-inner"><div class="prog-bar"><div class="prog-fill" id="pF"></div></div><div class="prog-num"><b id="pN">0</b>/30</div></div></div>
+<div class="page-ind" id="pgInd"></div>
+<div id="qW"></div>
+<div class="nav-row" id="navRow"></div>
 </div>
 
 <div id="result" class="hidden"></div>
-
-<div class="ftr">
-  個人決策風格問卷 V1 · <a href="https://github.com/94Mr-LIKE" target="_blank">GitHub</a>
-</div>
-
 </div>
 
 <script>
-// ============================
-// QUESTION DATA (30 questions)
-// ============================
-var Q = [
-{id:1, q:"你想買一個特定的東西，到了之後你通常會怎麼做？", opts:[
-  {t:"直接去買，買完就走", s:{A:2}},
-  {t:"買完之後順便到處看看", s:{A:1}},
-  {t:"先到處逛逛，最後再去買", s:{A:-1}},
-  {t:"找人一起去，逛街本身就是樂趣", s:{A:-1,B:2}}
-]},
-{id:2, q:"難得一整天完全沒安排，你最自然的反應是？", opts:[
-  {t:"太好了，把一直拖著的事處理掉", s:{A:2,C:1}},
-  {t:"找人出去吃飯或做點什麼", s:{B:2}},
-  {t:"終於可以一個人安靜待著", s:{B:-2}},
-  {t:"先看看別人在幹嘛，有活動就跟", s:{B:1,C:-2}}
-]},
-{id:3, q:"你跟一群人要吃飯，一直決定不了，你通常會？", opts:[
-  {t:"直接說一家，走了再說", s:{A:2,C:1}},
-  {t:"問每個人想吃什麼，找大家都能接受的", s:{A:-2}},
-  {t:"都可以，你們決定就好", s:{C:-1}},
-  {t:"找評價最好的那家，用資料決定", s:{A:1,C:1}}
-]},
-{id:4, q:"一個不錯的朋友約你去做一件你沒什麼興趣的事，你通常會？", opts:[
-  {t:"直接說你沒興趣，建議改做別的", s:{C:2}},
-  {t:"去，反正跟朋友在一起就好", s:{A:-1,B:2,C:-1}},
-  {t:"找個理由推掉", s:{B:-1,C:1}},
-  {t:"去，但心裡希望快點結束", s:{C:-2}}
-]},
-{id:5, q:"你看到一群人用一種你覺得很沒效率的方式在做事，你通常會？", opts:[
-  {t:"忍不住想說，而且通常會說", s:{A:1,C:2}},
-  {t:"心裡有想法，但看情況再決定", s:{A:1}},
-  {t:"不關我的事，不會去管", s:{C:1}},
-  {t:"覺得不太對，但不想被認為多管閒事", s:{C:-2}}
-]},
-{id:6, q:"你在挑一樣要用很久的東西（手機殼、水壺、包包），最後讓你做決定的是？", opts:[
-  {t:"實用、耐用、CP 值高", s:{A:2,C:1}},
-  {t:"自己看了喜歡就好", s:{C:2}},
-  {t:"問朋友或上網看推薦", s:{B:1,C:-1}},
-  {t:"不要太突出，跟大家用的差不多就好", s:{C:-2}}
-]},
-{id:7, q:"你剛忙完一件很累的事，接下來你最想做的是？", opts:[
-  {t:"找朋友出去慶祝或放鬆", s:{B:2}},
-  {t:"一個人待著，什麼都不做", s:{B:-2}},
-  {t:"開始處理下一件一直擱著的事", s:{A:2,C:1}},
-  {t:"看看大家都在幹嘛，有人約就跟", s:{B:1,C:-1}}
-]},
-{id:8, q:"一個東西大家都說很棒，你試了之後覺得還好，你通常會？", opts:[
-  {t:"跟別人聊的時候也說還不錯", s:{C:-2}},
-  {t:"直接說你覺得還好", s:{C:2}},
-  {t:"不會特別提起，有人問才說", s:{B:-1,C:1}},
-  {t:"想說是不是自己感受力不夠，再試一次", s:{C:-1}}
-]},
-{id:9, q:"你答應幫一個人忙，做到一半發現比想的麻煩很多，佔掉你很多時間，你通常會？", opts:[
-  {t:"繼續做，因為他已經在等了，半途丟下不太好", s:{A:-1,C:-1}},
-  {t:"跟對方說你的狀況，看能不能調整", s:{A:1,C:1}},
-  {t:"做完，但下次會更小心答應別人", s:{C:-1}},
-  {t:"把最重要的部分做完，不重要的就省略", s:{A:2,C:1}}
-]},
-{id:10, q:"你今天要出門，挑衣服的時候你通常的考量是？", opts:[
-  {t:"乾淨舒服就好，不太在意搭配", s:{A:1,C:1}},
-  {t:"會想今天見誰、去哪裡，穿合適的", s:{A:-1,C:-1}},
-  {t:"穿自己喜歡的風格", s:{C:2}},
-  {t:"不要太突出就好，跟大家差不多", s:{C:-2}}
-]},
-{id:11, q:"你安排好的計畫突然被打亂，你的第一個反應是？", opts:[
-  {t:"很煩，你已經排好了，不想改", s:{A:2,C:1}},
-  {t:"看是什麼事，如果是朋友需要幫忙就去", s:{A:-2}},
-  {t:"無所謂，反正計畫本來就會變", s:{A:-1}},
-  {t:"有點煩，但又怕拒絕會讓對方不開心", s:{C:-2}}
-]},
-{id:12, q:"你在一個需要等很久的地方（看醫生、等公車），你會怎麼打發時間？", opts:[
-  {t:"拿手機處理一些一直沒做的事", s:{A:2}},
-  {t:"跟旁邊的人聊聊天", s:{B:2}},
-  {t:"自己滑手機或發呆，享受放空", s:{B:-2}},
-  {t:"看看周圍的人在做什麼", s:{B:1,C:-1}}
-]},
-{id:13, q:"如果你可以完全照自己的意思過生日，你最想怎麼過？", opts:[
-  {t:"找一群朋友一起吃飯慶祝", s:{B:2}},
-  {t:"跟最親近的一兩個人安靜吃頓飯", s:{B:-1,C:1}},
-  {t:"自己一個人做喜歡的事，不用特別慶祝", s:{B:-2,C:1}},
-  {t:"別人幫你安排就好，有驚喜更開心", s:{B:1,C:-1}}
-]},
-{id:14, q:"你的手機壞了，整天沒辦法用，結束之後你第一個感覺是？", opts:[
-  {t:"趕快開機，看看有沒有人在等你回覆", s:{B:1,C:-1}},
-  {t:"其實還滿清靜的，偶爾沒手機也不錯", s:{B:-1,C:1}},
-  {t:"很不方便，很多事情沒辦法處理", s:{A:2}},
-  {t:"有點不安，怕別人覺得你在故意不回訊息", s:{C:-2}}
-]},
-{id:15, q:"你到了一個完全陌生的地方（新的學校、新的社區），你通常會？", opts:[
-  {t:"主動跟人打招呼，盡快認識大家", s:{B:2}},
-  {t:"先觀察一陣子，搞清楚狀況再說", s:{A:1,B:-1,C:1}},
-  {t:"等別人來找你，不會主動出擊", s:{B:-1,C:-1}},
-  {t:"找看起來友善的人靠近，慢慢融入", s:{A:-1,B:1}}
-]},
-{id:16, q:"有人當著很多人的面稱讚你做得很好，你的感覺是？", opts:[
-  {t:"開心，而且會想知道具體哪裡做得好", s:{A:1,C:1}},
-  {t:"有點不好意思，希望不要太高調", s:{C:-1}},
-  {t:"謝謝，但心裡更在意自己是不是真的做好了", s:{A:1,C:2}},
-  {t:"很開心，被認可的感覺很重要", s:{C:-2}}
-]},
-{id:17, q:"你發現有個人開始模仿你的風格（穿搭、說話、做事方法），你的反應是？", opts:[
-  {t:"無所謂，你又不是為了跟別人不同才那樣做", s:{C:2}},
-  {t:"覺得有點不舒服，想要有自己的特色", s:{C:1}},
-  {t:"有點開心，代表你的選擇被認可了", s:{C:-1}},
-  {t:"不太會注意到，要別人說你才發現", s:{B:-1}}
-]},
-{id:18, q:"你要送一個朋友禮物，你通常會怎麼挑？", opts:[
-  {t:"想他需要什麼，買實用的", s:{A:2}},
-  {t:"挑你自己覺得好的東西", s:{A:1,C:2}},
-  {t:"問他想要什麼，照著買", s:{A:-1,C:-1}},
-  {t:"看看最近流行什麼，或問其他朋友意見", s:{B:1,C:-2}}
-]},
-{id:19, q:"如果你可以自己決定旅行方式，你最想要的是？", opts:[
-  {t:"先排好行程，每天照計畫走", s:{A:2,C:1}},
-  {t:"找一群朋友一起，去哪都好玩", s:{A:-1,B:2}},
-  {t:"一個人走，想去哪就去哪", s:{B:-2,C:2}},
-  {t:"跟著別人安排的團走，不用自己煩", s:{A:-1,B:1,C:-2}}
-]},
-{id:20, q:"你要做一件你從來沒做過的事，你通常會怎麼開始？", opts:[
-  {t:"先查資料，搞懂流程再動手", s:{A:2,C:1}},
-  {t:"直接動手做，做錯了再調整", s:{A:1,C:1}},
-  {t:"找有經驗的人問一下再做", s:{B:1,C:-1}},
-  {t:"找人一起做，比較不會出錯也比較有趣", s:{A:-1,B:2,C:-1}}
-]},
-{id:21, q:"你跟人約好了時間，對方遲到了二十分鐘還沒來，你心裡的想法是？", opts:[
-  {t:"很煩，浪費時間，下次要提醒他", s:{A:2,C:1}},
-  {t:"還好，趁這段時間做點自己的事", s:{A:1,B:-1,C:1}},
-  {t:"算了，可能他有事，等一下就好", s:{A:-1,C:-1}},
-  {t:"有點不安，不知道是不是自己搞錯時間了", s:{C:-2}}
-]},
-{id:22, q:"你在場的時候，兩個人為了一件事吵起來了，你通常會？", opts:[
-  {t:"聽聽雙方的說法，幫忙分析誰比較有道理", s:{A:2,C:1}},
-  {t:"先確認兩邊的人都還好，再看怎麼處理事情", s:{A:-2}},
-  {t:"不介入，不是你的事", s:{B:-1,C:1}},
-  {t:"站在你覺得對的那邊", s:{A:1,C:2}}
-]},
-{id:23, q:"最近有一個東西很紅，大家都在討論，你通常會？", opts:[
-  {t:"有興趣就去看看，沒興趣就算了", s:{C:2}},
-  {t:"跟著試試看，不想跟不上話題", s:{B:1,C:-2}},
-  {t:"別人推薦就看看，自己不會主動去找", s:{C:-1}},
-  {t:"越多人喜歡你越沒興趣", s:{B:-1,C:1}}
-]},
-{id:24, q:"你負責的一件事最後搞砸了，你第一個念頭是？", opts:[
-  {t:"先想哪裡出錯，下次怎麼避免", s:{A:2,C:1}},
-  {t:"擔心別人怎麼看你", s:{C:-2}},
-  {t:"先去跟被影響到的人說明狀況，看怎麼補救", s:{A:-2}},
-  {t:"算了，盡力了就好，不用太苛責自己", s:{C:1}}
-]},
-{id:25, q:"你要跟一群不太熟的人一起吃飯，你的心態是？", opts:[
-  {t:"有點期待，認識新朋友的機會", s:{B:2}},
-  {t:"有點緊張，不知道要聊什麼", s:{B:-1,C:-1}},
-  {t:"無所謂，去了就去了", s:{C:1}},
-  {t:"能推就推，不太想去", s:{B:-2,C:1}}
-]},
-{id:26, q:"你沒有問別人意見，但有人主動跟你說「我覺得你應該這樣做比較好」，你的反應是？", opts:[
-  {t:"聽聽看，有道理就參考", s:{}},
-  {t:"有點煩，你又沒問他", s:{C:2}},
-  {t:"會認真想他說的對不對，然後照自己判斷做", s:{A:1,C:1}},
-  {t:"雖然沒問，但既然他說了就照做看看", s:{C:-2}}
-]},
-{id:27, q:"放假的時候下大雨，原本的計畫全部泡湯，你的感覺是？", opts:[
-  {t:"太好了，正好可以待在家做自己的事", s:{B:-2,C:1}},
-  {t:"有點悶，想找人視訊或傳訊息聊天", s:{B:2}},
-  {t:"很煩，本來排好的事都做不了了", s:{A:2}},
-  {t:"看看有沒有人也在家沒事做，約一下", s:{B:2,C:-1}}
-]},
-{id:28, q:"一群人要一起完成一件事，需要分工，你通常會？", opts:[
-  {t:"主動說你可以做哪個部分，趕快開始", s:{A:2,C:1}},
-  {t:"先看看別人想做什麼，剩下的你來", s:{A:-1,C:-1}},
-  {t:"覺得自己一個人做可能比較快", s:{A:1,B:-2,C:1}},
-  {t:"等別人分配，叫你做什麼就做什麼", s:{A:-1,C:-2}}
-]},
-{id:29, q:"你花了很多時間做了一個決定，後來發現大多數有經驗的人都做了相反的選擇，你會？", opts:[
-  {t:"不管，你想過了，照自己的走", s:{C:2}},
-  {t:"有點動搖，但還是先照原來的做", s:{C:1}},
-  {t:"認真重新考慮一下，也許他們看到了你沒看到的", s:{C:-1}},
-  {t:"改跟大多數人一樣，畢竟他們比較有經驗", s:{C:-2}}
-]},
-{id:30, q:"你選了一個跟大家不一樣的做法，結果真的出了問題。事後回想，你的感覺比較接近？", opts:[
-  {t:"下次還是會照自己的判斷，這次只是運氣不好", s:{C:2}},
-  {t:"雖然錯了，但至少是自己決定的，不後悔", s:{C:1}},
-  {t:"早知道就聽別人的了", s:{C:-2}},
-  {t:"這讓你以後做決定時會多參考別人的意見", s:{A:1,C:-1}}
-]}
+var Q=[
+{id:1,q:"你想買一個特定的東西，到了之後你通常會怎麼做？",o:[{t:"直接去買，買完就走",s:{A:2}},{t:"買完之後順便到處看看",s:{A:1}},{t:"先到處逛逛，最後再去買",s:{A:-1}},{t:"找人一起去，逛街本身就是樂趣",s:{A:-1,B:2}}]},
+{id:2,q:"難得一整天完全沒安排，你最自然的反應是？",o:[{t:"太好了，把一直拖著的事處理掉",s:{A:2,C:1}},{t:"找人出去吃飯或做點什麼",s:{B:2}},{t:"終於可以一個人安靜待著",s:{B:-2}},{t:"先看看別人在幹嘛，有活動就跟",s:{B:1,C:-2}}]},
+{id:3,q:"你跟一群人要吃飯，一直決定不了，你通常會？",o:[{t:"直接說一家，走了再說",s:{A:2,C:1}},{t:"問每個人想吃什麼，找大家都能接受的",s:{A:-2}},{t:"都可以，你們決定就好",s:{C:-1}},{t:"找評價最好的那家，用資料決定",s:{A:1,C:1}}]},
+{id:4,q:"一個不錯的朋友約你去做一件你沒興趣的事，你通常會？",o:[{t:"直接說你沒興趣，建議改做別的",s:{C:2}},{t:"去，反正跟朋友在一起就好",s:{A:-1,B:2,C:-1}},{t:"找個理由推掉",s:{B:-1,C:1}},{t:"去，但心裡希望快點結束",s:{C:-2}}]},
+{id:5,q:"你看到一群人用很沒效率的方式在做事，你通常會？",o:[{t:"忍不住想說，而且通常會說",s:{A:1,C:2}},{t:"心裡有想法，但看情況再決定",s:{A:1}},{t:"不關我的事，不會去管",s:{C:1}},{t:"覺得不太對，但不想被認為多管閒事",s:{C:-2}}]},
+{id:6,q:"你在挑一樣要用很久的東西，最後讓你做決定的是？",o:[{t:"實用、耐用、CP 值高",s:{A:2,C:1}},{t:"自己看了喜歡就好",s:{C:2}},{t:"問朋友或上網看推薦",s:{B:1,C:-1}},{t:"不要太突出，跟大家用的差不多就好",s:{C:-2}}]},
+{id:7,q:"你剛忙完一件很累的事，接下來你最想做的是？",o:[{t:"找朋友出去慶祝或放鬆",s:{B:2}},{t:"一個人待著，什麼都不做",s:{B:-2}},{t:"開始處理下一件一直擱著的事",s:{A:2,C:1}},{t:"看看大家都在幹嘛，有人約就跟",s:{B:1,C:-1}}]},
+{id:8,q:"一個東西大家都說很棒，你試了之後覺得還好，你通常會？",o:[{t:"跟別人聊的時候也說還不錯",s:{C:-2}},{t:"直接說你覺得還好",s:{C:2}},{t:"不會特別提起，有人問才說",s:{B:-1,C:1}},{t:"想說是不是自己感受力不夠，再試一次",s:{C:-1}}]},
+{id:9,q:"你答應幫一個人忙，做到一半發現比想的麻煩很多，你通常會？",o:[{t:"繼續做，因為他已經在等了，半途丟下不太好",s:{A:-1,C:-1}},{t:"跟對方說你的狀況，看能不能調整",s:{A:1,C:1}},{t:"做完，但下次會更小心答應別人",s:{C:-1}},{t:"把最重要的部分做完，不重要的就省略",s:{A:2,C:1}}]},
+{id:10,q:"你今天要出門，挑衣服的時候你通常的考量是？",o:[{t:"乾淨舒服就好，不太在意搭配",s:{A:1,C:1}},{t:"會想今天見誰、去哪裡，穿合適的",s:{A:-1,C:-1}},{t:"穿自己喜歡的風格",s:{C:2}},{t:"不要太突出就好，跟大家差不多",s:{C:-2}}]},
+{id:11,q:"你安排好的計畫突然被打亂，你的第一個反應是？",o:[{t:"很煩，你已經排好了，不想改",s:{A:2,C:1}},{t:"看是什麼事，如果是朋友需要幫忙就去",s:{A:-2}},{t:"無所謂，反正計畫本來就會變",s:{A:-1}},{t:"有點煩，但又怕拒絕會讓對方不開心",s:{C:-2}}]},
+{id:12,q:"你在一個需要等很久的地方，你會怎麼打發時間？",o:[{t:"拿手機處理一些一直沒做的事",s:{A:2}},{t:"跟旁邊的人聊聊天",s:{B:2}},{t:"自己滑手機或發呆，享受放空",s:{B:-2}},{t:"看看周圍的人在做什麼",s:{B:1,C:-1}}]},
+{id:13,q:"如果完全照自己的意思過生日，你最想怎麼過？",o:[{t:"找一群朋友一起吃飯慶祝",s:{B:2}},{t:"跟最親近的一兩個人安靜吃頓飯",s:{B:-1,C:1}},{t:"自己一個人做喜歡的事，不用特別慶祝",s:{B:-2,C:1}},{t:"別人幫你安排就好，有驚喜更開心",s:{B:1,C:-1}}]},
+{id:14,q:"你的手機壞了整天沒辦法用，修好之後你第一個感覺是？",o:[{t:"趕快開機，看看有沒有人在等你回覆",s:{B:1,C:-1}},{t:"其實還滿清靜的，偶爾沒手機也不錯",s:{B:-1,C:1}},{t:"很不方便，很多事情沒辦法處理",s:{A:2}},{t:"有點不安，怕別人覺得你在故意不回訊息",s:{C:-2}}]},
+{id:15,q:"你到了一個完全陌生的地方，你通常會？",o:[{t:"主動跟人打招呼，盡快認識大家",s:{B:2}},{t:"先觀察一陣子，搞清楚狀況再說",s:{A:1,B:-1,C:1}},{t:"等別人來找你，不會主動出擊",s:{B:-1,C:-1}},{t:"找看起來友善的人靠近，慢慢融入",s:{A:-1,B:1}}]},
+{id:16,q:"有人當著很多人的面稱讚你做得很好，你的感覺是？",o:[{t:"開心，而且會想知道具體哪裡做得好",s:{A:1,C:1}},{t:"有點不好意思，希望不要太高調",s:{C:-1}},{t:"謝謝，但心裡更在意自己是不是真的做好了",s:{A:1,C:2}},{t:"很開心，被認可的感覺很重要",s:{C:-2}}]},
+{id:17,q:"你發現有個人開始模仿你的風格，你的反應是？",o:[{t:"無所謂，你又不是為了跟別人不同才那樣做",s:{C:2}},{t:"覺得有點不舒服，想要有自己的特色",s:{C:1}},{t:"有點開心，代表你的選擇被認可了",s:{C:-1}},{t:"不太會注意到，要別人說你才發現",s:{B:-1}}]},
+{id:18,q:"你要送一個朋友禮物，你通常會怎麼挑？",o:[{t:"想他需要什麼，買實用的",s:{A:2}},{t:"挑你自己覺得好的東西",s:{A:1,C:2}},{t:"問他想要什麼，照著買",s:{A:-1,C:-1}},{t:"看看最近流行什麼，或問其他朋友意見",s:{B:1,C:-2}}]},
+{id:19,q:"如果你可以自己決定旅行方式，你最想要的是？",o:[{t:"先排好行程，每天照計畫走",s:{A:2,C:1}},{t:"找一群朋友一起，去哪都好玩",s:{A:-1,B:2}},{t:"一個人走，想去哪就去哪",s:{B:-2,C:2}},{t:"跟著別人安排的團走，不用自己煩",s:{A:-1,B:1,C:-2}}]},
+{id:20,q:"你要做一件從來沒做過的事，你通常會怎麼開始？",o:[{t:"先查資料，搞懂流程再動手",s:{A:2,C:1}},{t:"直接動手做，做錯了再調整",s:{A:1,C:1}},{t:"找有經驗的人問一下再做",s:{B:1,C:-1}},{t:"找人一起做，比較不會出錯也比較有趣",s:{A:-1,B:2,C:-1}}]},
+{id:21,q:"你跟人約好了時間，對方遲到了二十分鐘，你心裡的想法是？",o:[{t:"很煩，浪費時間，下次要提醒他",s:{A:2,C:1}},{t:"還好，趁這段時間做點自己的事",s:{A:1,B:-1,C:1}},{t:"算了，可能他有事，等一下就好",s:{A:-1,C:-1}},{t:"有點不安，不知道是不是自己搞錯時間了",s:{C:-2}}]},
+{id:22,q:"你在場的時候兩個人吵起來了，你通常會？",o:[{t:"聽聽雙方的說法，幫忙分析誰比較有道理",s:{A:2,C:1}},{t:"先確認兩邊的人都還好，再看怎麼處理事情",s:{A:-2}},{t:"不介入，不是你的事",s:{B:-1,C:1}},{t:"站在你覺得對的那邊",s:{A:1,C:2}}]},
+{id:23,q:"最近有一個東西很紅，大家都在討論，你通常會？",o:[{t:"有興趣就去看看，沒興趣就算了",s:{C:2}},{t:"跟著試試看，不想跟不上話題",s:{B:1,C:-2}},{t:"別人推薦就看看，自己不會主動去找",s:{C:-1}},{t:"越多人喜歡你越沒興趣",s:{B:-1,C:1}}]},
+{id:24,q:"你負責的一件事最後搞砸了，你第一個念頭是？",o:[{t:"先想哪裡出錯，下次怎麼避免",s:{A:2,C:1}},{t:"擔心別人怎麼看你",s:{C:-2}},{t:"先去跟被影響到的人說明狀況，看怎麼補救",s:{A:-2}},{t:"算了，盡力了就好，不用太苛責自己",s:{C:1}}]},
+{id:25,q:"你要跟一群不太熟的人一起吃飯，你的心態是？",o:[{t:"有點期待，認識新朋友的機會",s:{B:2}},{t:"有點緊張，不知道要聊什麼",s:{B:-1,C:-1}},{t:"無所謂，去了就去了",s:{C:1}},{t:"能推就推，不太想去",s:{B:-2,C:1}}]},
+{id:26,q:"你沒問別人意見，但有人主動說「我覺得你應該這樣做」，你的反應是？",o:[{t:"聽聽看，有道理就參考",s:{}},{t:"有點煩，你又沒問他",s:{C:2}},{t:"會認真想他說的對不對，然後照自己判斷做",s:{A:1,C:1}},{t:"雖然沒問，但既然他說了就照做看看",s:{C:-2}}]},
+{id:27,q:"放假下大雨，原本的計畫全泡湯，你的感覺是？",o:[{t:"太好了，正好可以待在家做自己的事",s:{B:-2,C:1}},{t:"有點悶，想找人視訊或傳訊息聊天",s:{B:2}},{t:"很煩，本來排好的事都做不了了",s:{A:2}},{t:"看看有沒有人也在家沒事做，約一下",s:{B:2,C:-1}}]},
+{id:28,q:"一群人要一起完成一件事需要分工，你通常會？",o:[{t:"主動說你可以做哪個部分，趕快開始",s:{A:2,C:1}},{t:"先看看別人想做什麼，剩下的你來",s:{A:-1,C:-1}},{t:"覺得自己一個人做可能比較快",s:{A:1,B:-2,C:1}},{t:"等別人分配，叫你做什麼就做什麼",s:{A:-1,C:-2}}]},
+{id:29,q:"你花了很多時間做了一個決定，後來發現大多數有經驗的人都做了相反的選擇，你會？",o:[{t:"不管，你想過了，照自己的走",s:{C:2}},{t:"有點動搖，但還是先照原來的做",s:{C:1}},{t:"認真重新考慮一下，也許他們看到了你沒看到的",s:{C:-1}},{t:"改跟大多數人一樣，畢竟他們比較有經驗",s:{C:-2}}]},
+{id:30,q:"你選了跟大家不一樣的做法，結果真的出了問題。事後回想，你的感覺比較接近？",o:[{t:"下次還是會照自己的判斷，這次只是運氣不好",s:{C:2}},{t:"雖然錯了，但至少是自己決定的，不後悔",s:{C:1}},{t:"早知道就聽別人的了",s:{C:-2}},{t:"這讓你以後做決定時會多參考別人的意見",s:{A:1,C:-1}}]}
 ];
 
-// ============================
-// 27 TYPES DATA
-// ============================
-var TYPES = {
-GES:{name:"開拓者",en:"Trailblazer",desc:"帶著人往前衝的人。你知道要去哪裡，不太在意別人覺得這條路對不對，而且你喜歡身邊有人一起。不是為了討好誰，是因為帶著人做事比一個人做更帶勁。",pain:"明明知道該往哪走，但所有人都在原地討論，沒人動。",vibe:"有感染力、有行動力、有時候有點強勢。"},
-GEO:{name:"外交官",en:"Diplomat",desc:"事情要做好，人也要顧好。你很在意別人怎麼看你，不是因為沒主見，而是因為你相信讓別人舒服才能把事情推得更遠。你會主動社交，但社交背後有目的。",pain:"做了一個正確的決定，但大家都不認同，而且你能感覺到大家在背後議論。",vibe:"八面玲瓏、很會做人、有時候讓人摸不透。"},
-GIS:{name:"工匠",en:"Craftsman",desc:"安安靜靜把事情做到最好。你不需要別人看到，也不需要別人誇。你有自己的標準，而且那個標準通常比別人的還高。一個人做事的時候效率最高。",pain:"被迫跟一群人一起做事，而且大家的標準都很低。",vibe:"很厲害但不太好親近、有點冷、但東西交給他就放心。"},
-GIO:{name:"棋手",en:"Strategist",desc:"一個人做事，但很在意結果被怎麼評價。你會安靜地計算、規劃、布局，不喜歡被看到過程，只想讓結果說話。你的動力有一部分來自「被認可」。",pain:"花了很多心力做出來的東西，沒人注意到。",vibe:"低調但有實力、不太說話但做出來的東西很到位。"},
-PES:{name:"守護者",en:"Guardian",desc:"人群的中心，但不是為了被喜歡。你真心在乎身邊的人，而且你有自己的原則——你不會為了維持關係而放棄你覺得重要的事。別人靠近你是因為你溫暖又可靠。",pain:"身邊的人做了讓你覺得不對的事，你必須在「說實話」和「維持關係」之間選一個。",vibe:"很有原則的暖心人、能被信任、有時候固執但出發點是好的。"},
-PEO:{name:"和事佬",en:"Peacemaker",desc:"所有人的朋友。你最怕的是衝突，最擅長的是讓每個人都覺得被照顧到。你會自動偵測誰不開心、誰被忽略、誰需要被安撫。代價是你常常忘了自己要什麼。",pain:"兩個你都在乎的人吵起來了，你夾在中間。",vibe:"超好的人、什麼都好商量、但有時候讓人擔心他會不會委屈自己。"},
-PIS:{name:"隱者",en:"Hermit",desc:"安靜地關心人，但不會為了誰改變自己。你有自己的世界、自己的節奏、自己的想法。你對人的關心是深的，但你不會追著人跑。你找他的時候他在，但他不會來找你。",pain:"被迫在很多人面前表態或表現，沒有退路。",vibe:"很有深度、不好懂、但懂了之後會覺得他很值得。"},
-PIO:{name:"奉獻者",en:"Devotee",desc:"默默付出但常常委屈自己。你在意別人的感受勝過自己的，而且你不太說出來。你會一個人消化情緒、一個人承擔壓力。別人覺得你沒事，其實你只是不想麻煩別人。",pain:"你為別人做了很多，但對方完全沒有意識到。",vibe:"很貼心、很安靜、事後才發現他其實幫了很多。"},
-BES:{name:"主持人",en:"Host",desc:"不特別衝目標也不特別顧人，但就是喜歡跟人在一起，而且很清楚自己要什麼。你在朋友圈裡很有存在感，但不會強迫別人。你想做什麼他都可以，但他不會勉強自己。",pain:"一群人在做一件事，但氣氛很悶，沒有人在享受。",vibe:"自在、有魅力、讓人覺得跟他在一起很舒服。"},
-BEO:{name:"親善大使",en:"Ambassador",desc:"哪裡有人你就在哪裡，而且你很自然地會跟著大家的方向走。不是沒有想法，而是你覺得「大家開心就好」。你的快樂來自被群體接受。",pain:"被排擠或被當空氣。",vibe:"好相處、融入力強、是團體裡的潤滑劑。"},
-BIS:{name:"旁觀者",en:"Spectator",desc:"看得很清楚，但不太想插手。你有自己的想法，但覺得沒必要一定要去影響什麼。你享受獨處、享受觀察、享受在旁邊看著事情發展。",pain:"被迫表態或被捲入一件你不想管的事。",vibe:"冷靜、清醒、看什麼都看得很透。"},
-BIO:{name:"敏感者",en:"Sensitive",desc:"安靜、敏感、很在意別人怎麼看你。你不太主動表達，但內心活動很多。你會反覆想「我剛才那樣說會不會不好」「他是不是對我有意見」。",pain:"感覺到有人對你不滿，但不知道原因。",vibe:"細膩、有同理心、但有時候想太多。"},
-GMS:{name:"實踐家",en:"Executor",desc:"把事情做好是第一優先，一個人做或一群人做都行。你有自己的標準，不太受別人影響，社交不社交看心情和需要。",pain:"事情卡住了，不管怎麼努力都推不動。",vibe:"可靠、務實、不囉嗦。"},
-GMO:{name:"表演者",en:"Performer",desc:"很會把事情做好，而且很在意別人怎麼看你做得好不好。你的動力來自成就感和被認可。有觀眾的時候表現更好。",pain:"表現很好但沒人看到，或者努力被否定。",vibe:"有能力、有企圖心、喜歡舞台。"},
-PMS:{name:"導師",en:"Mentor",desc:"真心為人好，而且有自己的信念。你不會為了討好誰而說違心的話。你願意花時間幫別人，但幫的方式是你覺得對的方式。",pain:"你看到一個人在走彎路，但對方不聽你的。",vibe:"值得信賴、有智慧、有時候有點嘮叨。"},
-PMO:{name:"陪伴者",en:"Companion",desc:"永遠站在你身邊的那個人。你在意你的感受、在意你的眼光、在意你過得好不好。你可能不知道自己真正想要什麼，但你知道你想讓身邊的人開心。",pain:"你在乎的人不開心，而你什麼都做不了。",vibe:"溫暖、忠誠、永遠在你身邊。"},
-GEA:{name:"發起人",en:"Initiator",desc:"行動力強，喜歡帶頭做事，有人一起更好。要聽自己的還是聽別人的，你看情況——如果別人說得有道理你會調整，覺得自己對的時候也不怕堅持。",pain:"有一個很好的想法但沒有人響應。",vibe:"有幹勁、靈活、走到哪裡都想動起來。"},
-GIA:{name:"研究者",en:"Researcher",desc:"安靜地專注在自己的事上。你不太在意別人的看法，但也不是完全不管——如果有道理你會聽。你最享受的是一個人深入研究一件事。",pain:"一直被打斷，沒辦法專心。",vibe:"專注、沉穩、總是在研究什麼東西。"},
-PEA:{name:"調和者",en:"Harmonizer",desc:"到哪裡都能讓氣氛變好的人。你在乎人勝過在乎事，而且你喜歡跟人在一起。要有主見還是隨和，你看場合。",pain:"一個聚會的氣氛很尷尬，沒有人說話。",vibe:"親切、靈活、讓人覺得輕鬆。"},
-PIA:{name:"傾聽者",en:"Listener",desc:"那個你想找人聊聊的時候會想到的人。安靜、有耐心、不會批評你。在乎人，但不用一直跟人在一起。可以聽你說一整個下午，然後自己回家安靜充電。",pain:"有人在你面前受苦，但你幫不上忙。",vibe:"溫柔、安靜、是最好的聽眾。"},
-BMS:{name:"哲學家",en:"Philosopher",desc:"其他都看情況，但你很清楚自己是誰。你不會隨波逐流，但也不會特別去推動什麼。你的穩定感來自內在，不來自外在的成就或人際。",pain:"被要求為了「效率」或「別人的感受」放棄自己的原則。",vibe:"淡定、有想法、像一棵根很深的樹。"},
-BMO:{name:"協調者",en:"Coordinator",desc:"能讀懂環境、配合他人。你沒有特別強烈的偏好，但你很在意周圍的氛圍。你是團隊裡讓一切順暢運作的那個人。",pain:"大家各做各的完全沒有配合，你怎麼協調都沒用。",vibe:"識大體、好合作、讓事情變順。"},
-GMA:{name:"行動派",en:"Doer",desc:"只有一件事是確定的：你要把事情做好。社交不社交都行，聽自己還是聽別人也看情況。但你叫他放著不管，他做不到。",pain:"有事情擺在那裡沒人做，大家都在等。",vibe:"務實、不囉嗦、說做就做。"},
-PMA:{name:"照護者",en:"Caretaker",desc:"只有一件事是確定的：你在意人。怎麼在意、用什麼方式在意，看情況。但你的世界是圍繞著人轉的。",pain:"身邊的人有困難但你不知道怎麼幫。",vibe:"溫暖、體貼、讓人覺得被在乎。"},
-BEA:{name:"交際家",en:"Socialite",desc:"只有一件事是確定的：你喜歡跟人在一起。做什麼都好，有沒有主見也看情況，只要不是一個人就好。",pain:"一個人待著太久，沒有人可以互動。",vibe:"熱情、開朗、身邊總是有人。"},
-BIA:{name:"獨行俠",en:"Lone Ranger",desc:"只有一件事是確定的：你需要獨處的時間。做什麼都好，聽自己還是聽別人也看情況，但不要一直跟人在一起。",pain:"一整天被迫跟人相處，完全沒有自己的空間。",vibe:"自在、獨立、享受一個人的時光。"},
-BMA:{name:"通才",en:"Generalist",desc:"沒有任何一個面向特別突出。你能適應幾乎任何環境和任何人，這是一種極致的彈性。代價是有時候連你自己都不太確定「自己到底偏向哪邊」。",pain:"被問「你到底要什麼」但你真的沒有特別的答案。",vibe:"百搭、適應力強、什麼角色都能演。"}
+var T={
+GES:{n:"開拓者",en:"Trailblazer",d:"帶著人往前衝的人。你知道要去哪裡，不在意別人覺得對不對，而且喜歡身邊有人一起。",p:"所有人都在原地討論，沒人動。",v:"有感染力、有行動力、有時候有點強勢。",rt:["金","火","土"],vr:null},
+GEO:{n:"外交官",en:"Diplomat",d:"事情要做好，人也要顧好。你在意別人怎麼看你，因為你相信讓別人舒服才能把事推得更遠。",p:"做了正確的決定，但大家都不認同。",v:"八面玲瓏、有時讓人摸不透。",rt:["金","火","月"],vr:"雷"},
+GIS:{n:"工匠",en:"Craftsman",d:"安安靜靜把事情做到最好。你不需要別人看到，有自己的標準，通常比別人的還高。",p:"被迫跟一群人一起做事，而且大家標準都很低。",v:"很厲害但不太好親近、東西交給他就放心。",rt:["金","水","土"],vr:null},
+GIO:{n:"棋手",en:"Strategist",d:"一個人做事，但在意結果被怎麼評價。安靜地計算布局，不想被看到過程，只想讓結果說話。",p:"花了很多心力做的東西，沒人注意到。",v:"低調但有實力、做出來的東西很到位。",rt:["金","水","月"],vr:"雷"},
+PES:{n:"守護者",en:"Guardian",d:"人群的中心，但不是為了被喜歡。你真心在乎人，且有自己的原則——不會為維持關係而放棄重要的事。",p:"必須在「說實話」和「維持關係」之間選一個。",v:"有原則的暖心人、能被信任。",rt:["木","火","土"],vr:"風"},
+PEO:{n:"和事佬",en:"Peacemaker",d:"所有人的朋友。你最怕衝突，最擅長讓每個人都覺得被照顧到。代價是常忘了自己要什麼。",p:"兩個你都在乎的人吵起來了，你夾在中間。",v:"超好的人、什麼都好商量。",rt:["木","火","月"],vr:null},
+PIS:{n:"隱者",en:"Hermit",d:"安靜地關心人，但不會為誰改變自己。有自己的世界和節奏，對人的關心是深的但不會追著人跑。",p:"被迫在很多人面前表態，沒有退路。",v:"很有深度、懂了之後很值得。",rt:["木","水","土"],vr:"風"},
+PIO:{n:"奉獻者",en:"Devotee",d:"默默付出但常委屈自己。在意別人的感受勝過自己的，不太說出來。別人覺得你沒事，其實只是不想麻煩別人。",p:"你為別人做了很多，對方完全沒意識到。",v:"很貼心、很安靜、事後才發現他幫了很多。",rt:["木","水","月"],vr:"冰"},
+BES:{n:"主持人",en:"Host",d:"不特別衝目標也不特別顧人，但喜歡跟人在一起且很清楚自己要什麼。在朋友圈裡有存在感但不強迫別人。",p:"一群人在做一件事，但氣氛很悶。",v:"自在、有魅力、跟他在一起很舒服。",rt:["火","土"],vr:null},
+BEO:{n:"親善大使",en:"Ambassador",d:"哪裡有人你就在哪裡，很自然地跟著大家的方向走。不是沒想法，是覺得「大家開心就好」。",p:"被排擠或被當空氣。",v:"好相處、融入力強、團體的潤滑劑。",rt:["火","月"],vr:null},
+BIS:{n:"旁觀者",en:"Spectator",d:"看得很清楚但不太想插手。有自己的想法，覺得沒必要去影響什麼。享受獨處和觀察。",p:"被迫表態或被捲入不想管的事。",v:"冷靜、清醒、看什麼都看得很透。",rt:["水","土"],vr:null},
+BIO:{n:"敏感者",en:"Sensitive",d:"安靜、敏感、很在意別人怎麼看你。不太主動表達但內心活動很多。",p:"感覺到有人對你不滿，但不知道原因。",v:"細膩、有同理心、但有時候想太多。",rt:["水","月"],vr:"冰"},
+GMS:{n:"實踐家",en:"Executor",d:"把事情做好是第一優先，一個人或一群人做都行。有自己的標準，不太受別人影響。",p:"事情卡住了，怎麼努力都推不動。",v:"可靠、務實、不囉嗦。",rt:["金","土"],vr:null},
+GMO:{n:"表演者",en:"Performer",d:"很會把事情做好，且在意別人怎麼看。動力來自成就感和被認可，有觀眾時表現更好。",p:"表現很好但沒人看到，或努力被否定。",v:"有能力、有企圖心、喜歡舞台。",rt:["金","月"],vr:"雷"},
+PMS:{n:"導師",en:"Mentor",d:"真心為人好且有自己的信念。不會為討好誰而說違心的話。幫的方式是你覺得對的方式。",p:"看到一個人在走彎路，但對方不聽。",v:"值得信賴、有智慧、有時有點嘮叨。",rt:["木","土"],vr:"風"},
+PMO:{n:"陪伴者",en:"Companion",d:"永遠站在你身邊的那個人。在意身邊的人的感受。可能不知道自己想要什麼，但想讓身邊的人開心。",p:"你在乎的人不開心，而你什麼都做不了。",v:"溫暖、忠誠、永遠在身邊。",rt:["木","月"],vr:null},
+GEA:{n:"發起人",en:"Initiator",d:"行動力強，喜歡帶頭做事。聽自己還是聽別人看情況。",p:"有很好的想法但沒人響應。",v:"有幹勁、靈活。",rt:["金","火"],vr:null},
+GIA:{n:"研究者",en:"Researcher",d:"安靜地專注在自己的事上。不太在意別人看法但也不完全不管。最享受一個人深入研究。",p:"一直被打斷，沒辦法專心。",v:"專注、沉穩。",rt:["金","水"],vr:null},
+PEA:{n:"調和者",en:"Harmonizer",d:"到哪都能讓氣氛變好。在乎人勝過事，喜歡跟人在一起。有主見還是隨和看場合。",p:"聚會氣氛很尷尬，沒有人說話。",v:"親切、靈活、讓人輕鬆。",rt:["木","火"],vr:null},
+PIA:{n:"傾聽者",en:"Listener",d:"那個你想找人聊聊時會想到的人。安靜、有耐心、不會批評你。在乎人但不用一直跟人在一起。",p:"有人在你面前受苦，但你幫不上忙。",v:"溫柔、安靜、最好的聽眾。",rt:["木","水"],vr:null},
+BMS:{n:"哲學家",en:"Philosopher",d:"其他都看情況，但很清楚自己是誰。不隨波逐流也不特別去推動什麼。穩定感來自內在。",p:"被要求放棄自己的原則。",v:"淡定、有想法。",rt:["土"],vr:null},
+BMO:{n:"協調者",en:"Coordinator",d:"能讀懂環境、配合他人。沒有特別強烈的偏好但很在意氛圍。讓一切順暢運作。",p:"大家各做各的完全沒有配合。",v:"識大體、好合作。",rt:["月"],vr:null},
+GMA:{n:"行動派",en:"Doer",d:"只有一件事確定：要把事做好。社交不社交都行，聽誰的也看情況。但放著不管做不到。",p:"有事擺在那沒人做，大家都在等。",v:"務實、不囉嗦、說做就做。",rt:["金"],vr:null},
+PMA:{n:"照護者",en:"Caretaker",d:"只有一件事確定：在意人。怎麼在意看情況。世界是圍繞著人轉的。",p:"身邊的人有困難但不知道怎麼幫。",v:"溫暖、體貼。",rt:["木"],vr:null},
+BEA:{n:"交際家",en:"Socialite",d:"只有一件事確定：喜歡跟人在一起。做什麼都好，有沒有主見也看情況。",p:"一個人待太久，沒人可以互動。",v:"熱情、開朗。",rt:["火"],vr:null},
+BIA:{n:"獨行俠",en:"Lone Ranger",d:"只有一件事確定：需要獨處時間。做什麼都好，聽誰的也看情況。",p:"一整天被迫跟人相處，完全沒有自己的空間。",v:"自在、獨立。",rt:["水"],vr:null},
+BMA:{n:"通才",en:"Generalist",d:"沒有任何面向特別突出。能適應幾乎任何環境和任何人。代價是有時不太確定自己偏向哪邊。",p:"被問「你到底要什麼」但你真的沒有特別答案。",v:"百搭、適應力強。",rt:[],vr:null}
 };
 
-// ============================
-// APP STATE
-// ============================
-var ans = {};
-var TOTAL = Q.length;
+var ROOT_INFO={
+"金":{icon:"⚔️",color:"#C8A951",bg:"#FFFBEB",label:"金靈根",desc:"鋒刃不屈，目標至上"},
+"木":{icon:"🌿",color:"#22C55E",bg:"#F0FDF4",label:"木靈根",desc:"庇護滋養，以人為本"},
+"火":{icon:"🔥",color:"#EF4444",bg:"#FEF2F2",label:"火靈根",desc:"能量外放，照亮四方"},
+"水":{icon:"🌊",color:"#3B82F6",bg:"#EFF6FF",label:"水靈根",desc:"深水靜流，蓄勢待發"},
+"土":{icon:"🏔️",color:"#B45309",bg:"#FFF8ED",label:"土靈根",desc:"大地不動，心有定見"},
+"月":{icon:"🌙",color:"#A78BFA",bg:"#F5F3FF",label:"月靈根",desc:"映照他人，感應萬潮"}
+};
+var VARIANT_INFO={
+"雷":{icon:"⚡",color:"#EAB308",bg:"#FEFCE8",bd:"#FDE047",label:"雷靈根",origin:"金 + 月 衝突",desc:"目標驅動卻深深在意他人評價——一邊要衝一邊要看臉色。金屬撕裂夜空，內在風暴不斷，就是雷。"},
+"風":{icon:"🌬️",color:"#14B8A6",bg:"#F0FDFA",bd:"#5EEAD4",label:"風靈根",origin:"木 + 土 衝突",desc:"真心在乎人卻打死不妥協自己——溫柔的固執。碰觸萬物卻抓不住形狀，就是風。"},
+"冰":{icon:"🧊",color:"#38BDF8",bg:"#F0F9FF",bd:"#7DD3FC",label:"冰靈根",origin:"水 + 月 衝突",desc:"需要獨處卻焦慮別人怎麼想——想退又不敢退。水想流動卻被凍住，就是冰。"}
+};
 
-// ============================
-// RENDER QUESTIONS
-// ============================
-function renderQuestions() {
-  var h = '';
-  Q.forEach(function(q, i) {
-    h += '<div class="qcard" id="qc_'+q.id+'">';
-    h += '<div class="qnum">Q'+q.id+' / '+TOTAL+'</div>';
-    h += '<div class="qtxt">'+q.q+'</div>';
-    h += '<div class="opts">';
-    q.opts.forEach(function(o, j) {
-      h += '<div class="opt" onclick="pick('+q.id+','+j+')">';
-      h += '<input type="radio" name="q'+q.id+'" value="'+j+'">';
-      h += '<div class="dot"></div>';
-      h += '<div class="opt-t">'+o.t+'</div></div>';
-    });
-    h += '</div></div>';
-  });
-  document.getElementById('qWrap').innerHTML = h;
-}
+var axC={A:['#F97316','#FDBA74'],B:['#06B6D4','#67E8F9'],C:['#D946EF','#E879F9']};
+var axN={A:'做事風格',B:'能量來源',C:'內心羅盤'};
+var axP={A:'目標導向',B:'外向充電',C:'自我導向'};
+var axNg={A:'關係導向',B:'內向充電',C:'他人導向'};
+var axD={A:{h:"在需要做取捨時，你傾向先推進度、先解決問題。時間有限的情況下先處理事情。",m:"你在「先做事」和「先顧人」之間沒有固定偏好，根據情況靈活切換。",l:"在需要做取捨時，你傾向先確認人的狀態。事情可以慢，但人不能不舒服。"},B:{h:"跟人在一起會讓你充電。獨處太久你會悶，需要社交互動來維持精力。",m:"能量來源不固定——有時候需要人、有時候需要獨處，取決於當下狀態。",l:"社交會消耗你的能量，即使過程很開心。你需要獨處時間來恢復。"},C:{h:"你很清楚自己想要什麼，外界聲音不太容易改變你的判斷。內心有自己的標準。",m:"在「聽自己的」和「參考別人的」之間保持彈性。有些事很有主見，有些事順著大家。",l:"別人怎麼看你、怎麼想你很重要。做決定時會把身邊的人的反應納入考量。"}};
 
-function startQuiz() {
+// === APP STATE ===
+var ans={},TOT=Q.length,PG=0,PAGES=6;
+
+function go(){
   document.getElementById('welcome').classList.add('hidden');
   document.getElementById('quiz').classList.remove('hidden');
-  renderQuestions();
+  renderPage(0);
+}
+
+function renderPage(pg){
+  PG=pg;
+  var start=pg*5,end=Math.min(start+5,TOT);
+  document.getElementById('pgInd').textContent='第 '+(pg+1)+' / '+PAGES+' 頁';
+  var h='';
+  for(var i=start;i<end;i++){
+    var q=Q[i];
+    h+='<div class="qcard" id="qc'+q.id+'" style="animation-delay:'+((i-start)*.06)+'s"'+(ans[q.id]!==undefined?' class="done"':'')+'>';
+    h+='<div class="qnum mono">Q'+q.id+'</div>';
+    h+='<div class="qtxt">'+q.q+'</div><div class="opts">';
+    q.o.forEach(function(o,j){
+      var sel=ans[q.id]===j?' sel':'';
+      h+='<div class="opt'+sel+'" onclick="pk('+q.id+','+j+')"><input type="radio" name="q'+q.id+'"><div class="dot"></div><div class="opt-t">'+o.t+'</div></div>';
+    });
+    h+='</div></div>';
+  }
+  document.getElementById('qW').innerHTML=h;
+
+  var nav='';
+  if(pg>0) nav+='<button class="btn btn-prev" onclick="renderPage('+(pg-1)+')">← 上一頁</button>';
+  if(pg<PAGES-1){
+    nav+='<button class="btn btn-go" id="nxBtn" onclick="renderPage('+(pg+1)+')">下一頁 →</button>';
+  }else{
+    var allDone=Object.keys(ans).length>=TOT;
+    nav+='<button class="btn btn-go" id="nxBtn" onclick="calc()"'+(allDone?'':' disabled')+'>查看結果 →</button>';
+  }
+  document.getElementById('navRow').innerHTML=nav;
   updProg();
-}
-
-function pick(qid, oidx) {
-  var card = document.getElementById('qc_'+qid);
-  card.querySelectorAll('.opt').forEach(function(o){o.classList.remove('sel')});
-  card.querySelectorAll('.opt')[oidx].classList.add('sel');
-  card.classList.add('done');
-  ans[qid] = oidx;
-  updProg();
-  document.getElementById('subBtn').disabled = Object.keys(ans).length < TOTAL;
-}
-
-function updProg() {
-  var n = Object.keys(ans).length;
-  var pct = Math.round(n/TOTAL*100);
-  document.getElementById('pFill').style.width = pct+'%';
-  document.getElementById('pTxt').textContent = n+' / '+TOTAL;
-}
-
-// ============================
-// SCORING
-// ============================
-function calcResult() {
-  var raw = {A:0, B:0, C:0};
-  var maxP = {A:0, B:0, C:0};
-  var maxN = {A:0, B:0, C:0};
-
-  // Calculate theoretical max/min
-  Q.forEach(function(q) {
-    var qMaxP = {A:0,B:0,C:0}, qMaxN = {A:0,B:0,C:0};
-    q.opts.forEach(function(o) {
-      ['A','B','C'].forEach(function(ax) {
-        var v = o.s[ax] || 0;
-        if (v > qMaxP[ax]) qMaxP[ax] = v;
-        if (v < qMaxN[ax]) qMaxN[ax] = v;
-      });
-    });
-    ['A','B','C'].forEach(function(ax) {
-      maxP[ax] += qMaxP[ax];
-      maxN[ax] += qMaxN[ax];
-    });
-  });
-
-  // Sum raw scores
-  Q.forEach(function(q) {
-    var oidx = ans[q.id];
-    if (oidx === undefined) return;
-    var scores = q.opts[oidx].s;
-    ['A','B','C'].forEach(function(ax) {
-      raw[ax] += (scores[ax] || 0);
-    });
-  });
-
-  // Normalize to -10 ~ +10
-  var norm = {};
-  ['A','B','C'].forEach(function(ax) {
-    if (raw[ax] >= 0) {
-      norm[ax] = maxP[ax] > 0 ? Math.round(raw[ax] / maxP[ax] * 100) / 10 : 0;
-    } else {
-      norm[ax] = maxN[ax] < 0 ? Math.round(raw[ax] / Math.abs(maxN[ax]) * 100) / 10 : 0;
-    }
-    norm[ax] = Math.max(-10, Math.min(10, norm[ax]));
-  });
-
-  // Determine type code
-  var code = '';
-  code += norm.A >= 2 ? 'G' : norm.A <= -2 ? 'P' : 'B';
-  code += norm.B >= 2 ? 'E' : norm.B <= -2 ? 'I' : 'M';
-  code += norm.C >= 2 ? 'S' : norm.C <= -2 ? 'O' : 'A';
-
-  showResult(norm, raw, code);
-}
-
-// ============================
-// RESULT DISPLAY
-// ============================
-function showResult(norm, raw, code) {
-  var t = TYPES[code];
-  var colors = {
-    A: norm.A >= 0 ? '#7c6cf0' : '#e67e22',
-    B: norm.B >= 0 ? '#3498db' : '#1abc9c',
-    C: norm.C >= 0 ? '#e74c3c' : '#9b59b6'
-  };
-
-  var r = '';
-
-  // Type header
-  r += '<div class="type-hdr" style="background:linear-gradient(135deg,'+colors.A+'22,'+colors.C+'22)">';
-  r += '<div class="type-code" style="color:'+colors.A+'">'+code+'</div>';
-  r += '<div class="type-name">'+t.name+'</div>';
-  r += '<div class="type-en">'+t.en+'</div>';
-  r += '</div>';
-
-  // Axes
-  r += '<div class="res-card"><h3>📊 三軸分數</h3>';
-  r += buildAxis('A', '做事風格', '目標導向', '關係導向', norm.A, colors.A);
-  r += buildAxis('B', '能量來源', '外向充電', '內向充電', norm.B, colors.B);
-  r += buildAxis('C', '內心羅盤', '自我導向', '他人導向', norm.C, colors.C);
-  r += '</div>';
-
-  // Type description
-  r += '<div class="res-card">';
-  r += '<div class="type-desc">'+t.desc+'</div>';
-  r += '<div class="type-detail"><h4>😣 最不舒服的情境</h4><p>'+t.pain+'</p></div>';
-  r += '<div class="type-detail"><h4>👀 別人眼中的你</h4><p>'+t.vibe+'</p></div>';
-  r += '</div>';
-
-  // Axis explanations
-  r += '<div class="res-card"><h3>📝 各軸解讀</h3>';
-  r += buildAxisExplain('A', '做事風格', norm.A);
-  r += buildAxisExplain('B', '能量來源', norm.B);
-  r += buildAxisExplain('C', '內心羅盤', norm.C);
-  r += '</div>';
-
-  // Share
-  r += '<div class="share-box"><p>你的類型代碼（點擊複製）</p>';
-  r += '<div class="share-code" onclick="copyCode(this)">'+code+' '+t.name+'</div></div>';
-
-  // Disclaimer
-  r += '<div class="res-card" style="border-color:var(--tx3)">';
-  r += '<p style="color:var(--tx3);font-size:.8rem;line-height:1.8">本問卷為探索性自我認識工具，不是心理診斷。結果反映你在 30 題上的作答傾向，不是你的全部。每個人都是獨特的，任何分類都是簡化。</p>';
-  r += '</div>';
-
-  r += '<button class="btn btn-alt" onclick="location.reload()">重新作答</button>';
-
-  document.getElementById('quiz').classList.add('hidden');
-  document.getElementById('result').innerHTML = r;
-  document.getElementById('result').classList.remove('hidden');
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
-function buildAxis(ax, label, posLabel, negLabel, val, color) {
-  var pct = (val + 10) / 20 * 100; // 0-100%
-  var fillLeft, fillWidth;
-  if (val >= 0) {
-    fillLeft = 50;
-    fillWidth = pct - 50;
-  } else {
-    fillLeft = pct;
-    fillWidth = 50 - pct;
-  }
-
-  var h = '<div class="axis">';
-  h += '<div class="axis-label"><span>'+label+'</span><span style="color:'+color+'">'+val.toFixed(1)+'</span></div>';
-  h += '<div class="axis-track">';
-  h += '<div class="axis-center"></div>';
-  h += '<div class="axis-fill" style="left:'+fillLeft+'%;width:'+fillWidth+'%;background:'+color+';opacity:.4"></div>';
-  h += '<div class="axis-marker" style="left:'+pct+'%;background:'+color+'"></div>';
-  h += '</div>';
-  h += '<div class="axis-ends"><span>'+negLabel+' (-10)</span><span>中間</span><span>'+posLabel+' (+10)</span></div>';
-  h += '</div>';
-  return h;
+function pk(qi,oi){
+  var c=document.getElementById('qc'+qi);
+  c.querySelectorAll('.opt').forEach(function(o){o.classList.remove('sel')});
+  c.querySelectorAll('.opt')[oi].classList.add('sel');c.classList.add('done');
+  ans[qi]=oi;updProg();
+  if(PG===PAGES-1){var nb=document.getElementById('nxBtn');if(nb)nb.disabled=Object.keys(ans).length<TOT;}
 }
 
-var AXIS_DESC = {
-  A: {
-    high: "在需要做取捨的時候，你傾向先推進度、先解決問題。人的感受你不是不在乎，但在時間有限的情況下，你會先處理事情。",
-    mid: "你在「先做事」和「先顧人」之間沒有固定偏好，會根據當下的情況靈活切換。",
-    low: "在需要做取捨的時候，你傾向先確認人的狀態。事情可以慢一點，但人不能不舒服。"
-  },
-  B: {
-    high: "跟人在一起會讓你充電。獨處太久你會悶，你需要社交互動來維持精力。",
-    mid: "你的能量來源不固定——有時候需要人、有時候需要獨處，取決於當下的狀態。",
-    low: "社交活動會消耗你的能量，即使過程很開心。你需要獨處的時間來恢復。"
-  },
-  C: {
-    high: "你很清楚自己想要什麼，外界的聲音不太容易改變你的判斷。你不是固執，而是內心有自己的標準。",
-    mid: "你在「聽自己的」和「參考別人的」之間保持彈性。有些事你很有主見，有些事你願意順著大家。",
-    low: "別人怎麼看你、怎麼想你，對你來說是很重要的考量。做決定的時候你會把身邊的人的反應納入考量。"
-  }
-};
-
-function buildAxisExplain(ax, label, val) {
-  var desc;
-  if (val >= 3) desc = AXIS_DESC[ax].high;
-  else if (val <= -3) desc = AXIS_DESC[ax].low;
-  else desc = AXIS_DESC[ax].mid;
-
-  var strength = '';
-  var abs = Math.abs(val);
-  if (abs >= 7) strength = '（非常明確的傾向）';
-  else if (abs >= 4) strength = '（清楚的傾向）';
-  else if (abs >= 2) strength = '（有傾向但不強烈）';
-  else strength = '（中間帶）';
-
-  var h = '<div class="type-detail">';
-  h += '<h4>'+label+' '+strength+'</h4>';
-  h += '<p>'+desc+'</p></div>';
-  return h;
+function updProg(){
+  var n=Object.keys(ans).length;
+  document.getElementById('pF').style.width=(n/TOT*100)+'%';
+  document.getElementById('pN').textContent=n;
 }
 
-function copyCode(el) {
-  var text = el.textContent;
-  if (navigator.clipboard) {
-    navigator.clipboard.writeText(text);
-  } else {
-    var ta = document.createElement('textarea');
-    ta.value = text;
-    document.body.appendChild(ta);
-    ta.select();
-    document.execCommand('copy');
-    document.body.removeChild(ta);
-  }
-  el.classList.add('copied');
-  el.textContent = '已複製！';
-  setTimeout(function(){
-    el.classList.remove('copied');
-    el.textContent = text;
-  }, 1500);
+function calc(){
+  var raw={A:0,B:0,C:0},mP={A:0,B:0,C:0},mN={A:0,B:0,C:0};
+  Q.forEach(function(q){var qP={A:0,B:0,C:0},qN={A:0,B:0,C:0};q.o.forEach(function(o){['A','B','C'].forEach(function(a){var v=o.s[a]||0;if(v>qP[a])qP[a]=v;if(v<qN[a])qN[a]=v;});});['A','B','C'].forEach(function(a){mP[a]+=qP[a];mN[a]+=qN[a];});});
+  Q.forEach(function(q){var oi=ans[q.id];if(oi===undefined)return;var sc=q.o[oi].s;['A','B','C'].forEach(function(a){raw[a]+=(sc[a]||0);});});
+  var nm={};['A','B','C'].forEach(function(a){if(raw[a]>=0)nm[a]=mP[a]>0?Math.round(raw[a]/mP[a]*100)/10:0;else nm[a]=mN[a]<0?Math.round(raw[a]/Math.abs(mN[a])*100)/10:0;nm[a]=Math.max(-10,Math.min(10,nm[a]));});
+  var code='';code+=nm.A>=2?'G':nm.A<=-2?'P':'B';code+=nm.B>=2?'E':nm.B<=-2?'I':'M';code+=nm.C>=2?'S':nm.C<=-2?'O':'A';
+  show(nm,code);
 }
+
+var CHAR={GES:'🗡️',GEO:'🎭',GIS:'🔨',GIO:'♟️',PES:'🛡️',PEO:'🕊️',PIS:'🏔️',PIO:'🕯️',BES:'🎪',BEO:'🤝',BIS:'👁️',BIO:'🦋',GMS:'⚙️',GMO:'🎯',PMS:'📖',PMO:'💛',GEA:'🚀',GIA:'🔬',PEA:'🌈',PIA:'👂',BMS:'☯️',BMO:'🔗',GMA:'⚡',PMA:'🌸',BEA:'✨',BIA:'🌙',BMA:'∞'};
+
+function show(nm,code){
+  var t=T[code],r='<div class="res-enter">';
+  // Build gradient colors from roots
+  var rc=t.rt.map(function(rn){return ROOT_INFO[rn].color});
+  if(rc.length===0) rc=['#9CA3AF','#D1D5DB','#E5E7EB'];
+  var g1=rc[0],g2=rc[rc.length>1?1:0],g3=rc[rc.length>2?2:0];
+  // Banner
+  r+='<div class="type-banner"><div class="banner-bg" style="background:linear-gradient(135deg,'+g1+'11,'+g2+'11,'+g3+'11);--b1:'+g1+';--b2:'+g2+';--b3:'+g3+'">';
+  // Character
+  r+='<div class="char-stage">';
+  r+='<div class="char-aura" style="background:radial-gradient(circle,'+g1+'33,'+g2+'22,transparent 70%)"></div>';
+  r+='<div class="char-body">'+CHAR[code]+'</div>';
+  r+='<div class="root-orbit">';
+  var orbs=t.rt.length>0?t.rt:['✧'];
+  orbs.forEach(function(rn,i){
+    var ico=ROOT_INFO[rn]?ROOT_INFO[rn].icon:rn;
+    var dur=(8+i*3)+'s';var del=(i*2)+'s';
+    r+='<div class="root-orb" style="--dur:'+dur+';--del:'+del+'">'+ico+'</div>';
+  });
+  if(t.vr){
+    var vi=VARIANT_INFO[t.vr];
+    r+='<div class="root-orb" style="--dur:6s;--del:1s;font-size:1.4rem">'+vi.icon+'</div>';
+  }
+  r+='</div></div>';
+  // Info
+  r+='<div class="type-badge mono">YOUR TYPE</div><br>';
+  r+='<div class="type-code mono" style="color:'+g1+'">'+code+'</div>';
+  r+='<div class="type-name disp">'+t.n+'</div>';
+  r+='<div class="type-en">'+t.en+'</div>';
+  // Root tags
+  r+='<div class="root-tags">';
+  t.rt.forEach(function(rn){var ri=ROOT_INFO[rn];r+='<span class="root-tag" style="color:'+ri.color+';border-color:'+ri.color+'33">'+ri.icon+' '+ri.label+'</span>';});
+  if(t.vr){var vi=VARIANT_INFO[t.vr];r+='<span class="root-tag variant-tag" style="color:'+vi.color+';border-color:'+vi.color+'">'+vi.icon+' '+vi.label+'</span>';}
+  if(t.rt.length===0) r+='<span class="root-tag" style="color:#6B7280;border-color:#D1D5DB">✧ 混沌靈體</span>';
+  r+='</div>';
+  r+='</div></div>';
+
+  // Spirit Roots
+  r+='<div class="rcard"><h3>✦ 靈根屬性</h3>';
+  r+='<div class="roots-row">';
+  if(t.rt.length===0){
+    r+='<div class="root-chip" style="border-color:#9CA3AF;color:#6B7280"><span class="ri">✧</span>混沌靈體</div>';
+  }else{
+    t.rt.forEach(function(rn){var ri=ROOT_INFO[rn];r+='<div class="root-chip" style="border-color:'+ri.color+';color:'+ri.color+';background:'+ri.bg+'"><span class="ri">'+ri.icon+'</span>'+ri.label+'</div>';});
+  }
+  r+='</div>';
+  if(t.rt.length>0){
+    r+='<div style="font-size:.8rem;color:var(--tx3);margin-bottom:8px">';
+    t.rt.forEach(function(rn,i){var ri=ROOT_INFO[rn];r+=(i>0?' · ':'')+ri.icon+' '+ri.desc;});
+    r+='</div>';
+  }
+  if(t.vr){
+    var vi=VARIANT_INFO[t.vr];
+    r+='<div class="variant-banner" style="border-color:'+vi.bd+';background:'+vi.bg+'">';
+    r+='<h4><span style="font-size:1.2rem">'+vi.icon+'</span><span style="color:'+vi.color+'">變異：'+vi.label+'</span><span style="font-size:.72rem;color:var(--tx3);font-weight:500">（'+vi.origin+'）</span></h4>';
+    r+='<p>'+vi.desc+'</p></div>';
+  }
+  r+='</div>';
+
+  // Axes
+  r+='<div class="rcard"><h3>📊 三軸分數</h3>';
+  ['A','B','C'].forEach(function(a,i){r+=bAxis(a,nm[a],i);});r+='</div>';
+
+  // Desc
+  r+='<div class="rcard"><div class="type-prose">'+t.d+'</div>';
+  r+='<div class="dblock"><h4>😣 最不舒服的情境</h4><p>'+t.p+'</p></div>';
+  r+='<div class="dblock"><h4>👀 別人眼中的你</h4><p>'+t.v+'</p></div></div>';
+
+  // Axis explains
+  r+='<div class="rcard"><h3>📝 各軸解讀</h3>';
+  ['A','B','C'].forEach(function(a){var v=nm[a],desc=v>=3?axD[a].h:v<=-3?axD[a].l:axD[a].m;var abs=Math.abs(v);var str=abs>=7?'非常明確':abs>=4?'清楚的傾向':abs>=2?'有傾向但不強烈':'中間帶';var cls=['var(--axA)','var(--axB)','var(--axC)'][['A','B','C'].indexOf(a)];
+  r+='<div class="ax-exp" style="border-color:'+axC[a][0]+';background:'+(['var(--axAl)','var(--axBl)','var(--axCl)'][['A','B','C'].indexOf(a)])+'"><h4><span style="color:'+axC[a][0]+'">'+axN[a]+'</span><span class="str">'+str+'</span></h4><p>'+desc+'</p></div>';});r+='</div>';
+
+  // Share
+  var shareText=code+' · '+t.n+(t.vr?' · '+VARIANT_INFO[t.vr].icon+VARIANT_INFO[t.vr].label:'');
+  r+='<div class="share-area"><p>你的類型（點擊複製）</p><div class="share-btn" onclick="cpy(this)">'+shareText+'</div></div>';
+  r+='<div class="disc">本問卷為探索性自我認識工具，不是心理診斷。結果反映你在 30 題上的作答傾向，不是你的全部。</div>';
+  r+='<button class="btn btn-alt" onclick="location.reload()">重新作答</button></div>';
+
+  document.getElementById('quiz').classList.add('hidden');
+  document.getElementById('result').innerHTML=r;document.getElementById('result').classList.remove('hidden');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function bAxis(a,val,idx){
+  var pct=(val+10)/20*100,c=axC[a],fl,fw;
+  if(val>=0){fl=50;fw=pct-50}else{fl=pct;fw=50-pct}
+  var dy=(.1+idx*.1)+'s';
+  return '<div class="axis-vis" style="animation-delay:'+dy+'"><div class="axis-head"><span class="axis-name" style="color:'+c[0]+'">'+axN[a]+'</span><span class="axis-score mono" style="color:'+c[0]+'">'+(val>=0?'+':'')+val.toFixed(1)+'</span></div><div class="axis-track"><div class="axis-mid"></div><div class="axis-track-inner"><div class="axis-bar" style="left:'+fl+'%;--w:'+fw+'%;background:linear-gradient(90deg,'+c[0]+','+c[1]+');opacity:.3"></div></div><div class="axis-marker" style="--pos:'+pct+'%;background:'+c[0]+';box-shadow:0 0 10px '+c[0]+'44"></div></div><div class="axis-labels"><span>'+axNg[a]+'</span><span class="mid" style="position:absolute;left:50%;transform:translateX(-50%)">0</span><span>'+axP[a]+'</span></div></div>';
+}
+
+function cpy(el){var txt=el.textContent;if(navigator.clipboard)navigator.clipboard.writeText(txt);else{var ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta)}el.classList.add('copied');el.textContent='✓ 已複製';setTimeout(function(){el.classList.remove('copied');el.textContent=txt},1500);}
 </script>
 </body>
 </html>
