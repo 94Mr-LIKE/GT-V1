@@ -194,8 +194,9 @@ body::after{content:'';position:fixed;bottom:-150px;left:-150px;width:400px;heig
 .sp5{top:50%;left:50%;animation:sparkle 3s ease-in-out infinite 2s}
 
 /* BAGUA CIRCLE */
-.bagua-circle{position:absolute;top:45%;left:50%;width:400px;height:400px;transform:translate(-50%,-50%) rotate(0deg);animation:bagua 60s linear infinite;pointer-events:none;z-index:0;opacity:.08}
-.bagua-circle svg{width:100%;height:100%}
+.bagua-wrap{position:absolute;top:0;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:center;pointer-events:none;overflow:visible;z-index:0}
+.bagua-circle{width:400px;height:400px;animation:bagua 90s linear infinite;opacity:.1}
+.bagua-circle svg{width:100%;height:100%;overflow:visible}
 
 /* MIST EFFECT */
 .mist{position:fixed;top:0;pointer-events:none;z-index:0;width:200px;height:100%;opacity:.25}
@@ -274,7 +275,7 @@ body::after{content:'';position:fixed;bottom:-150px;left:-150px;width:400px;heig
 @media(max-width:500px){
 .wrap{padding:14px}.hero h1{font-size:1.8rem}.hero h1 em{font-size:2.2rem}
 .type-code{font-size:2.4rem;letter-spacing:5px}.type-name{font-size:1.3rem}
-.bagua-circle{width:260px;height:260px;opacity:.06}
+.bagua-circle{width:280px;height:280px;opacity:.07}
 .root-grid{grid-template-columns:repeat(2,1fr);gap:8px}
 .root-flip{height:120px}
 .root-flip-front .rf-icon svg{width:56px!important;height:56px!important}
@@ -299,76 +300,40 @@ body::after{content:'';position:fixed;bottom:-150px;left:-150px;width:400px;heig
 <div class="sparkle-dot sp4"></div><div class="sparkle-dot sp5"></div>
 </div>
 <div class="hero">
-<div style="position:relative;display:inline-block">
-<div class="bagua-circle">
-<svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
-<defs>
-<linearGradient id="bg1" x1="0" y1="0" x2="400" y2="400"><stop stop-color="#F97316"/><stop offset=".5" stop-color="#C8A951"/><stop offset="1" stop-color="#D946EF"/></linearGradient>
-</defs>
-<!-- Outer rings -->
-<circle cx="200" cy="200" r="195" stroke="url(#bg1)" stroke-width="1.5" stroke-dasharray="8 5"/>
-<circle cx="200" cy="200" r="170" stroke="url(#bg1)" stroke-width="1"/>
-<circle cx="200" cy="200" r="140" stroke="url(#bg1)" stroke-width=".8" stroke-dasharray="4 4"/>
-<!-- Taiji (Yin-Yang) center -->
-<path d="M200 140 A60 60 0 0 1 200 260 A30 30 0 0 0 200 200 A30 30 0 0 1 200 140Z" fill="url(#bg1)" opacity=".35"/>
-<path d="M200 260 A60 60 0 0 1 200 140 A30 30 0 0 0 200 200 A30 30 0 0 1 200 260Z" fill="url(#bg1)" opacity=".12"/>
-<circle cx="200" cy="170" r="8" fill="url(#bg1)" opacity=".12"/>
-<circle cx="200" cy="230" r="8" fill="url(#bg1)" opacity=".35"/>
-<circle cx="200" cy="200" r="60" stroke="url(#bg1)" stroke-width="1.5" fill="none"/>
-<!-- 8 Trigrams on circumference (先天八卦 r=155) -->
-<!-- Each trigram: 3 lines, yang=solid, yin=broken. Centered at radius 155 from center -->
-<!-- 乾☰ South (bottom, 200,355) - yang yang yang -->
-<g stroke="url(#bg1)" stroke-width="3" stroke-linecap="round">
-<line x1="186" y1="345" x2="214" y2="345"/>
-<line x1="186" y1="353" x2="214" y2="353"/>
-<line x1="186" y1="361" x2="214" y2="361"/>
-</g>
-<!-- 坤☷ North (top, 200,45) - yin yin yin -->
-<g stroke="url(#bg1)" stroke-width="3" stroke-linecap="round">
-<line x1="186" y1="31" x2="196" y2="31"/><line x1="204" y1="31" x2="214" y2="31"/>
-<line x1="186" y1="39" x2="196" y2="39"/><line x1="204" y1="39" x2="214" y2="39"/>
-<line x1="186" y1="47" x2="196" y2="47"/><line x1="204" y1="47" x2="214" y2="47"/>
-</g>
-<!-- 離☲ East (right, 355,200) - yang yin yang -->
-<g stroke="url(#bg1)" stroke-width="3" stroke-linecap="round">
-<line x1="345" y1="186" x2="345" y2="214"/>
-<line x1="353" y1="186" x2="353" y2="196"/><line x1="353" y1="204" x2="353" y2="214"/>
-<line x1="361" y1="186" x2="361" y2="214"/>
-</g>
-<!-- 坎☵ West (left, 45,200) - yin yang yin -->
-<g stroke="url(#bg1)" stroke-width="3" stroke-linecap="round">
-<line x1="31" y1="186" x2="31" y2="196"/><line x1="31" y1="204" x2="31" y2="214"/>
-<line x1="39" y1="186" x2="39" y2="214"/>
-<line x1="47" y1="186" x2="47" y2="196"/><line x1="47" y1="204" x2="47" y2="214"/>
-</g>
-<!-- 兌☱ SE (310,310) - yin yang yang -->
-<g stroke="url(#bg1)" stroke-width="3" stroke-linecap="round" transform="rotate(45,310,310)">
-<line x1="296" y1="303" x2="306" y2="303"/><line x1="314" y1="303" x2="324" y2="303"/>
-<line x1="296" y1="311" x2="324" y2="311"/>
-<line x1="296" y1="319" x2="324" y2="319"/>
-</g>
-<!-- 艮☶ NW (90,90) - yang yin yin -->
-<g stroke="url(#bg1)" stroke-width="3" stroke-linecap="round" transform="rotate(45,90,90)">
-<line x1="76" y1="83" x2="104" y2="83"/>
-<line x1="76" y1="91" x2="86" y2="91"/><line x1="94" y1="91" x2="104" y2="91"/>
-<line x1="76" y1="99" x2="86" y2="99"/><line x1="94" y1="99" x2="104" y2="99"/>
-</g>
-<!-- 震☳ NE (310,90) - yin yin yang -->
-<g stroke="url(#bg1)" stroke-width="3" stroke-linecap="round" transform="rotate(-45,310,90)">
-<line x1="296" y1="83" x2="306" y2="83"/><line x1="314" y1="83" x2="324" y2="83"/>
-<line x1="296" y1="91" x2="306" y2="91"/><line x1="314" y1="91" x2="324" y2="91"/>
-<line x1="296" y1="99" x2="324" y2="99"/>
-</g>
-<!-- 巽☴ SW (90,310) - yang yang yin -->
-<g stroke="url(#bg1)" stroke-width="3" stroke-linecap="round" transform="rotate(-45,90,310)">
-<line x1="76" y1="303" x2="104" y2="303"/>
-<line x1="76" y1="311" x2="104" y2="311"/>
-<line x1="76" y1="319" x2="86" y2="319"/><line x1="94" y1="319" x2="104" y2="319"/>
-</g>
+<div class="bagua-wrap"><div class="bagua-circle">
+<svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+<!-- Outer ring -->
+<circle cx="200" cy="200" r="192" fill="none" stroke="#C8A951" stroke-width="2"/>
+<circle cx="200" cy="200" r="185" fill="none" stroke="#C8A951" stroke-width=".5" stroke-dasharray="6 4"/>
+<!-- Inner ring around trigrams -->
+<circle cx="200" cy="200" r="130" fill="none" stroke="#C8A951" stroke-width="1"/>
+<!-- Taiji center -->
+<circle cx="200" cy="200" r="50" fill="none" stroke="#C8A951" stroke-width="1.5"/>
+<path d="M200 150 A50 50 0 0 1 200 250 A25 25 0 0 0 200 200 A25 25 0 0 1 200 150Z" fill="#C8A951"/>
+<path d="M200 250 A50 50 0 0 1 200 150 A25 25 0 0 0 200 200 A25 25 0 0 1 200 250Z" fill="none" stroke="#C8A951" stroke-width="0"/>
+<circle cx="200" cy="175" r="6" fill="none" stroke="#C8A951" stroke-width="1.5"/>
+<circle cx="200" cy="225" r="6" fill="#C8A951"/>
+<!-- 八卦 trigrams: each uses g+translate to position, then 3 horizontal lines -->
+<!-- Line spec: yang=28px solid, yin=two 11px lines with 6px gap. Vertical spacing=8px -->
+<!-- 乾☰ Top (0°) — three yang -->
+<g transform="translate(200,28)"><line x1="-14" y1="-8" x2="14" y2="-8" stroke="#C8A951" stroke-width="3"/><line x1="-14" y1="0" x2="14" y2="0" stroke="#C8A951" stroke-width="3"/><line x1="-14" y1="8" x2="14" y2="8" stroke="#C8A951" stroke-width="3"/></g>
+<!-- 兌☱ 45° (right-top) — yang yang yin(top line broken) -->
+<g transform="translate(322,78)"><line x1="-14" y1="-8" x2="-3" y2="-8" stroke="#C8A951" stroke-width="3"/><line x1="3" y1="-8" x2="14" y2="-8" stroke="#C8A951" stroke-width="3"/><line x1="-14" y1="0" x2="14" y2="0" stroke="#C8A951" stroke-width="3"/><line x1="-14" y1="8" x2="14" y2="8" stroke="#C8A951" stroke-width="3"/></g>
+<!-- 離☲ 90° (right) — yang yin yang -->
+<g transform="translate(372,200)"><line x1="-14" y1="-8" x2="14" y2="-8" stroke="#C8A951" stroke-width="3"/><line x1="-14" y1="0" x2="-3" y2="0" stroke="#C8A951" stroke-width="3"/><line x1="3" y1="0" x2="14" y2="0" stroke="#C8A951" stroke-width="3"/><line x1="-14" y1="8" x2="14" y2="8" stroke="#C8A951" stroke-width="3"/></g>
+<!-- 震☳ 135° (right-bottom) — yin yin yang -->
+<g transform="translate(322,322)"><line x1="-14" y1="-8" x2="-3" y2="-8" stroke="#C8A951" stroke-width="3"/><line x1="3" y1="-8" x2="14" y2="-8" stroke="#C8A951" stroke-width="3"/><line x1="-14" y1="0" x2="-3" y2="0" stroke="#C8A951" stroke-width="3"/><line x1="3" y1="0" x2="14" y2="0" stroke="#C8A951" stroke-width="3"/><line x1="-14" y1="8" x2="14" y2="8" stroke="#C8A951" stroke-width="3"/></g>
+<!-- 巽☴ 180° (bottom) — yang yang yin -->
+<g transform="translate(200,372)"><line x1="-14" y1="-8" x2="14" y2="-8" stroke="#C8A951" stroke-width="3"/><line x1="-14" y1="0" x2="14" y2="0" stroke="#C8A951" stroke-width="3"/><line x1="-14" y1="8" x2="-3" y2="8" stroke="#C8A951" stroke-width="3"/><line x1="3" y1="8" x2="14" y2="8" stroke="#C8A951" stroke-width="3"/></g>
+<!-- 坎☵ 225° (left-bottom) — yin yang yin -->
+<g transform="translate(78,322)"><line x1="-14" y1="-8" x2="-3" y2="-8" stroke="#C8A951" stroke-width="3"/><line x1="3" y1="-8" x2="14" y2="-8" stroke="#C8A951" stroke-width="3"/><line x1="-14" y1="0" x2="14" y2="0" stroke="#C8A951" stroke-width="3"/><line x1="-14" y1="8" x2="-3" y2="8" stroke="#C8A951" stroke-width="3"/><line x1="3" y1="8" x2="14" y2="8" stroke="#C8A951" stroke-width="3"/></g>
+<!-- 艮☶ 270° (left) — yang yin yin -->
+<g transform="translate(28,200)"><line x1="-14" y1="-8" x2="14" y2="-8" stroke="#C8A951" stroke-width="3"/><line x1="-14" y1="0" x2="-3" y2="0" stroke="#C8A951" stroke-width="3"/><line x1="3" y1="0" x2="14" y2="0" stroke="#C8A951" stroke-width="3"/><line x1="-14" y1="8" x2="-3" y2="8" stroke="#C8A951" stroke-width="3"/><line x1="3" y1="8" x2="14" y2="8" stroke="#C8A951" stroke-width="3"/></g>
+<!-- 坤☷ 315° (left-top) — yin yin yin -->
+<g transform="translate(78,78)"><line x1="-14" y1="-8" x2="-3" y2="-8" stroke="#C8A951" stroke-width="3"/><line x1="3" y1="-8" x2="14" y2="-8" stroke="#C8A951" stroke-width="3"/><line x1="-14" y1="0" x2="-3" y2="0" stroke="#C8A951" stroke-width="3"/><line x1="3" y1="0" x2="14" y2="0" stroke="#C8A951" stroke-width="3"/><line x1="-14" y1="8" x2="-3" y2="8" stroke="#C8A951" stroke-width="3"/><line x1="3" y1="8" x2="14" y2="8" stroke="#C8A951" stroke-width="3"/></g>
 </svg>
-</div>
+</div></div>
 <div class="hero-rune">◈</div>
-</div>
 <div class="hero-badge">✦ 30 題 · 三軸定位 · 靈根覺醒</div>
 <h1>測你的<em>修仙靈根</em></h1>
 <div class="hero-divider"></div>
@@ -379,7 +344,32 @@ body::after{content:'';position:fixed;bottom:-150px;left:-150px;width:400px;heig
 <div class="root-grid">
 <!-- 金靈根 - 長劍 -->
 <div class="root-flip"><div class="root-flip-inner">
-<div class="root-flip-front"><div class="rf-icon"><svg width="70" height="70" viewBox="0 0 70 70" fill="none"><defs><linearGradient id="jg" x1="35" y1="8" x2="35" y2="58"><stop stop-color="#FDE68A"/><stop offset=".5" stop-color="#C8A951"/><stop offset="1" stop-color="#92702A"/></linearGradient></defs><line x1="35" y1="8" x2="35" y2="50" stroke="url(#jg)" stroke-width="3.5" stroke-linecap="round"/><line x1="35" y1="8" x2="35" y2="20" stroke="#FDE68A" stroke-width="1.5" opacity=".6"/><line x1="24" y1="46" x2="46" y2="46" stroke="#C8A951" stroke-width="3" stroke-linecap="round"/><rect x="32" y="50" width="6" height="10" rx="1.5" fill="#92702A"/><line x1="35" y1="5" x2="35" y2="12" stroke="#FDE68A" stroke-width="1" opacity=".5"/><line x1="30" y1="10" x2="35" y2="5" stroke="#FDE68A" stroke-width=".8" opacity=".4"/><line x1="40" y1="10" x2="35" y2="5" stroke="#FDE68A" stroke-width=".8" opacity=".4"/><line x1="28" y1="14" x2="35" y2="8" stroke="#FDE68A" stroke-width=".6" opacity=".3"/><line x1="42" y1="14" x2="35" y2="8" stroke="#FDE68A" stroke-width=".6" opacity=".3"/></svg></div><div class="rf-name">金靈根</div><div class="rf-sub">目標導向</div></div>
+<div class="root-flip-front"><div class="rf-icon"><svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+<defs><linearGradient id="jb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFD700"/><stop offset=".5" stop-color="#C8A951"/><stop offset="1" stop-color="#A07830"/></linearGradient></defs>
+<!-- Blade body -->
+<rect x="37" y="12" width="6" height="40" rx="1" fill="url(#jb)"/>
+<!-- Blade center highlight -->
+<rect x="39.2" y="12" width="1.6" height="38" rx=".5" fill="#FEF3C7" opacity=".55"/>
+<!-- Blade tip (triangle) -->
+<polygon points="37,12 43,12 40,4" fill="#FFD700"/>
+<polygon points="39,12 41,12 40,6" fill="#FEF3C7" opacity=".5"/>
+<!-- Guard (cross-piece) -->
+<rect x="28" y="51" width="24" height="4" rx="2" fill="#C8A951"/>
+<rect x="30" y="51.5" width="20" height="1" rx=".5" fill="#FFD700" opacity=".4"/>
+<!-- Grip -->
+<rect x="36.5" y="55" width="7" height="13" rx="2" fill="#78350F"/>
+<rect x="37.5" y="56" width="5" height="2" rx=".5" fill="#92702A" opacity=".5"/>
+<rect x="37.5" y="60" width="5" height="2" rx=".5" fill="#92702A" opacity=".5"/>
+<rect x="37.5" y="64" width="5" height="2" rx=".5" fill="#92702A" opacity=".5"/>
+<!-- Pommel -->
+<ellipse cx="40" cy="69" rx="5" ry="2.5" fill="#C8A951"/>
+<!-- Radiance lines -->
+<line x1="40" y1="1" x2="40" y2="6" stroke="#FFD700" stroke-width=".8" opacity=".5"/>
+<line x1="33" y1="6" x2="36" y2="10" stroke="#FFD700" stroke-width=".7" opacity=".4"/>
+<line x1="47" y1="6" x2="44" y2="10" stroke="#FFD700" stroke-width=".7" opacity=".4"/>
+<line x1="30" y1="10" x2="34" y2="14" stroke="#FFD700" stroke-width=".5" opacity=".3"/>
+<line x1="50" y1="10" x2="46" y2="14" stroke="#FFD700" stroke-width=".5" opacity=".3"/>
+</svg></div><div class="rf-name">金靈根</div><div class="rf-sub">目標導向</div></div>
 <div class="root-flip-back"><div class="rf-desc">鋒刃不屈，目標至上。做事效率優先，先解決問題再說。</div></div>
 </div></div>
 <!-- 木靈根 - 大樹 -->
