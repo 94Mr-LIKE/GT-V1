@@ -210,11 +210,11 @@ body::after{content:'';position:fixed;bottom:-150px;left:-150px;width:400px;heig
 @keyframes cspin{from{transform:rotate(0)}to{transform:rotate(-360deg)}}
 @keyframes pulse{0%,100%{box-shadow:0 0 8px var(--gc),0 0 16px var(--gc)}50%{box-shadow:0 0 16px var(--gc),0 0 32px var(--gc)}}
 
-.core-vis{position:relative;width:100%;height:480px;margin:20px auto;display:flex;align-items:center;justify-content:center}
-.core-vis::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(249,115,22,.06),rgba(217,70,239,.03),transparent 70%);pointer-events:none}
+.core-vis{position:relative;width:100%;height:820px;margin:10px auto;display:flex;align-items:center;justify-content:center;overflow:visible}
+.core-vis::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:800px;height:800px;border-radius:50%;background:radial-gradient(circle,rgba(249,115,22,.06),rgba(217,70,239,.03),transparent 70%);pointer-events:none}
 
 /* Taiji center */
-.taiji-wrap{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:200px;height:200px;animation:spin 60s linear infinite}
+.taiji-wrap{position:absolute;top:50%;left:50%;width:600px;height:600px;margin-left:-300px;margin-top:-300px;animation:spin 60s linear infinite}
 .taiji-svg{width:100%;height:100%}
 
 /* Wuxing orbit ring */
@@ -222,12 +222,12 @@ body::after{content:'';position:fixed;bottom:-150px;left:-150px;width:400px;heig
 .wx-node{position:absolute;width:80px;height:80px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;animation:cspin 60s linear infinite;background:var(--card);box-shadow:var(--sh);border:2px solid;cursor:default;transition:box-shadow .3s}
 .wx-node svg{width:50px;height:50px;margin-bottom:2px}
 .wx-node .wx-lbl{font-size:.65rem;font-weight:700;line-height:1}
-/* Position each node at r=180px from center */
-.wx-jin{top:-180px;left:-40px;border-color:rgba(200,169,81,.5);--gc:rgba(200,169,81,.3)}.wx-jin .wx-lbl{color:#B8860B}
-.wx-mu{top:-55px;left:131px;border-color:rgba(34,197,94,.5);--gc:rgba(34,197,94,.3)}.wx-mu .wx-lbl{color:#15803D}
-.wx-shui{top:145px;left:81px;border-color:rgba(59,130,246,.5);--gc:rgba(59,130,246,.3)}.wx-shui .wx-lbl{color:#1D4ED8}
-.wx-huo{top:145px;left:-161px;border-color:rgba(239,68,68,.5);--gc:rgba(239,68,68,.3)}.wx-huo .wx-lbl{color:#DC2626}
-.wx-tu{top:-55px;left:-211px;border-color:rgba(180,83,9,.5);--gc:rgba(180,83,9,.3)}.wx-tu .wx-lbl{color:#92400E}
+/* Position each node at r=370px from center (outside 600px taiji) */
+.wx-jin{top:-410px;left:-40px;border-color:rgba(200,169,81,.5);--gc:rgba(200,169,81,.3)}.wx-jin .wx-lbl{color:#B8860B}
+.wx-mu{top:-154px;left:312px;border-color:rgba(34,197,94,.5);--gc:rgba(34,197,94,.3)}.wx-mu .wx-lbl{color:#15803D}
+.wx-shui{top:259px;left:183px;border-color:rgba(59,130,246,.5);--gc:rgba(59,130,246,.3)}.wx-shui .wx-lbl{color:#1D4ED8}
+.wx-huo{top:259px;left:-263px;border-color:rgba(239,68,68,.5);--gc:rgba(239,68,68,.3)}.wx-huo .wx-lbl{color:#DC2626}
+.wx-tu{top:-154px;left:-392px;border-color:rgba(180,83,9,.5);--gc:rgba(180,83,9,.3)}.wx-tu .wx-lbl{color:#92400E}
 .wx-node:hover{box-shadow:0 0 16px var(--gc),0 0 32px var(--gc)}
 
 /* Variant section */
@@ -264,16 +264,16 @@ body::after{content:'';position:fixed;bottom:-150px;left:-150px;width:400px;heig
 .wrap{padding:14px}.hero h1{font-size:1.8rem}.hero h1 em{font-size:2.2rem}
 .type-code{font-size:2.4rem;letter-spacing:5px}.type-name{font-size:1.3rem}
 .mist{width:100px;opacity:.15}
-.core-vis{height:380px}
-.taiji-wrap{width:140px;height:140px}
-.wx-node{width:64px;height:64px}
-.wx-node svg{width:36px;height:36px}
-.wx-node .wx-lbl{font-size:.56rem}
-.wx-jin{top:-130px;left:-32px}
-.wx-mu{top:-40px;left:92px}
-.wx-shui{top:105px;left:57px}
-.wx-huo{top:105px;left:-121px}
-.wx-tu{top:-40px;left:-156px}
+.core-vis{height:560px}
+.taiji-wrap{width:350px;height:350px;margin-left:-175px;margin-top:-175px}
+.wx-node{width:60px;height:60px}
+.wx-node svg{width:34px;height:34px}
+.wx-node .wx-lbl{font-size:.55rem}
+.wx-jin{top:-240px;left:-30px}
+.wx-mu{top:-94px;left:178px}
+.wx-shui{top:148px;left:105px}
+.wx-huo{top:148px;left:-165px}
+.wx-tu{top:-94px;left:-238px}
 .var-grid{grid-template-columns:repeat(2,1fr)}
 }
 
@@ -349,7 +349,6 @@ body::after{content:'';position:fixed;bottom:-150px;left:-150px;width:400px;heig
 </div>
 </div>
 
-<div class="icard"><h3>⚔️ 每題 4 個選項，選最接近你的</h3><p>沒有對錯，選「通常會怎麼做」</p><p>30 題測出你的靈根組合與變異屬性</p></div>
 <button class="btn btn-go btn-xian" onclick="go()">開始測試 ◈</button>
 </div>
 
