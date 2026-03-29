@@ -40,9 +40,9 @@
 --r:18px;--r2:14px;--sh:0 2px 12px rgba(0,0,0,.04),0 1px 3px rgba(0,0,0,.06);--sh2:0 4px 20px rgba(0,0,0,.06);
 }
 *{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
-body{font-family:"Nunito",sans-serif;background:linear-gradient(180deg,#FFF8F0 0%,#FFFCF9 30%,#FFFCF9 60%,#F8F4EE 100%),#FFFBF5;background-attachment:fixed;color:var(--tx);line-height:1.75;-webkit-font-smoothing:antialiased;min-height:100vh}
-body::before{content:'';position:fixed;top:-100px;right:-100px;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(251,191,36,.12),rgba(249,115,22,.06) 40%,transparent 70%);pointer-events:none;z-index:0}
-body::after{content:'';position:fixed;bottom:-100px;left:-100px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(249,115,22,.06),rgba(245,158,11,.03) 40%,transparent 70%);pointer-events:none;z-index:0}
+body{font-family:"Nunito",sans-serif;background:#FAFFF8;background-attachment:fixed;color:var(--tx);line-height:1.75;-webkit-font-smoothing:antialiased;min-height:100vh}
+body::before{content:'';position:fixed;top:-100px;right:-100px;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(134,239,172,.1),rgba(74,222,128,.04) 40%,transparent 70%);pointer-events:none;z-index:0}
+body::after{content:'';position:fixed;bottom:-100px;left:-100px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(134,239,172,.08),rgba(34,197,94,.03) 40%,transparent 70%);pointer-events:none;z-index:0}
 
 /* Clouds */
 @keyframes drift{from{transform:translateX(-20%)}to{transform:translateX(20%)}}
@@ -216,16 +216,13 @@ body::after{content:'';position:fixed;bottom:-100px;left:-100px;width:500px;heig
 
 /* MIST EFFECT */
 .mist{position:fixed;top:0;pointer-events:none;z-index:0;width:200px;height:100%;opacity:.25}
-.mist-l{left:-40px;background:linear-gradient(90deg,rgba(249,115,22,.08),rgba(217,70,239,.04),transparent)}
-.mist-r{right:-40px;background:linear-gradient(-90deg,rgba(6,182,212,.06),rgba(217,70,239,.04),transparent)}
+.mist-l{left:-40px;background:linear-gradient(90deg,rgba(134,239,172,.08),rgba(74,222,128,.04),transparent)}
+.mist-r{right:-40px;background:linear-gradient(-90deg,rgba(134,239,172,.06),rgba(74,222,128,.03),transparent)}
 .mist-l::after,.mist-r::after{content:'';position:absolute;inset:0;background:inherit;animation:mistDrift 8s ease-in-out infinite alternate;opacity:.6}
 
 /* HERO XIANXIA */
 .hero{position:relative;z-index:1}
-.hero-pre{font-family:"ZCOOL XiaoWei",serif;font-size:1.8rem;color:var(--tx2);margin-bottom:4px}
-.hero h1{font-family:"Ma Shan Zheng",cursive;font-size:4.5rem;background:linear-gradient(135deg,var(--axA),#EF4444,var(--acc));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-shadow:none;letter-spacing:12px;line-height:1.2;margin-bottom:6px;filter:drop-shadow(0 0 30px rgba(249,115,22,.3))}
-.hero-divider{width:180px;height:3px;margin:14px auto 0;border-radius:2px;background:linear-gradient(90deg,transparent,var(--axA),var(--acc),transparent);animation:dividerPulse 3s ease-in-out infinite}
-.hero-sub{font-family:"ZCOOL XiaoWei",serif;color:var(--tx2);font-size:1rem;margin-top:12px}
+.hero h1{font-family:"Ma Shan Zheng",cursive;font-size:6rem;background:linear-gradient(135deg,#DC2626,#F97316,#DC2626);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:16px;line-height:1.15;margin-bottom:0;filter:drop-shadow(0 0 40px rgba(220,38,38,.3)) drop-shadow(0 4px 8px rgba(0,0,0,.1))}
 
 /* Welcome landscape bg */
 .welcome-bg{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
@@ -287,7 +284,7 @@ body::after{content:'';position:fixed;bottom:-100px;left:-100px;width:500px;heig
 .ftr{display:none}
 
 @media(max-width:500px){
-.wrap{padding:14px}.hero-pre{font-size:1.3rem}.hero h1{font-size:3rem;letter-spacing:6px}
+.wrap{padding:14px}.hero h1{font-size:4rem;letter-spacing:8px}
 .type-code{font-size:2.4rem;letter-spacing:5px}.type-name{font-size:1.3rem}
 .mist{width:100px;opacity:.15}
 .core-vis{height:420px}
@@ -328,45 +325,49 @@ body::after{content:'';position:fixed;bottom:-100px;left:-100px;width:500px;heig
 <!-- Full-page landscape background -->
 <div class="welcome-bg">
 <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYEnd slice" xmlns="http://www.w3.org/2000/svg">
-<!-- Sky gradient -->
 <defs>
-<linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F5E6D0"/><stop offset=".3" stop-color="#FEFCF8"/><stop offset=".6" stop-color="#F0F5FA"/><stop offset="1" stop-color="#F8F4EE"/></linearGradient>
-<radialGradient id="sunG" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#FCD34D"/><stop offset=".6" stop-color="#F97316" stop-opacity=".6"/><stop offset="1" stop-color="#F97316" stop-opacity="0"/></radialGradient>
+<linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F0F7F0"/><stop offset=".35" stop-color="#FAFFF8"/><stop offset=".55" stop-color="#F5FAF5"/><stop offset="1" stop-color="#E8F5E8"/></linearGradient>
+<linearGradient id="fog" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="transparent"/><stop offset=".7" stop-color="#F5FAF5" stop-opacity=".8"/><stop offset="1" stop-color="#F5FAF5"/></linearGradient>
+<radialGradient id="sunG" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#FCD34D"/><stop offset=".6" stop-color="#F97316" stop-opacity=".5"/><stop offset="1" stop-color="#F97316" stop-opacity="0"/></radialGradient>
 </defs>
 <rect width="1440" height="900" fill="url(#sky)"/>
-<!-- Sun halo -->
-<circle cx="1050" cy="180" r="120" fill="#FCD34D" opacity=".08"/>
 <!-- Sun -->
-<circle cx="1050" cy="180" r="50" fill="url(#sunG)" opacity=".6"/>
-<!-- Sun rays -->
-<g stroke="#FCD34D" stroke-width="1.5" opacity=".15" stroke-linecap="round">
-<line x1="1050" y1="110" x2="1050" y2="80"/><line x1="1050" y1="250" x2="1050" y2="280"/>
-<line x1="980" y1="180" x2="950" y2="180"/><line x1="1120" y1="180" x2="1150" y2="180"/>
-<line x1="1000" y1="130" x2="978" y2="108"/><line x1="1100" y1="130" x2="1122" y2="108"/>
-<line x1="1000" y1="230" x2="978" y2="252"/><line x1="1100" y1="230" x2="1122" y2="252"/>
-<line x1="988" y1="155" x2="962" y2="142"/><line x1="1112" y1="155" x2="1138" y2="142"/>
-<line x1="988" y1="205" x2="962" y2="218"/><line x1="1112" y1="205" x2="1138" y2="218"/>
+<circle cx="1080" cy="160" r="120" fill="#FCD34D" opacity=".07"/>
+<circle cx="1080" cy="160" r="45" fill="url(#sunG)" opacity=".55"/>
+<g stroke="#FCD34D" stroke-width="1.5" opacity=".12" stroke-linecap="round">
+<line x1="1080" y1="95" x2="1080" y2="65"/><line x1="1080" y1="225" x2="1080" y2="255"/>
+<line x1="1015" y1="160" x2="985" y2="160"/><line x1="1145" y1="160" x2="1175" y2="160"/>
+<line x1="1034" y1="114" x2="1014" y2="94"/><line x1="1126" y1="114" x2="1146" y2="94"/>
+<line x1="1034" y1="206" x2="1014" y2="226"/><line x1="1126" y1="206" x2="1146" y2="226"/>
 </g>
-<!-- Mountain layer 1 (farthest) -->
-<path d="M0,900 L0,560 Q80,480 180,520 Q300,440 420,500 Q560,420 700,480 Q840,400 960,460 Q1100,380 1220,440 Q1340,400 1440,480 L1440,900Z" fill="#C8B898" opacity=".2"/>
-<!-- Cloud between layers -->
-<ellipse cx="400" cy="540" rx="250" ry="20" fill="#FFFEF8" opacity=".5"/>
-<ellipse cx="1000" cy="530" rx="200" ry="16" fill="#FFFEF8" opacity=".4"/>
-<!-- Mountain layer 2 -->
-<path d="M0,900 L0,600 Q120,520 260,570 Q400,490 540,550 Q680,470 820,540 Q960,480 1100,530 Q1240,460 1440,560 L1440,900Z" fill="#A89878" opacity=".25"/>
-<!-- Cloud layer 2 -->
-<ellipse cx="700" cy="590" rx="300" ry="18" fill="#FFFEF8" opacity=".55"/>
-<!-- Mountain layer 3 -->
-<path d="M0,900 L0,650 Q140,570 300,620 Q460,540 620,600 Q780,530 940,590 Q1100,520 1260,580 Q1380,560 1440,620 L1440,900Z" fill="#8B7D62" opacity=".2"/>
-<!-- Mountain layer 4 (nearest) -->
-<path d="M0,900 L0,710 Q160,640 340,690 Q520,620 700,680 Q880,620 1060,670 Q1240,630 1440,700 L1440,900Z" fill="#6B5D48" opacity=".15"/>
-<!-- Pine tree silhouettes -->
-<g fill="#5B4D3A" opacity=".1">
-<path d="M80,710 L90,660 L85,670 L95,630 L88,645 L98,600 L78,645 L72,630 L82,670 L75,660Z"/>
-<path d="M120,720 L128,680 L124,688 L132,655 L126,665 L134,630 L118,665 L114,655 L122,688 L116,680Z"/>
-<path d="M1340,700 L1350,650 L1345,660 L1355,620 L1348,635 L1358,590 L1338,635 L1332,620 L1342,660 L1335,650Z"/>
-<path d="M1380,715 L1388,670 L1384,680 L1392,645 L1386,658 L1394,620 L1376,658 L1372,645 L1382,680 L1375,670Z"/>
+<!-- Mountain layer 1 (farthest, grey-green) -->
+<path d="M0,900 L0,420 Q100,350 220,390 Q380,310 520,370 Q680,290 840,360 Q1000,280 1160,340 Q1300,300 1440,380 L1440,900Z" fill="#B8D4B8" opacity=".3"/>
+<!-- Clouds between layer 1-2 -->
+<ellipse cx="350" cy="420" rx="280" ry="22" fill="white" opacity=".5">
+<animate attributeName="cx" values="350;400;350" dur="120s" repeatCount="indefinite"/>
+</ellipse>
+<ellipse cx="1050" cy="430" rx="220" ry="18" fill="white" opacity=".4">
+<animate attributeName="cx" values="1050;990;1050" dur="120s" repeatCount="indefinite"/>
+</ellipse>
+<!-- Mountain layer 2 (grass green) -->
+<path d="M0,900 L0,500 Q130,430 280,470 Q440,390 600,450 Q760,380 920,440 Q1080,370 1240,430 Q1360,400 1440,460 L1440,900Z" fill="#8BBF8B" opacity=".35"/>
+<!-- Clouds between layer 2-3 -->
+<ellipse cx="700" cy="510" rx="320" ry="20" fill="white" opacity=".55">
+<animate attributeName="cx" values="700;760;700" dur="100s" repeatCount="indefinite"/>
+</ellipse>
+<!-- Mountain layer 3 (deep green) -->
+<path d="M0,900 L0,590 Q150,520 320,560 Q500,480 680,540 Q860,470 1040,530 Q1200,480 1360,520 Q1420,510 1440,540 L1440,900Z" fill="#5A9E5A" opacity=".3"/>
+<!-- Mountain layer 4 (darkest, nearest) -->
+<path d="M0,900 L0,680 Q180,610 380,660 Q560,590 740,650 Q920,600 1100,645 Q1280,610 1440,670 L1440,900Z" fill="#3D7A3D" opacity=".25"/>
+<!-- Pine silhouettes -->
+<g fill="#2D5F2D" opacity=".1">
+<path d="M70,680 L80,630 L76,640 L86,600 L79,615 L89,570 L69,615 L63,600 L73,640 L66,630Z"/>
+<path d="M110,690 L118,650 L114,658 L124,620 L117,635 L126,590 L108,635 L104,620 L113,658 L107,650Z"/>
+<path d="M1330,670 L1340,620 L1336,630 L1346,590 L1339,605 L1349,560 L1329,605 L1323,590 L1333,630 L1326,620Z"/>
+<path d="M1370,685 L1378,640 L1374,650 L1384,615 L1377,628 L1386,590 L1368,628 L1364,615 L1373,650 L1367,640Z"/>
 </g>
+<!-- Bottom fade -->
+<rect y="750" width="1440" height="150" fill="url(#fog)"/>
 </svg>
 </div>
 <div class="particles">
@@ -376,10 +377,7 @@ body::after{content:'';position:fixed;bottom:-100px;left:-100px;width:500px;heig
 <div class="sparkle-dot sp4"></div><div class="sparkle-dot sp5"></div>
 </div>
 <div class="hero" style="padding-bottom:10px">
-<div class="hero-pre">測算你的</div>
 <h1>修仙靈根</h1>
-<div class="hero-divider"></div>
-<div class="hero-sub">五行歸位 · 變異覺醒</div>
 </div>
 
 <!-- CORE VISUAL: Taiji + Wuxing Orbit -->
