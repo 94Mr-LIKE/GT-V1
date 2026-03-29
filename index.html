@@ -6,10 +6,9 @@
 <title>個人決策風格問卷</title>
 <meta name="description" content="三軸 × 27 型 × 靈根系統 · 30 題找出你的做事風格、能量來源、內心羅盤">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>☀</text></svg>">
-<link href="https://fonts.googleapis.com/css2?family=Liu+Jian+Mao+Cao&family=Ma+Shan+Zheng&family=ZCOOL+XiaoWei&family=Nunito:wght@400;500;600;700;800;900&family=Quicksand:wght@500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=Quicksand:wght@500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
-@font-face{font-family:'MasaFont';src:url('https://cdn.jsdelivr.net/gh/max32002/masafont@1.0/webfont/MasaFont-Regular.woff2') format('woff2');font-display:swap}
-@font-face{font-family:'NaikaiFont';src:url('https://cdn.jsdelivr.net/gh/max32002/naikaifont@1.0/webfont/NaikaiFont-Regular-Lite.woff2') format('woff2');font-display:swap}
+@font-face{font-family:'KuangCao';src:url('./狂草.ttf') format('truetype');font-display:swap}
 @property --bd-angle{syntax:"<angle>";initial-value:0deg;inherits:false}
 @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
 @keyframes pop{0%{transform:scale(.94);opacity:0}70%{transform:scale(1.01)}100%{transform:scale(1);opacity:1}}
@@ -224,7 +223,7 @@ body::after{content:'';position:fixed;bottom:-100px;left:-100px;width:500px;heig
 
 /* HERO XIANXIA */
 .hero{position:relative;z-index:1}
-.hero h1{font-family:'MasaFont','NaikaiFont',"Ma Shan Zheng","Liu Jian Mao Cao",cursive;font-size:6rem;background:linear-gradient(135deg,#DC2626,#F97316,#DC2626);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:16px;line-height:1.15;margin-bottom:0;filter:drop-shadow(0 0 40px rgba(220,38,38,.3)) drop-shadow(0 4px 8px rgba(0,0,0,.1))}
+.hero h1{font-family:'KuangCao',cursive;font-size:6rem;background:linear-gradient(135deg,#DC2626,#F97316,#DC2626);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:16px;line-height:1.15;margin-bottom:0;filter:drop-shadow(0 0 40px rgba(220,38,38,.3)) drop-shadow(0 4px 8px rgba(0,0,0,.1))}
 
 /* Welcome landscape bg */
 .welcome-bg{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
@@ -286,7 +285,7 @@ body::after{content:'';position:fixed;bottom:-100px;left:-100px;width:500px;heig
 .ftr{display:none}
 
 @media(max-width:500px){
-.wrap{padding:14px}.hero h1{font-size:4rem;letter-spacing:10px}
+.wrap{padding:14px}.hero h1{font-size:3.5rem;letter-spacing:10px}
 .type-code{font-size:2.4rem;letter-spacing:5px}.type-name{font-size:1.3rem}
 .mist{width:100px;opacity:.15}
 .core-vis{height:420px}
