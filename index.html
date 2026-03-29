@@ -525,10 +525,12 @@ var axC={A:['#F97316','#FDBA74'],B:['#06B6D4','#67E8F9'],C:['#D946EF','#E879F9']
 var axN={A:'做事風格',B:'能量來源',C:'內心羅盤'};
 var axP={A:'目標導向',B:'外向充電',C:'自我導向'};
 var axNg={A:'關係導向',B:'內向充電',C:'他人導向'};
-var axD={A:{h:"在需要做取捨時，你傾向先推進度、先解決問題。時間有限的情況下先處理事情。",m:"你在「先做事」和「先顧人」之間沒有固定偏好，根據情況靈活切換。",l:"在需要做取捨時，你傾向先確認人的狀態。事情可以慢，但人不能不舒服。"},B:{h:"跟人在一起會讓你充電。獨處太久你會悶，需要社交互動來維持精力。",m:"能量來源不固定——有時候需要人、有時候需要獨處，取決於當下狀態。",l:"社交會消耗你的能量，即使過程很開心。你需要獨處時間來恢復。"},C:{h:"你很清楚自己想要什麼，外界聲音不太容易改變你的判斷。內心有自己的標準。",m:"在「聽自己的」和「參考別人的」之間保持彈性。有些事很有主見，有些事順著大家。",l:"別人怎麼看你、怎麼想你很重要。做決定時會把身邊的人的反應納入考量。"}};
+var axD={A:{h:"在需要做取捨的時候，你傾向先推進度、先解決問題。當時間有限，你會選擇先把事情搞定，再回頭處理人的感受。這不代表你不在乎人，而是在壓力下你的本能反應是「先做完再說」。在團隊中，你常常是那個推動進度的人，即使這有時會讓別人覺得你太急。",m:"你在「先做事」和「先顧人」之間沒有固定偏好，會根據當下的情況靈活切換。有時候你會很果斷地推進事情，有時候你又很自然地先顧慮到人的感受。這種彈性是你的優勢——你不會被框在某一種模式裡。但偶爾你可能會不確定自己到底偏向哪邊。",l:"在需要做取捨的時候，你傾向先確認人的狀態。事情可以慢一點，但人不能不舒服。你天生對別人的情緒很敏感，會不自覺地先考慮「這樣做大家會不會不開心」。這讓你成為團隊裡讓人安心的存在，但也可能讓你在需要快速決策時有些猶豫。"},B:{h:"跟人在一起會讓你充電。獨處太久你會悶，你需要社交互動來維持精力和動力。熱鬧的環境讓你感到自在，你在人群中反而更能思考、更有靈感。不過這不代表你膚淺或害怕獨處——你只是從人際互動中獲得更多能量。",m:"你的能量來源不固定——有時候需要人陪，有時候需要獨處，完全取決於當下的狀態和心情。你不會特別渴望社交，也不會特別抗拒。這種平衡讓你在各種場合都能適應，但有時你可能需要主動覺察自己當下到底需要什麼。",l:"社交活動會消耗你的能量，即使過程很開心，結束後你還是需要一段時間獨處來恢復。你的內在世界很豐富，獨處對你來說不是寂寞而是充電。你喜歡深度的一對一互動勝過大群體社交，選擇性地把能量花在真正在乎的人身上。"},C:{h:"你很清楚自己想要什麼，外界的聲音不太容易改變你的判斷。你不是固執，而是內心有一套自己的標準和邏輯。做決定的時候你主要依靠自己的判斷，別人的意見你會聽但不一定會採納。這種獨立性讓你很有主見，但也要留意是否偶爾錯過了別人的好建議。",m:"你在「聽自己的」和「參考別人的」之間保持彈性。有些事你很有主見，有些事你願意順著大家。你不會為了跟別人不同而堅持，也不會為了合群而放棄自己的想法。這種靈活度讓你能在保持自我的同時也顧及到周圍人的感受。",l:"別人怎麼看你、怎麼想你，對你來說是很重要的考量。做決定的時候你會自然地把身邊的人的反應納入考量。你很善於讀懂別人的期待，這讓你在社交中很受歡迎。但要留意不要為了別人的眼光而忽略了自己真正想要的。"}};
 
 // === APP STATE ===
 var ans={},TOT=Q.length,PG=0,PAGES=6;
+var _saved=sessionStorage.getItem('gt_v1_answers');
+if(_saved)try{ans=JSON.parse(_saved)}catch(e){}
 
 function go(){
   document.getElementById('welcome').classList.add('hidden');
@@ -571,7 +573,9 @@ function pk(qi,oi){
   var c=document.getElementById('qc'+qi);
   c.querySelectorAll('.opt').forEach(function(o){o.classList.remove('sel')});
   c.querySelectorAll('.opt')[oi].classList.add('sel');c.classList.add('done');
-  ans[qi]=oi;updProg();
+  ans[qi]=oi;
+  sessionStorage.setItem('gt_v1_answers',JSON.stringify(ans));
+  updProg();
   if(PG===PAGES-1){var nb=document.getElementById('nxBtn');if(nb)nb.disabled=Object.keys(ans).length<TOT;}
 }
 
@@ -592,45 +596,100 @@ function calc(){
 
 var CHAR={GES:'🗡️',GEO:'🎭',GIS:'🔨',GIO:'♟️',PES:'🛡️',PEO:'🕊️',PIS:'🏔️',PIO:'🕯️',BES:'🎪',BEO:'🤝',BIS:'👁️',BIO:'🦋',GMS:'⚙️',GMO:'🎯',PMS:'📖',PMO:'💛',GEA:'🚀',GIA:'🔬',PEA:'🌈',PIA:'👂',BMS:'☯️',BMO:'🔗',GMA:'⚡',PMA:'🌸',BEA:'✨',BIA:'🌙',BMA:'∞'};
 
+function buildChar(code){
+  var a1=code[0],a2=code[1],a3=code[2];
+  var t=T[code],rc=t.rt.map(function(rn){return ROOT_INFO[rn].color});
+  if(rc.length===0)rc=['#9CA3AF','#D1D5DB'];
+  var g1=rc[0],g2=rc[rc.length>1?1:0];
+
+  var svg='<svg width="160" height="200" viewBox="0 0 160 200" fill="none" xmlns="http://www.w3.org/2000/svg">';
+  svg+='<defs><linearGradient id="charG" x1="80" y1="0" x2="80" y2="200" gradientUnits="userSpaceOnUse"><stop stop-color="'+g1+'"/><stop offset="1" stop-color="'+g2+'"/></linearGradient></defs>';
+
+  // Base pose by first letter
+  if(a1==='G'){
+    // Upright, holding weapon gesture
+    svg+='<path d="M80 20 Q90 18 88 30 Q92 28 90 22 Q86 15 80 20Z" fill="url(#charG)" opacity=".9"/>';// head
+    svg+='<circle cx="80" cy="32" r="18" fill="url(#charG)" opacity=".85"/>';// head circle
+    svg+='<path d="M62 48 Q58 55 55 80 Q52 110 60 140 L80 145 L100 140 Q108 110 105 80 Q102 55 98 48 Q90 44 80 44 Q70 44 62 48Z" fill="url(#charG)" opacity=".75"/>';// body
+    svg+='<path d="M55 80 Q42 75 35 65 L33 60" stroke="url(#charG)" stroke-width="5" fill="none" stroke-linecap="round" opacity=".7"/>';// left arm up (holding)
+    svg+='<path d="M105 80 Q115 90 120 110 L118 120" stroke="url(#charG)" stroke-width="5" fill="none" stroke-linecap="round" opacity=".7"/>';// right arm
+    // Sword in left hand
+    svg+='<line x1="33" y1="60" x2="28" y2="15" stroke="'+g1+'" stroke-width="2.5" opacity=".5"/>';
+    svg+='<line x1="28" y1="15" x2="28" y2="8" stroke="'+g1+'" stroke-width="1.5" opacity=".35"/>';
+  }else if(a1==='P'){
+    // Gentle, arms open
+    svg+='<circle cx="80" cy="32" r="18" fill="url(#charG)" opacity=".85"/>';
+    svg+='<path d="M62 48 Q58 55 56 80 Q54 110 62 140 L80 148 L98 140 Q106 110 104 80 Q102 55 98 48 Q90 44 80 44 Q70 44 62 48Z" fill="url(#charG)" opacity=".7"/>';
+    svg+='<path d="M56 75 Q40 68 28 72 Q20 78 18 85" stroke="url(#charG)" stroke-width="5" fill="none" stroke-linecap="round" opacity=".65"/>';// left arm open
+    svg+='<path d="M104 75 Q120 68 132 72 Q140 78 142 85" stroke="url(#charG)" stroke-width="5" fill="none" stroke-linecap="round" opacity=".65"/>';// right arm open
+  }else{
+    // Seated meditation
+    svg+='<circle cx="80" cy="38" r="18" fill="url(#charG)" opacity=".85"/>';
+    svg+='<path d="M62 54 Q58 62 56 85 Q54 100 60 115 L80 120 L100 115 Q106 100 104 85 Q102 62 98 54 Q90 50 80 50 Q70 50 62 54Z" fill="url(#charG)" opacity=".7"/>';
+    svg+='<path d="M56 100 Q48 115 45 125 Q50 130 60 128" stroke="url(#charG)" stroke-width="5" fill="none" stroke-linecap="round" opacity=".6"/>';// crossed leg left
+    svg+='<path d="M104 100 Q112 115 115 125 Q110 130 100 128" stroke="url(#charG)" stroke-width="5" fill="none" stroke-linecap="round" opacity=".6"/>';// crossed leg right
+    // Hands on knees
+    svg+='<path d="M56 85 Q48 88 50 95" stroke="url(#charG)" stroke-width="4" fill="none" stroke-linecap="round" opacity=".55"/>';
+    svg+='<path d="M104 85 Q112 88 110 95" stroke="url(#charG)" stroke-width="4" fill="none" stroke-linecap="round" opacity=".55"/>';
+  }
+
+  // Energy pattern by second letter
+  if(a2==='E'){
+    // Radiating lines
+    for(var i=0;i<8;i++){
+      var angle=i*45*Math.PI/180;
+      var x1=80+38*Math.cos(angle),y1=(a1==='B'?70:60)+38*Math.sin(angle);
+      var x2=80+65*Math.cos(angle),y2=(a1==='B'?70:60)+65*Math.sin(angle);
+      svg+='<line x1="'+x1+'" y1="'+y1+'" x2="'+x2+'" y2="'+y2+'" stroke="'+g1+'" stroke-width="1" opacity=".2"/>';
+    }
+  }else if(a2==='I'){
+    // Inner halo rings
+    var cy=a1==='B'?70:55;
+    svg+='<circle cx="80" cy="'+cy+'" r="45" stroke="'+g1+'" stroke-width="1" opacity=".15" fill="none"/>';
+    svg+='<circle cx="80" cy="'+cy+'" r="55" stroke="'+g2+'" stroke-width=".8" opacity=".1" fill="none"/>';
+  }else{
+    // Flowing taiji curves
+    var cy=a1==='B'?75:60;
+    svg+='<path d="M35 '+cy+' Q60 '+(cy-25)+' 80 '+cy+' Q100 '+(cy+25)+' 125 '+cy+'" stroke="'+g1+'" stroke-width="1" fill="none" opacity=".18"/>';
+    svg+='<path d="M30 '+(cy+15)+' Q60 '+(cy+40)+' 80 '+(cy+15)+' Q100 '+(cy-10)+' 130 '+(cy+15)+'" stroke="'+g2+'" stroke-width="1" fill="none" opacity=".15"/>';
+  }
+
+  // Spirit element by third letter
+  if(a3==='S'){
+    // Star/sword qi above head
+    var hy=a1==='B'?18:10;
+    svg+='<polygon points="80,'+hy+' 82,'+(hy+6)+' 88,'+(hy+6)+' 83,'+(hy+10)+' 85,'+(hy+16)+' 80,'+(hy+12)+' 75,'+(hy+16)+' 77,'+(hy+10)+' 72,'+(hy+6)+' 78,'+(hy+6)+'" fill="'+g1+'" opacity=".35"/>';
+  }else if(a3==='O'){
+    // Small dots around (representing others)
+    var dots=[[30,45],[130,50],[25,100],[135,95],[40,140],[120,138]];
+    dots.forEach(function(d){svg+='<circle cx="'+d[0]+'" cy="'+d[1]+'" r="3" fill="'+g2+'" opacity=".25"/>';});
+  }else{
+    // Flowing wind/water lines
+    var by=a1==='B'?130:145;
+    svg+='<path d="M25 '+by+' Q55 '+(by-15)+' 80 '+by+' Q105 '+(by+15)+' 135 '+by+'" stroke="'+g1+'" stroke-width="1.2" fill="none" opacity=".2"/>';
+    svg+='<path d="M20 '+(by+12)+' Q50 '+(by-3)+' 80 '+(by+12)+' Q110 '+(by+27)+' 140 '+(by+12)+'" stroke="'+g2+'" stroke-width="1" fill="none" opacity=".15"/>';
+  }
+
+  // Base platform glow
+  var py=a1==='B'?155:170;
+  svg+='<ellipse cx="80" cy="'+py+'" rx="50" ry="8" fill="'+g1+'" opacity=".1"/>';
+  svg+='</svg>';
+  return svg;
+}
+
 function show(nm,code){
-  var t=T[code],r='<div class="res-enter">';
-  // Build gradient colors from roots
+  window.location.hash='result='+code+'&A='+nm.A.toFixed(1)+'&B='+nm.B.toFixed(1)+'&C='+nm.C.toFixed(1);
+  var t=T[code];
+  var rootBgs={"金":"linear-gradient(180deg,#FFFBEB,#FEF3C7,#FFFBEB)","木":"linear-gradient(180deg,#F0FDF4,#DCFCE7,#F0FDF4)","火":"linear-gradient(180deg,#FEF2F2,#FEE2E2,#FEF2F2)","水":"linear-gradient(180deg,#EFF6FF,#DBEAFE,#EFF6FF)","土":"linear-gradient(180deg,#FFFBEB,rgba(253,230,138,.2),#FFFBEB)","月":"linear-gradient(180deg,#F5F3FF,#EDE9FE,#F5F3FF)"};
+  var primaryRoot=t.rt.length>0?t.rt[0]:null;
+  var resBg=primaryRoot?rootBgs[primaryRoot]:"linear-gradient(180deg,#F9FAFB,#F3F4F6,#F9FAFB)";
   var rc=t.rt.map(function(rn){return ROOT_INFO[rn].color});
   if(rc.length===0) rc=['#9CA3AF','#D1D5DB','#E5E7EB'];
-  var g1=rc[0],g2=rc[rc.length>1?1:0],g3=rc[rc.length>2?2:0];
-  // Banner
-  r+='<div class="type-banner"><div class="banner-bg" style="background:linear-gradient(135deg,'+g1+'11,'+g2+'11,'+g3+'11);--b1:'+g1+';--b2:'+g2+';--b3:'+g3+'">';
-  // Character
-  r+='<div class="char-stage">';
-  r+='<div class="char-aura" style="background:radial-gradient(circle,'+g1+'33,'+g2+'22,transparent 70%)"></div>';
-  r+='<div class="char-body">'+CHAR[code]+'</div>';
-  r+='<div class="root-orbit">';
-  var orbs=t.rt.length>0?t.rt:['✧'];
-  orbs.forEach(function(rn,i){
-    var ico=ROOT_INFO[rn]?ROOT_INFO[rn].icon:rn;
-    var dur=(8+i*3)+'s';var del=(i*2)+'s';
-    r+='<div class="root-orb" style="--dur:'+dur+';--del:'+del+'">'+ico+'</div>';
-  });
-  if(t.vr){
-    var vi=VARIANT_INFO[t.vr];
-    r+='<div class="root-orb" style="--dur:6s;--del:1s;font-size:1.4rem">'+vi.icon+'</div>';
-  }
-  r+='</div></div>';
-  // Info
-  r+='<div class="type-badge mono">YOUR TYPE</div><br>';
-  r+='<div class="type-code mono" style="color:'+g1+'">'+code+'</div>';
-  r+='<div class="type-name disp">'+t.n+'</div>';
-  r+='<div class="type-en">'+t.en+'</div>';
-  // Root tags
-  r+='<div class="root-tags">';
-  t.rt.forEach(function(rn){var ri=ROOT_INFO[rn];r+='<span class="root-tag" style="color:'+ri.color+';border-color:'+ri.color+'33">'+ri.icon+' '+ri.label+'</span>';});
-  if(t.vr){var vi=VARIANT_INFO[t.vr];r+='<span class="root-tag variant-tag" style="color:'+vi.color+';border-color:'+vi.color+'">'+vi.icon+' '+vi.label+'</span>';}
-  if(t.rt.length===0) r+='<span class="root-tag" style="color:#6B7280;border-color:#D1D5DB">✧ 混沌靈體</span>';
-  r+='</div>';
-  r+='</div></div>';
+  var g1=rc[0],g2=rc[rc.length>1?1:0];
+  var r='<div class="res-enter" style="background:'+resBg+';border-radius:var(--r);padding:16px;margin:-20px;margin-top:0">';
 
-  // Spirit Roots
-  r+='<div class="rcard"><h3>✦ 靈根屬性</h3>';
+  // 1. Spirit Roots (most prominent)
+  r+='<div class="rcard"><h3 style="font-size:1.1rem">✦ 靈根屬性</h3>';
   r+='<div class="roots-row">';
   if(t.rt.length===0){
     r+='<div class="root-chip" style="border-color:#9CA3AF;color:#6B7280"><span class="ri">✧</span>混沌靈體</div>';
@@ -643,36 +702,62 @@ function show(nm,code){
     t.rt.forEach(function(rn,i){var ri=ROOT_INFO[rn];r+=(i>0?' · ':'')+ri.icon+' '+ri.desc;});
     r+='</div>';
   }
-  if(t.vr){
-    var vi=VARIANT_INFO[t.vr];
-    r+='<div class="variant-banner" style="border-color:'+vi.bd+';background:'+vi.bg+'">';
-    r+='<h4><span style="font-size:1.2rem">'+vi.icon+'</span><span style="color:'+vi.color+'">變異：'+vi.label+'</span><span style="font-size:.72rem;color:var(--tx3);font-weight:500">（'+vi.origin+'）</span></h4>';
-    r+='<p>'+vi.desc+'</p></div>';
-  }
   r+='</div>';
 
-  // Axes
-  r+='<div class="rcard"><h3>📊 三軸分數</h3>';
-  ['A','B','C'].forEach(function(a,i){r+=bAxis(a,nm[a],i);});r+='</div>';
+  // 2. Character portrait
+  r+='<div style="text-align:center;margin:16px 0">'+buildChar(code)+'</div>';
 
-  // Desc
+  // 3. Type code + name
+  r+='<div class="rcard" style="text-align:center;padding:24px">';
+  r+='<div class="mono" style="font-size:.7rem;color:var(--tx3);letter-spacing:2px;margin-bottom:4px">YOUR TYPE</div>';
+  r+='<div class="mono" style="font-size:2.6rem;font-weight:800;letter-spacing:7px;color:'+g1+'">'+code+'</div>';
+  r+='<div class="disp" style="font-size:1.6rem;font-weight:800">'+t.n+'</div>';
+  r+='<div style="font-size:.82rem;color:var(--tx3)">'+t.en+'</div>';
+  r+='<div style="display:flex;justify-content:center;flex-wrap:wrap;gap:5px;margin-top:10px">';
+  t.rt.forEach(function(rn){var ri=ROOT_INFO[rn];r+='<span class="root-tag" style="color:'+ri.color+';border-color:'+ri.color+'33">'+ri.icon+' '+ri.label+'</span>';});
+  if(t.vr){var vi=VARIANT_INFO[t.vr];r+='<span class="root-tag variant-tag" style="color:'+vi.color+';border-color:'+vi.color+'">'+vi.icon+' '+vi.label+'</span>';}
+  if(t.rt.length===0) r+='<span class="root-tag" style="color:#6B7280;border-color:#D1D5DB">✧ 混沌靈體</span>';
+  r+='</div></div>';
+
+  // 4. Type description
   r+='<div class="rcard"><div class="type-prose">'+t.d+'</div>';
   r+='<div class="dblock"><h4>😣 最不舒服的情境</h4><p>'+t.p+'</p></div>';
   r+='<div class="dblock"><h4>👀 別人眼中的你</h4><p>'+t.v+'</p></div></div>';
 
-  // Axis explains
+  // 5. Axis explains (detailed)
   r+='<div class="rcard"><h3>📝 各軸解讀</h3>';
-  ['A','B','C'].forEach(function(a){var v=nm[a],desc=v>=3?axD[a].h:v<=-3?axD[a].l:axD[a].m;var abs=Math.abs(v);var str=abs>=7?'非常明確':abs>=4?'清楚的傾向':abs>=2?'有傾向但不強烈':'中間帶';var cls=['var(--axA)','var(--axB)','var(--axC)'][['A','B','C'].indexOf(a)];
-  r+='<div class="ax-exp" style="border-color:'+axC[a][0]+';background:'+(['var(--axAl)','var(--axBl)','var(--axCl)'][['A','B','C'].indexOf(a)])+'"><h4><span style="color:'+axC[a][0]+'">'+axN[a]+'</span><span class="str">'+str+'</span></h4><p>'+desc+'</p></div>';});r+='</div>';
+  ['A','B','C'].forEach(function(a){
+    var v=nm[a],desc=v>=3?axD[a].h:v<=-3?axD[a].l:axD[a].m;
+    var abs=Math.abs(v);
+    var str=abs>=7?'非常明確':abs>=4?'清楚的傾向':abs>=2?'有傾向但不強烈':'中間帶';
+    r+='<div class="ax-exp" style="border-color:'+axC[a][0]+';background:'+(['var(--axAl)','var(--axBl)','var(--axCl)'][['A','B','C'].indexOf(a)])+'"><h4><span style="color:'+axC[a][0]+'">'+axN[a]+'</span><span class="str">'+str+'</span></h4><p>'+desc+'</p></div>';
+  });
+  r+='</div>';
 
-  // Share
+  // 6. Axes chart
+  r+='<div class="rcard"><h3>📊 三軸分數</h3>';
+  ['A','B','C'].forEach(function(a,i){r+=bAxis(a,nm[a],i);});
+  r+='</div>';
+
+  // 7. Variant root (if applicable)
+  if(t.vr){
+    var vi=VARIANT_INFO[t.vr];
+    r+='<div class="rcard">';
+    r+='<div class="variant-banner" style="border-color:'+vi.bd+';background:'+vi.bg+'">';
+    r+='<h4><span style="font-size:1.2rem">'+vi.icon+'</span><span style="color:'+vi.color+'">變異：'+vi.label+'</span><span style="font-size:.72rem;color:var(--tx3);font-weight:500">（'+vi.origin+'）</span></h4>';
+    r+='<p>'+vi.desc+'</p></div></div>';
+  }
+
+  // 8. Share + disclaimer + restart
   var shareText=code+' · '+t.n+(t.vr?' · '+VARIANT_INFO[t.vr].icon+VARIANT_INFO[t.vr].label:'');
   r+='<div class="share-area"><p>你的類型（點擊複製）</p><div class="share-btn" onclick="cpy(this)">'+shareText+'</div></div>';
   r+='<div class="disc">本問卷為探索性自我認識工具，不是心理診斷。結果反映你在 30 題上的作答傾向，不是你的全部。</div>';
-  r+='<button class="btn btn-alt" onclick="location.reload()">重新作答</button></div>';
+  r+='<button class="btn btn-alt" onclick="sessionStorage.removeItem(\'gt_v1_answers\');window.location.hash=\'\';location.reload()">重新作答</button></div>';
 
   document.getElementById('quiz').classList.add('hidden');
-  document.getElementById('result').innerHTML=r;document.getElementById('result').classList.remove('hidden');
+  document.getElementById('welcome').classList.add('hidden');
+  document.getElementById('result').innerHTML=r;
+  document.getElementById('result').classList.remove('hidden');
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
@@ -684,6 +769,17 @@ function bAxis(a,val,idx){
 }
 
 function cpy(el){var txt=el.textContent;if(navigator.clipboard)navigator.clipboard.writeText(txt);else{var ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta)}el.classList.add('copied');el.textContent='✓ 已複製';setTimeout(function(){el.classList.remove('copied');el.textContent=txt},1500);}
+
+window.addEventListener('load',function(){
+  var h=window.location.hash;
+  if(h.indexOf('result=')>-1){
+    var ps={};h.replace('#','').split('&').forEach(function(p){var kv=p.split('=');ps[kv[0]]=kv[1];});
+    if(ps.result&&ps.A&&ps.B&&ps.C){
+      var nm={A:parseFloat(ps.A),B:parseFloat(ps.B),C:parseFloat(ps.C)};
+      show(nm,ps.result);
+    }
+  }
+});
 </script>
 </body>
 </html>
