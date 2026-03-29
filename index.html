@@ -194,8 +194,8 @@ body::after{content:'';position:fixed;bottom:-150px;left:-150px;width:400px;heig
 .sp5{top:50%;left:50%;animation:sparkle 3s ease-in-out infinite 2s}
 
 /* BAGUA */
-.bagua-wrapper{position:relative;display:inline-block;text-align:center}
-.bagua-svg{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:450px;height:450px;z-index:0;opacity:.3;animation:bagua 90s linear infinite;pointer-events:none;overflow:visible}
+.bagua-wrapper{position:relative;width:100%;text-align:center;overflow:hidden}
+.bagua-svg{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:350px;height:350px;z-index:0;opacity:.3;animation:bagua 90s linear infinite;pointer-events:none}
 .bagua-wrapper h1,.bagua-wrapper .hero-sub,.bagua-wrapper .hero-divider{position:relative;z-index:2}
 
 /* MIST EFFECT */
@@ -212,6 +212,7 @@ body::after{content:'';position:fixed;bottom:-150px;left:-150px;width:400px;heig
 .hero-sub{color:var(--tx2);font-size:.88rem;margin-top:12px;font-weight:500}
 
 /* SPIRIT ROOT GRID */
+.root-grid-wrap{position:relative;z-index:10}
 .root-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:20px 0;animation:fadeUp .7s ease-out .1s both}
 .root-flip{perspective:600px;height:160px;cursor:pointer}
 .root-flip-inner{position:relative;width:100%;height:100%;transition:transform .6s;transform-style:preserve-3d}
@@ -241,7 +242,6 @@ body::after{content:'';position:fixed;bottom:-150px;left:-150px;width:400px;heig
 .root-flip:nth-child(6) .root-flip-front{border-color:rgba(167,139,250,.5);background:#EDE9FE}.root-flip:nth-child(6) .root-flip-back{background:#EDE9FE}.root-flip:nth-child(6) .rf-name{color:#7C3AED}
 
 /* WUXING LINES (decorative) */
-.root-grid-wrap{position:relative}
 .wuxing-lines{position:absolute;inset:0;pointer-events:none;z-index:0}
 .wuxing-lines svg{width:100%;height:100%;opacity:.08}
 
@@ -274,7 +274,7 @@ body::after{content:'';position:fixed;bottom:-150px;left:-150px;width:400px;heig
 @media(max-width:500px){
 .wrap{padding:14px}.hero h1{font-size:1.8rem}.hero h1 em{font-size:2.2rem}
 .type-code{font-size:2.4rem;letter-spacing:5px}.type-name{font-size:1.3rem}
-.bagua-svg{width:320px;height:320px;opacity:.25}
+.bagua-svg{width:280px;height:280px;opacity:.25}
 .root-grid{grid-template-columns:repeat(2,1fr);gap:8px}
 .root-flip{height:140px}
 .root-flip-front .rf-icon svg{width:80px!important;height:80px!important}
