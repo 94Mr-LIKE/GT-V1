@@ -688,36 +688,40 @@ function show(nm,code){
   var g1=rc[0],g2=rc[rc.length>1?1:0];
   var r='<div class="res-enter" style="background:'+resBg+';border-radius:var(--r);padding:16px;margin:-20px;margin-top:0">';
 
-  // 1. Spirit Roots (most prominent)
-  r+='<div class="rcard"><h3 style="font-size:1.1rem">✦ 靈根屬性</h3>';
-  r+='<div class="roots-row">';
+  // 1. Main visual: roots + character portrait (merged hero card)
+  var rootTitle=t.rt.length>0?t.rt.map(function(rn){return ROOT_INFO[rn].label}).join(' · '):'混沌靈體';
+  var rootTitleColor=t.rt.length>0?g1:'#6B7280';
+  var heroBg=primaryRoot?ROOT_INFO[primaryRoot].bg:'#F3F4F6';
+  r+='<div class="rcard" style="text-align:center;padding:28px 20px;min-height:300px;background:'+heroBg+'">';
+  // Character SVG
+  r+='<div style="margin-bottom:12px">'+buildChar(code)+'</div>';
+  // Root title (large)
+  r+='<div style="font-size:2.2rem;font-weight:800;color:'+rootTitleColor+';line-height:1.3;margin-bottom:4px">'+rootTitle+'</div>';
+  // Variant awakening
+  if(t.vr){var vi2=VARIANT_INFO[t.vr];r+='<div style="font-size:1rem;color:'+vi2.color+';font-weight:700;margin-bottom:8px">'+vi2.icon+' '+vi2.label+'覺醒</div>';}
+  // Root tags
+  r+='<div style="display:flex;justify-content:center;flex-wrap:wrap;gap:5px;margin-top:8px">';
   if(t.rt.length===0){
-    r+='<div class="root-chip" style="border-color:#9CA3AF;color:#6B7280"><span class="ri">✧</span>混沌靈體</div>';
+    r+='<span class="root-tag" style="color:#6B7280;border-color:#D1D5DB">✧ 混沌靈體</span>';
   }else{
-    t.rt.forEach(function(rn){var ri=ROOT_INFO[rn];r+='<div class="root-chip" style="border-color:'+ri.color+';color:'+ri.color+';background:'+ri.bg+'"><span class="ri">'+ri.icon+'</span>'+ri.label+'</div>';});
+    t.rt.forEach(function(rn){var ri=ROOT_INFO[rn];r+='<span class="root-tag" style="color:'+ri.color+';border-color:'+ri.color+'33">'+ri.icon+' '+ri.label+'</span>';});
   }
   r+='</div>';
+  // Root descriptions
   if(t.rt.length>0){
-    r+='<div style="font-size:.8rem;color:var(--tx3);margin-bottom:8px">';
+    r+='<div style="font-size:.78rem;color:var(--tx3);margin-top:10px">';
     t.rt.forEach(function(rn,i){var ri=ROOT_INFO[rn];r+=(i>0?' · ':'')+ri.icon+' '+ri.desc;});
     r+='</div>';
   }
   r+='</div>';
 
-  // 2. Character portrait
-  r+='<div style="text-align:center;margin:16px 0">'+buildChar(code)+'</div>';
-
-  // 3. Type code + name
-  r+='<div class="rcard" style="text-align:center;padding:24px">';
-  r+='<div class="mono" style="font-size:.7rem;color:var(--tx3);letter-spacing:2px;margin-bottom:4px">YOUR TYPE</div>';
-  r+='<div class="mono" style="font-size:2.6rem;font-weight:800;letter-spacing:7px;color:'+g1+'">'+code+'</div>';
-  r+='<div class="disp" style="font-size:1.6rem;font-weight:800">'+t.n+'</div>';
-  r+='<div style="font-size:.82rem;color:var(--tx3)">'+t.en+'</div>';
-  r+='<div style="display:flex;justify-content:center;flex-wrap:wrap;gap:5px;margin-top:10px">';
-  t.rt.forEach(function(rn){var ri=ROOT_INFO[rn];r+='<span class="root-tag" style="color:'+ri.color+';border-color:'+ri.color+'33">'+ri.icon+' '+ri.label+'</span>';});
-  if(t.vr){var vi=VARIANT_INFO[t.vr];r+='<span class="root-tag variant-tag" style="color:'+vi.color+';border-color:'+vi.color+'">'+vi.icon+' '+vi.label+'</span>';}
-  if(t.rt.length===0) r+='<span class="root-tag" style="color:#6B7280;border-color:#D1D5DB">✧ 混沌靈體</span>';
-  r+='</div></div>';
+  // 2. Type code + name (smaller)
+  r+='<div class="rcard" style="text-align:center;padding:16px">';
+  r+='<div class="mono" style="font-size:.6rem;color:var(--tx3);letter-spacing:2px;margin-bottom:2px">YOUR TYPE</div>';
+  r+='<div class="mono" style="font-size:1.8rem;font-weight:800;letter-spacing:5px;color:'+g1+'">'+code+'</div>';
+  r+='<div class="disp" style="font-size:1.2rem;font-weight:800">'+t.n+'</div>';
+  r+='<div style="font-size:.72rem;color:var(--tx3)">'+t.en+'</div>';
+  r+='</div>';
 
   // 4. Type description
   r+='<div class="rcard"><div class="type-prose">'+t.d+'</div>';
