@@ -753,7 +753,6 @@ function show(nm,code){
   r+='</div>';
 
   // 9. Disclaimer + restart
-  r+='<div class="disc">本問卷為探索性自我認識工具，不是心理診斷。結果反映你在 30 題上的作答傾向，不是你的全部。</div>';
   r+='<button class="btn btn-alt" onclick="sessionStorage.removeItem(\'gt_v1_answers\');window.location.hash=\'\';location.reload()">重新作答</button></div>';
 
   document.getElementById('quiz').classList.add('hidden');
