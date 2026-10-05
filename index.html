@@ -3,12 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>個人決策風格問卷</title>
+<title>修仙靈根測驗 · 個人決策風格問卷</title>
 <meta name="description" content="三軸 × 27 型 × 靈根系統 · 30 題找出你的做事風格、能量來源、內心羅盤">
+<meta property="og:type" content="website">
+<meta property="og:title" content="修仙靈根測驗 · 你是 27 型中的哪一位修士？">
+<meta property="og:description" content="30 題測出你的做事風格、能量來源、內心羅盤，對應五行靈根與 27 位修士角色。">
+<meta property="og:image" content="https://94mr-like.github.io/GT-V1/img/GES.webp">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="kuangcao.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>☀</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=Quicksand:wght@500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
-@font-face{font-family:'KuangCao';src:url('./狂草.ttf') format('truetype');font-display:swap}
+/* 狂草字型已子集化（只含標題與 27 型名稱用字）；改名稱後需重新產生 kuangcao.woff2，見 CLAUDE.md */
+@font-face{font-family:'KuangCao';src:url('./kuangcao.woff2') format('woff2');font-display:swap}
 @property --bd-angle{syntax:"<angle>";initial-value:0deg;inherits:false}
 @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
 @keyframes pop{0%{transform:scale(.94);opacity:0}70%{transform:scale(1.01)}100%{transform:scale(1);opacity:1}}
@@ -282,9 +289,57 @@ body::after{content:'';position:fixed;bottom:-100px;left:-100px;width:500px;heig
 .orb-1{color:rgba(251,191,36,.4)}.orb-2{color:rgba(249,115,22,.3)}.orb-3{color:rgba(245,158,11,.35)}
 .orb-4{color:rgba(252,211,77,.3)}.orb-5{color:rgba(251,191,36,.3)}.orb-6{color:rgba(249,115,22,.25)}
 
+/* ICONS */
+.el-ico{width:1.15em;height:1.15em;flex-shrink:0;display:block}
+.ui-ico{width:18px;height:18px;flex-shrink:0}
+.var-card .var-icon{width:40px;height:40px;margin:0 auto 6px}
+.var-card .var-icon .el-ico{width:100%;height:100%;filter:drop-shadow(0 2px 6px rgba(0,0,0,.12))}
+.rcard h3 .ui-ico{color:var(--g1,var(--axA))}
+
+/* RESULT HERO */
+@keyframes orbBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@keyframes auraPulse{0%,100%{opacity:.55;transform:translate(-50%,-50%) scale(1)}50%{opacity:.85;transform:translate(-50%,-50%) scale(1.06)}}
+.hero-card{position:relative;text-align:center;padding:22px 18px 22px;border-radius:var(--r);border:1px solid var(--bd);box-shadow:var(--sh2);margin-bottom:12px;overflow:hidden}
+.hc-badge{display:inline-block;padding:4px 14px;border-radius:999px;font-size:.66rem;font-weight:700;letter-spacing:2px;color:var(--tx2);background:rgba(255,255,255,.8);border:1px solid var(--bd)}
+.portrait{position:relative;width:min(300px,78vw);margin:10px auto 4px}
+.portrait-aura{position:absolute;left:50%;top:48%;width:92%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,var(--g1) 34%,transparent),color-mix(in srgb,var(--g2) 14%,transparent) 55%,transparent 72%);animation:auraPulse 5s ease-in-out infinite;pointer-events:none}
+.portrait-img{position:relative;display:block;width:100%;height:auto;mix-blend-mode:multiply;-webkit-mask-image:radial-gradient(ellipse 52% 52% at 50% 47%,#000 74%,transparent 100%);mask-image:radial-gradient(ellipse 52% 52% at 50% 47%,#000 74%,transparent 100%)}
+.portrait-fallback{display:none}
+.portrait-fallback svg{margin:0 auto}
+.orb-badge{position:absolute;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.92);box-shadow:0 4px 14px rgba(0,0,0,.1);display:flex;align-items:center;justify-content:center;animation:orbBob 3.6s ease-in-out infinite;z-index:2}
+.orb-badge .el-ico{width:26px;height:26px}
+.ob0{left:-6px;top:18%}.ob1{right:-6px;top:30%}.ob2{left:-2px;top:52%}.ob3{right:-2px;top:64%}.ob4{left:6px;top:80%}
+.hc-name{font-family:'KuangCao','Nunito',serif;font-weight:normal;font-size:3.4rem;line-height:1.1;margin-top:4px;background:linear-gradient(135deg,var(--g1),color-mix(in srgb,var(--g1) 60%,#1a1a2e));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hc-en{font-size:.8rem;color:var(--tx3);letter-spacing:1px;margin-bottom:10px}
+.chip-row{display:flex;justify-content:center;flex-wrap:wrap;gap:6px}
+.el-chip{display:inline-flex;align-items:center;gap:5px;padding:5px 11px;border-radius:999px;font-size:.76rem;font-weight:700;color:color-mix(in srgb,var(--c) 62%,#1a1a2e);background:#fff;border:1.5px solid color-mix(in srgb,var(--c) 35%,transparent)}
+.el-chip.var{border-style:dashed}
+.hc-codes{display:flex;justify-content:center;flex-wrap:wrap;gap:6px;margin-top:12px}
+.code-pill{display:inline-flex;align-items:center;gap:6px;padding:4px 10px 4px 4px;border-radius:999px;font-size:.72rem;font-weight:700;color:var(--tx2);background:rgba(255,255,255,.8);border:1px solid var(--bd)}
+.code-pill b{display:inline-flex;width:22px;height:22px;border-radius:50%;align-items:center;justify-content:center;background:var(--c);color:#fff;font-size:.72rem}
+
+/* RESULT SECTIONS */
+.dblock h4{display:flex;align-items:center;gap:8px}
+.h-ico{display:inline-flex;width:28px;height:28px;border-radius:9px;align-items:center;justify-content:center;color:var(--c);background:color-mix(in srgb,var(--c) 12%,#fff)}
+.h-ico .ui-ico{width:17px;height:17px}
+.root-list{display:flex;flex-direction:column;gap:8px}
+.root-row{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:var(--r2);border:1px solid color-mix(in srgb,var(--c) 25%,transparent);background:#fff}
+.root-row .rr-ico{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:var(--bg)}
+.root-row .rr-ico .el-ico{width:26px;height:26px}
+.root-row b{display:block;font-size:.88rem;color:color-mix(in srgb,var(--c) 62%,#1a1a2e)}
+.root-row span{font-size:.8rem;color:var(--tx2)}
+.vb-ico .el-ico{width:22px;height:22px}
+.vb-org{font-size:.72rem;color:var(--tx3);font-weight:500}
+.act-row{display:flex;flex-direction:column;gap:0;margin-top:4px}
+.act-row .btn{display:flex;align-items:center;justify-content:center;gap:8px}
+.btn.copied{background:linear-gradient(135deg,#10B981,#34D399)}
+.btn:focus-visible,.opt:focus-visible{outline:3px solid var(--axC);outline-offset:2px}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}}
+
 .ftr{display:none}
 
 @media(max-width:500px){
+.hc-name{font-size:2.9rem}.orb-badge{width:38px;height:38px}.orb-badge .el-ico{width:22px;height:22px}
 .wrap{padding:14px}
 .type-code{font-size:2.4rem;letter-spacing:5px}.type-name{font-size:1.3rem}
 .mist{width:100px;opacity:.15}
@@ -325,7 +380,7 @@ body::after{content:'';position:fixed;bottom:-100px;left:-100px;width:500px;heig
 <div id="welcome" style="position:relative">
 <!-- Full-page landscape background -->
 <div class="welcome-bg">
-<svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYEnd slice" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
 <defs>
 <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F0F7F0"/><stop offset=".35" stop-color="#FAFFF8"/><stop offset=".55" stop-color="#F5FAF5"/><stop offset="1" stop-color="#E8F5E8"/></linearGradient>
 <linearGradient id="fog" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="transparent"/><stop offset=".7" stop-color="#F5FAF5" stop-opacity=".8"/><stop offset="1" stop-color="#F5FAF5"/></linearGradient>
@@ -423,10 +478,10 @@ body::after{content:'';position:fixed;bottom:-100px;left:-100px;width:500px;heig
 <div class="variant-sec">
 <h4>超越五行 · 變異覺醒</h4>
 <div class="var-grid">
-<div class="var-card"><span class="var-icon">🌙</span><div class="var-name">月靈根</div><div class="var-sub">超越五行·他人導向</div></div>
-<div class="var-card"><span class="var-icon">⚡</span><div class="var-name">雷靈根</div><div class="var-sub">金+月衝突</div></div>
-<div class="var-card"><span class="var-icon">🌬️</span><div class="var-name">風靈根</div><div class="var-sub">木+土衝突</div></div>
-<div class="var-card"><span class="var-icon">🧊</span><div class="var-name">冰靈根</div><div class="var-sub">水+月衝突</div></div>
+<div class="var-card"><span class="var-icon" data-ico="月"></span><div class="var-name">月靈根</div><div class="var-sub">超越五行·他人導向</div></div>
+<div class="var-card"><span class="var-icon" data-ico="雷"></span><div class="var-name">雷靈根</div><div class="var-sub">金+月衝突</div></div>
+<div class="var-card"><span class="var-icon" data-ico="風"></span><div class="var-name">風靈根</div><div class="var-sub">木+土衝突</div></div>
+<div class="var-card"><span class="var-icon" data-ico="冰"></span><div class="var-name">冰靈根</div><div class="var-sub">水+月衝突</div></div>
 </div>
 </div>
 
@@ -517,12 +572,12 @@ function renderPage(pg){
   var h='';
   for(var i=start;i<end;i++){
     var q=Q[i];
-    h+='<div class="qcard" id="qc'+q.id+'" style="animation-delay:'+((i-start)*.06)+'s"'+(ans[q.id]!==undefined?' class="done"':'')+'>';
+    h+='<div class="qcard'+(ans[q.id]!==undefined?' done':'')+'" id="qc'+q.id+'" style="animation-delay:'+((i-start)*.06)+'s">';
     h+='<div class="qnum mono">Q'+q.id+'</div>';
-    h+='<div class="qtxt">'+q.q+'</div><div class="opts">';
+    h+='<div class="qtxt">'+q.q+'</div><div class="opts" role="radiogroup">';
     q.o.forEach(function(o,j){
       var sel=ans[q.id]===j?' sel':'';
-      h+='<div class="opt'+sel+'" onclick="pk('+q.id+','+j+')"><input type="radio" name="q'+q.id+'"><div class="dot"></div><div class="opt-t">'+o.t+'</div></div>';
+      h+='<div class="opt'+sel+'" role="radio" tabindex="0" aria-checked="'+(sel?'true':'false')+'" onclick="pk('+q.id+','+j+')" onkeydown="if(event.key===&quot;Enter&quot;||event.key===&quot; &quot;){event.preventDefault();pk('+q.id+','+j+')}"><input type="radio" name="q'+q.id+'"><div class="dot"></div><div class="opt-t">'+o.t+'</div></div>';
     });
     h+='</div></div>';
   }
@@ -543,7 +598,7 @@ function renderPage(pg){
 
 function pk(qi,oi){
   var c=document.getElementById('qc'+qi);
-  c.querySelectorAll('.opt').forEach(function(o){o.classList.remove('sel')});
+  c.querySelectorAll('.opt').forEach(function(o){o.classList.remove('sel');o.setAttribute('aria-checked','false')});c.querySelectorAll('.opt')[oi].setAttribute('aria-checked','true');
   c.querySelectorAll('.opt')[oi].classList.add('sel');c.classList.add('done');
   ans[qi]=oi;
   sessionStorage.setItem('gt_v1_answers',JSON.stringify(ans));
@@ -557,13 +612,18 @@ function updProg(){
   document.getElementById('pN').textContent=n;
 }
 
+// 計分：各軸選項的加減分不對稱（例如 A 軸加分總量遠大於扣分），
+// 所以先算出「每題隨機作答」的期望值 mu 與標準差 sd 當作中點與尺度，
+// 再用 tanh 平滑映射到 -10~+10。|分數| >= TH 才給正/負端字母。
+// 隨機作答時每軸約 1/3 落在中間帶，三軸皆中間（BMA）約 5%；作答越一致越不會落入中間。
+var TH=1.7,AXK=2.5;
+var AXST=(function(){var mu={A:0,B:0,C:0},vr={A:0,B:0,C:0};Q.forEach(function(q){['A','B','C'].forEach(function(a){var v=q.o.map(function(o){return o.s[a]||0}),m=(v[0]+v[1]+v[2]+v[3])/4;mu[a]+=m;v.forEach(function(x){vr[a]+=(x-m)*(x-m)/4});});});return {mu:mu,sd:{A:Math.sqrt(vr.A),B:Math.sqrt(vr.B),C:Math.sqrt(vr.C)}};})();
+function letterOf(a,v){var L={A:'GBP',B:'EMI',C:'SAO'}[a];return v>=TH?L[0]:v<=-TH?L[2]:L[1];}
 function calc(){
-  var raw={A:0,B:0,C:0},mP={A:0,B:0,C:0},mN={A:0,B:0,C:0};
-  Q.forEach(function(q){var qP={A:0,B:0,C:0},qN={A:0,B:0,C:0};q.o.forEach(function(o){['A','B','C'].forEach(function(a){var v=o.s[a]||0;if(v>qP[a])qP[a]=v;if(v<qN[a])qN[a]=v;});});['A','B','C'].forEach(function(a){mP[a]+=qP[a];mN[a]+=qN[a];});});
+  var raw={A:0,B:0,C:0};
   Q.forEach(function(q){var oi=ans[q.id];if(oi===undefined)return;var sc=q.o[oi].s;['A','B','C'].forEach(function(a){raw[a]+=(sc[a]||0);});});
-  var nm={};['A','B','C'].forEach(function(a){if(raw[a]>=0)nm[a]=mP[a]>0?Math.round(raw[a]/mP[a]*100)/10:0;else nm[a]=mN[a]<0?Math.round(raw[a]/Math.abs(mN[a])*100)/10:0;nm[a]=Math.max(-10,Math.min(10,nm[a]));});
-  var code='';code+=nm.A>=2?'G':nm.A<=-2?'P':'B';code+=nm.B>=2?'E':nm.B<=-2?'I':'M';code+=nm.C>=2?'S':nm.C<=-2?'O':'A';
-  show(nm,code);
+  var nm={};['A','B','C'].forEach(function(a){var z=(raw[a]-AXST.mu[a])/AXST.sd[a];nm[a]=Math.round(100*Math.tanh(z/AXK))/10;});
+  show(nm,letterOf('A',nm.A)+letterOf('B',nm.B)+letterOf('C',nm.C));
 }
 
 var CHAR={GES:'🗡️',GEO:'🎭',GIS:'🔨',GIO:'♟️',PES:'🛡️',PEO:'🕊️',PIS:'🏔️',PIO:'🕯️',BES:'🎪',BEO:'🤝',BIS:'👁️',BIO:'🦋',GMS:'⚙️',GMO:'🎯',PMS:'📖',PMO:'💛',GEA:'🚀',GIA:'🔬',PEA:'🌈',PIA:'👂',BMS:'☯️',BMO:'🔗',GMA:'⚡',PMA:'🌸',BEA:'✨',BIA:'🌙',BMA:'∞'};
@@ -649,91 +709,119 @@ function buildChar(code){
   return svg;
 }
 
+// === SVG 圖示（取代 emoji，各平台顯示一致） ===
+var ICO={
+"金":'<svg viewBox="0 0 24 24"><path d="M12 1l3.4 3.8V14H8.6V4.8z" fill="#EBCB6B"/><path d="M12 1v13h3.4V4.8z" fill="#B8962E"/><path d="M12 4v8.5" stroke="#FFF7D6" stroke-width=".9" stroke-linecap="round" opacity=".8"/><path d="M5.5 14h13a1.3 1.3 0 010 2.6h-13a1.3 1.3 0 010-2.6z" fill="#8B6914"/><rect x="10.6" y="16.6" width="2.8" height="4.2" rx=".8" fill="#5C3310"/><circle cx="12" cy="21.6" r="1.6" fill="#C8A951"/></svg>',
+"木":'<svg viewBox="0 0 24 24"><path d="M12 22V11.5" stroke="#15803D" stroke-width="2" stroke-linecap="round"/><path d="M12 13.5C12 7.5 7.5 4.2 2.8 5c-.2 5.2 3.8 8.8 9.2 8.5z" fill="#22C55E"/><path d="M12 11.5c0-5.3 4.2-8.6 9.2-8.4.3 5.4-3.6 9-9.2 8.4z" fill="#4ADE80"/><path d="M12 13.3C9.5 10.6 7 8.6 5 7.6M12 11.3c2.2-2.6 4.6-4.6 7-6" stroke="#DCFCE7" stroke-width=".9" fill="none" stroke-linecap="round"/></svg>',
+"火":'<svg viewBox="0 0 24 24"><path d="M12 1.8c1.2 4.1 6.6 6.2 6.6 12.5a6.6 6.6 0 01-13.2 0c0-3.2 1.6-5.4 3.3-6.5 0 2.2 1 3.4 2.2 3.4-.6-3.2-.1-6.4 1.1-9.4z" fill="#EF4444"/><path d="M12 10.5c.6 2.1 3.4 3.3 3.4 6.1a3.4 3.4 0 01-6.8 0c0-1.7 1-2.8 1.7-3.3.2 1.1.8 1.700 1.3 1.7-.2-1.6 0-3.2.4-4.5z" fill="#FCD34D"/></svg>',
+"水":'<svg viewBox="0 0 24 24"><path d="M12 1.8C9 6.8 4.8 10.4 4.8 15a7.2 7.2 0 0014.4 0c0-4.6-4.2-8.2-7.2-13.2z" fill="#3B82F6"/><path d="M8.2 15.2a3.9 3.9 0 003.8 3.8" stroke="#BFDBFE" stroke-width="1.6" fill="none" stroke-linecap="round"/><circle cx="9.6" cy="11.4" r="1" fill="#DBEAFE"/></svg>',
+"土":'<svg viewBox="0 0 24 24"><path d="M1.8 20.5L9 7.5l4.3 6.4 2.3-3.4 6.6 10z" fill="#B45309"/><path d="M15.6 10.5l2.4 3.6-1.5-.6-1 1.2-.9-1.3z" fill="#FDE68A" opacity=".85"/><path d="M9 7.5l2.4 3.6-1.4-.5L9 12l-1.1-1.4-1.3.5z" fill="#FDE68A"/><path d="M1.5 20.5h21" stroke="#78350F" stroke-width="1.6" stroke-linecap="round"/></svg>',
+"月":'<svg viewBox="0 0 24 24"><path d="M14.5 2.5a9.5 9.5 0 107 15.6A8 8 0 0114.5 2.5z" fill="#A78BFA"/><path d="M18.5 4.5l.7 1.7 1.7.7-1.7.7-.7 1.7-.7-1.7-1.7-.7 1.7-.7z" fill="#C4B5FD"/><circle cx="9" cy="14" r="1.2" fill="#DDD6FE" opacity=".8"/></svg>',
+"雷":'<svg viewBox="0 0 24 24"><path d="M13.5 1.5L4.5 13.8h6.2L9.5 22.5l9.6-12.6h-6.4z" fill="#FACC15" stroke="#A16207" stroke-width="1" stroke-linejoin="round"/></svg>',
+"風":'<svg viewBox="0 0 24 24" fill="none" stroke="#14B8A6" stroke-width="2.1" stroke-linecap="round"><path d="M2.5 8.5h11a3 3 0 10-3-3"/><path d="M2.5 12.5h15.5a3 3 0 11-3 3"/><path d="M2.5 16.5h7"/></svg>',
+"冰":'<svg viewBox="0 0 24 24" fill="none" stroke="#0EA5E9" stroke-width="1.8" stroke-linecap="round"><path d="M12 2v20M3.3 7l17.4 10M3.3 17L20.7 7"/><path d="M9.6 3.6L12 5.6l2.4-2M9.6 20.4l2.4-2 2.4 2M3.6 10.2l3 1.3-.6-3.2M20.4 13.8l-3-1.3.6 3.2M3.6 13.8l3-1.3-.6 3.2M20.4 10.2l-3 1.3.6-3.2"/></svg>',
+"混沌":'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5" fill="#F3F4F6" stroke="#9CA3AF" stroke-width="1.4"/><path d="M12 2.5a4.75 4.75 0 010 9.5 4.75 4.75 0 000 9.5 9.5 9.5 0 010-19z" fill="#6B7280"/><circle cx="12" cy="7.25" r="1.3" fill="#F3F4F6"/><circle cx="12" cy="16.75" r="1.3" fill="#6B7280"/></svg>'
+};
+var UI={
+read:'<path d="M5 4.5A1.5 1.5 0 016.5 3H19v15H6.5A1.5 1.5 0 005 19.5z"/><path d="M5 19.5A1.5 1.5 0 006.5 21H19v-3"/><path d="M9 7.5h6M9 11h4"/>',
+style:'<circle cx="12" cy="12" r="9"/><path d="M15.8 8.2l-2.2 5.4-5.4 2.2 2.2-5.4z"/>',
+pain:'<path d="M7 15.5a4 4 0 01-.4-8A5.5 5.5 0 0117.3 7a4 4 0 01.7 8.5"/><path d="M12.5 12.5l-2 3.5h3.2l-2 3.5"/>',
+view:'<path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',
+blind:'<path d="M3 3l18 18"/><path d="M10.6 5.1A9.9 9.9 0 0112 5c6.4 0 10 7 10 7a17.6 17.6 0 01-3 3.9M6.6 6.6C3.9 8.4 2 12 2 12s3.6 7 10 7a9.7 9.7 0 005.4-1.6"/><path d="M9.9 9.9a3 3 0 004.2 4.2"/>',
+root:'<path d="M12 2.5l2.3 6.9 7.2.3-5.7 4.4 2 7-5.8-4.1-5.8 4.1 2-7-5.7-4.4 7.2-.3z"/>',
+axis:'<circle cx="12" cy="12" r="9"/><path d="M12 3a4.5 4.5 0 010 9 4.5 4.5 0 000 9"/><circle cx="12" cy="7.5" r=".9" fill="currentColor"/><circle cx="12" cy="16.5" r=".9" fill="currentColor"/>',
+score:'<path d="M3 21h18"/><path d="M6 17v-6M11 17V5M16 17v-9"/>',
+link:'<path d="M10 14a4 4 0 005.7 0l3-3a4 4 0 00-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 00-5.7 0l-3 3a4 4 0 005.7 5.7l1-1"/>',
+redo:'<path d="M3.5 12a8.5 8.5 0 108.5-8.5A9.2 9.2 0 005.6 6.2L3.5 8.3"/><path d="M3.5 3.5v4.8h4.8"/>',
+check:'<path d="M4.5 12.5l5 5 10-11"/>'
+};
+function ui(n){return '<svg class="ui-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+UI[n]+'</svg>';}
+function ico(n){return ICO[n].replace('<svg ','<svg class="el-ico" aria-hidden="true" ');}
+function vrList(t){return t.vr?[].concat(t.vr):[];}
+
 function show(nm,code){
-  window.location.hash='result='+code+'&A='+nm.A.toFixed(1)+'&B='+nm.B.toFixed(1)+'&C='+nm.C.toFixed(1);
-  var t=T[code];
-  var rootBgs={"金":"linear-gradient(180deg,#FFFBEB,#FEF3C7,#FFFBEB)","木":"linear-gradient(180deg,#F0FDF4,#DCFCE7,#F0FDF4)","火":"linear-gradient(180deg,#FEF2F2,#FEE2E2,#FEF2F2)","水":"linear-gradient(180deg,#EFF6FF,#DBEAFE,#EFF6FF)","土":"linear-gradient(180deg,#FFFBEB,rgba(253,230,138,.2),#FFFBEB)","月":"linear-gradient(180deg,#F5F3FF,#EDE9FE,#F5F3FF)"};
+  var t=T[code];if(!t)return;
+  history.replaceState(null,'','#result='+code+'&A='+nm.A.toFixed(1)+'&B='+nm.B.toFixed(1)+'&C='+nm.C.toFixed(1));
+  var vrs=vrList(t);
   var primaryRoot=t.rt.length>0?t.rt[0]:null;
-  var resBg=primaryRoot?rootBgs[primaryRoot]:"linear-gradient(180deg,#F9FAFB,#F3F4F6,#F9FAFB)";
   var rc=t.rt.map(function(rn){return ROOT_INFO[rn].color});
-  if(rc.length===0) rc=['#9CA3AF','#D1D5DB','#E5E7EB'];
+  if(rc.length===0)rc=['#9CA3AF','#D1D5DB'];
   var g1=rc[0],g2=rc[rc.length>1?1:0];
-  var r='<div class="res-enter" style="background:'+resBg+';border-radius:var(--r);padding:16px;margin:-20px;margin-top:0">';
-
-  // 1. Main visual: roots + character portrait (merged hero card)
-  var rootTitle=t.rt.length>0?t.rt.map(function(rn){return ROOT_INFO[rn].label}).join(' · '):'混沌靈體';
-  var rootTitleColor=t.rt.length>0?g1:'#6B7280';
   var heroBg=primaryRoot?ROOT_INFO[primaryRoot].bg:'#F3F4F6';
-  r+='<div class="rcard" style="text-align:center;padding:28px 20px;min-height:300px;background:'+heroBg+'">';
-  // Character SVG
-  r+='<div style="margin-bottom:12px">'+buildChar(code)+'</div>';
-  // Root title (large)
-  r+='<div style="font-size:2.2rem;font-weight:800;color:'+rootTitleColor+';line-height:1.3;margin-bottom:4px">'+rootTitle+'</div>';
-  // Variant awakening
-  if(t.vr){var vi2=VARIANT_INFO[t.vr];r+='<div style="font-size:1rem;color:'+vi2.color+';font-weight:700;margin-bottom:8px">'+vi2.icon+' '+vi2.label+'覺醒</div>';}
-  // Root tags
-  r+='<div style="display:flex;justify-content:center;flex-wrap:wrap;gap:5px;margin-top:8px">';
-  if(t.rt.length===0){
-    r+='<span class="root-tag" style="color:#6B7280;border-color:#D1D5DB">✧ 混沌靈體</span>';
-  }else{
-    t.rt.forEach(function(rn){var ri=ROOT_INFO[rn];r+='<span class="root-tag" style="color:'+ri.color+';border-color:'+ri.color+'33">'+ri.icon+' '+ri.label+'</span>';});
-  }
-  r+='</div>';
-  // Root descriptions
-  if(t.rt.length>0){
-    r+='<div style="font-size:.78rem;color:var(--tx3);margin-top:10px">';
-    t.rt.forEach(function(rn,i){var ri=ROOT_INFO[rn];r+=(i>0?' · ':'')+ri.icon+' '+ri.desc;});
-    r+='</div>';
-  }
-  r+='</div>';
+  var r='<div class="res-enter" style="--g1:'+g1+';--g2:'+g2+'">';
 
-  // 3. Type description (5 blocks)
-  r+='<div class="rcard"><div class="dblock"><h4>✦ 靈根解讀</h4><p>'+t.d+'</p></div>';
-  r+='<div class="dblock"><h4>⚔️ 行事風格</h4><p>'+(t.style||'')+'</p></div>';
-  r+='<div class="dblock"><h4>😣 最不舒服的情境</h4><p>'+t.pain+'</p></div>';
-  r+='<div class="dblock"><h4>👀 別人眼中的你</h4><p>'+t.view+'</p></div>';
-  r+='<div class="dblock"><h4>🔮 盲點</h4><p>'+(t.blind||'')+'</p></div></div>';
-
-  // 5. Axis explains (detailed)
-  r+='<div class="rcard"><h3>📝 各軸解讀</h3>';
-  ['A','B','C'].forEach(function(a){
-    var v=nm[a],desc=v>=3?axD[a].h:v<=-3?axD[a].l:axD[a].m;
-    var abs=Math.abs(v);
-    var str=abs>=7?'非常明確':abs>=4?'清楚的傾向':abs>=2?'有傾向但不強烈':'中間帶';
-    r+='<div class="ax-exp" style="border-color:'+axC[a][0]+';background:'+(['var(--axAl)','var(--axBl)','var(--axCl)'][['A','B','C'].indexOf(a)])+'"><h4><span style="color:'+axC[a][0]+'">'+axN[a]+'</span><span class="str">'+str+'</span></h4><p>'+desc+'</p></div>';
-  });
+  // 1. 角色卡
+  r+='<section class="hero-card" style="background:linear-gradient(180deg,'+heroBg+',#fff 78%)">';
+  r+='<div class="hc-badge mono">YOUR TYPE · '+code+'</div>';
+  r+='<div class="portrait">';
+  r+='<div class="portrait-aura"></div>';
+  r+='<img class="portrait-img" src="img/'+code+'.webp" width="640" height="960" alt="'+t.n+'（'+code+'）角色立繪" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'block\'">';
+  r+='<div class="portrait-fallback">'+buildChar(code)+'</div>';
+  var orbs=(t.rt.length?t.rt.slice():['混沌']).concat(vrs);
+  orbs.forEach(function(n,i){r+='<span class="orb-badge ob'+i+'" style="animation-delay:'+(i*.6)+'s" title="'+(ROOT_INFO[n]||VARIANT_INFO[n]||{label:'混沌靈體'}).label+'">'+ico(n)+'</span>';});
   r+='</div>';
+  r+='<h2 class="hc-name">'+t.n+'</h2>';
+  r+='<div class="hc-en">'+t.en+'</div>';
+  r+='<div class="chip-row">';
+  if(t.rt.length===0)r+='<span class="el-chip" style="--c:#6B7280">'+ico('混沌')+'混沌靈體 · 無偏</span>';
+  t.rt.forEach(function(rn){var ri=ROOT_INFO[rn];r+='<span class="el-chip" style="--c:'+ri.color+'">'+ico(rn)+ri.label+'</span>';});
+  vrs.forEach(function(vn){var vi=VARIANT_INFO[vn];r+='<span class="el-chip var" style="--c:'+vi.color+'">'+ico(vn)+vi.label+'覺醒</span>';});
+  r+='</div>';
+  r+='<div class="hc-codes">';
+  ['A','B','C'].forEach(function(a,i){r+='<span class="code-pill" style="--c:'+axC[a][0]+'"><b class="mono">'+code[i]+'</b>'+(nm[a]>=TH?axP[a]:nm[a]<=-TH?axNg[a]:'平衡')+'</span>';});
+  r+='</div>';
+  r+='</section>';
 
-  // 6. Axes chart
-  r+='<div class="rcard"><h3>📊 三軸分數</h3>';
+  // 2. 三軸分數
+  r+='<section class="rcard"><h3>'+ui('score')+'三軸分數</h3>';
   ['A','B','C'].forEach(function(a,i){r+=bAxis(a,nm[a],i);});
-  r+='</div>';
+  r+='</section>';
 
-  // 7. Variant root (if applicable)
-  if(t.vr){
-    var vi=VARIANT_INFO[t.vr];
-    r+='<div class="rcard">';
+  // 3. 類型描述
+  var blocks=[['read','靈根解讀',t.d,'#F59E0B'],['style','行事風格',t.style,'#F97316'],['pain','最不舒服的情境',t.pain,'#EF4444'],['view','別人眼中的你',t.view,'#06B6D4'],['blind','盲點',t.blind,'#D946EF']];
+  r+='<section class="rcard">';
+  blocks.forEach(function(b){if(!b[2])return;r+='<div class="dblock"><h4><span class="h-ico" style="--c:'+b[3]+'">'+ui(b[0])+'</span>'+b[1]+'</h4><p>'+b[2]+'</p></div>';});
+  r+='</section>';
+
+  // 4. 靈根解析
+  r+='<section class="rcard"><h3>'+ui('root')+'靈根解析</h3><div class="root-list">';
+  if(t.rt.length===0)r+='<div class="root-row" style="--c:#6B7280"><span class="rr-ico">'+ico('混沌')+'</span><div><b>混沌靈體</b><span>三軸皆在中間帶，五行未分化——不偏任何一根</span></div></div>';
+  t.rt.forEach(function(rn){var ri=ROOT_INFO[rn];r+='<div class="root-row" style="--c:'+ri.color+'"><span class="rr-ico" style="background:'+ri.bg+'">'+ico(rn)+'</span><div><b>'+ri.label+'</b><span>'+ri.desc+'</span></div></div>';});
+  r+='</div>';
+  vrs.forEach(function(vn){var vi=VARIANT_INFO[vn];
     r+='<div class="variant-banner" style="border-color:'+vi.bd+';background:'+vi.bg+'">';
-    r+='<h4><span style="font-size:1.2rem">'+vi.icon+'</span><span style="color:'+vi.color+'">變異：'+vi.label+'</span><span style="font-size:.72rem;color:var(--tx3);font-weight:500">（'+vi.origin+'）</span></h4>';
-    r+='<p>'+vi.desc+'</p></div></div>';
-  }
+    r+='<h4><span class="vb-ico">'+ico(vn)+'</span><span style="color:'+vi.color+'">變異：'+vi.label+'</span><span class="vb-org">（'+vi.origin+'）</span></h4>';
+    r+='<p>'+vi.desc+'</p></div>';});
+  r+='</section>';
 
-  // 8. Type code + name (bottom)
-  r+='<div class="rcard" style="text-align:center;padding:16px">';
-  r+='<div class="mono" style="font-size:.6rem;color:var(--tx3);letter-spacing:2px;margin-bottom:2px">YOUR TYPE</div>';
-  r+='<div class="mono" style="font-size:1.8rem;font-weight:800;letter-spacing:5px;color:'+g1+'">'+code+'</div>';
-  r+='<div class="disp" style="font-size:1.2rem;font-weight:800">'+t.n+'</div>';
-  r+='<div style="font-size:.72rem;color:var(--tx3)">'+t.en+'</div>';
+  // 5. 各軸解讀（描述與字母判定一致）
+  r+='<section class="rcard"><h3>'+ui('axis')+'各軸解讀</h3>';
+  ['A','B','C'].forEach(function(a,i){
+    var v=nm[a],desc=v>=TH?axD[a].h:v<=-TH?axD[a].l:axD[a].m;
+    var abs=Math.abs(v);
+    var str=abs>=7?'非常明確':abs>=4?'清楚的傾向':abs>=TH?'有傾向但不強烈':'中間帶';
+    r+='<div class="ax-exp" style="border-color:'+axC[a][0]+';background:'+['var(--axAl)','var(--axBl)','var(--axCl)'][i]+'"><h4><span style="color:'+axC[a][0]+'">'+axN[a]+'</span><span class="str">'+str+'</span></h4><p>'+desc+'</p></div>';
+  });
+  r+='</section>';
+
+  // 6. 分享與重測
+  r+='<div class="act-row"><button class="btn btn-go" id="shareBtn" onclick="shareRes()">'+ui('link')+'<span>複製結果連結</span></button>';
+  r+='<button class="btn btn-alt" onclick="sessionStorage.removeItem(\'gt_v1_answers\');location.href=location.pathname">'+ui('redo')+'<span>重新作答</span></button></div>';
   r+='</div>';
-
-  // 9. Disclaimer + restart
-  r+='<button class="btn btn-alt" onclick="sessionStorage.removeItem(\'gt_v1_answers\');window.location.hash=\'\';location.reload()">重新作答</button></div>';
 
   document.getElementById('quiz').classList.add('hidden');
   document.getElementById('welcome').classList.add('hidden');
   document.getElementById('result').innerHTML=r;
   document.getElementById('result').classList.remove('hidden');
+  document.title=t.n+'（'+code+'）· 修仙靈根測驗';
   window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function shareRes(){
+  var b=document.getElementById('shareBtn'),url=location.href;
+  function ok(){b.classList.add('copied');b.innerHTML=ui('check')+'<span>已複製連結</span>';setTimeout(function(){b.classList.remove('copied');b.innerHTML=ui('link')+'<span>複製結果連結</span>';},1600);}
+  if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(url).then(ok,function(){prompt('複製這個連結：',url);});}
+  else{var ta=document.createElement('textarea');ta.value=url;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');ok();}catch(e){prompt('複製這個連結：',url);}document.body.removeChild(ta);}
 }
 
 function bAxis(a,val,idx){
@@ -743,16 +831,14 @@ function bAxis(a,val,idx){
   return '<div class="axis-vis" style="animation-delay:'+dy+'"><div class="axis-head"><span class="axis-name" style="color:'+c[0]+'">'+axN[a]+'</span><span class="axis-score mono" style="color:'+c[0]+'">'+(val>=0?'+':'')+val.toFixed(1)+'</span></div><div class="axis-track"><div class="axis-mid"></div><div class="axis-track-inner"><div class="axis-bar" style="left:'+fl+'%;--w:'+fw+'%;background:linear-gradient(90deg,'+c[0]+','+c[1]+');opacity:.3"></div></div><div class="axis-marker" style="--pos:'+pct+'%;background:'+c[0]+';box-shadow:0 0 10px '+c[0]+'44"></div></div><div class="axis-labels"><span>'+axNg[a]+'</span><span class="mid" style="position:absolute;left:50%;transform:translateX(-50%)">0</span><span>'+axP[a]+'</span></div></div>';
 }
 
-function cpy(el){var txt=el.textContent;if(navigator.clipboard)navigator.clipboard.writeText(txt);else{var ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta)}el.classList.add('copied');el.textContent='✓ 已複製';setTimeout(function(){el.classList.remove('copied');el.textContent=txt},1500);}
 
-window.addEventListener('load',function(){
+document.addEventListener('DOMContentLoaded',function(){
+  document.querySelectorAll('[data-ico]').forEach(function(el){el.innerHTML=ico(el.getAttribute('data-ico'));});
   var h=window.location.hash;
   if(h.indexOf('result=')>-1){
     var ps={};h.replace('#','').split('&').forEach(function(p){var kv=p.split('=');ps[kv[0]]=kv[1];});
-    if(ps.result&&ps.A&&ps.B&&ps.C){
-      var nm={A:parseFloat(ps.A),B:parseFloat(ps.B),C:parseFloat(ps.C)};
-      show(nm,ps.result);
-    }
+    var nm={A:parseFloat(ps.A),B:parseFloat(ps.B),C:parseFloat(ps.C)};
+    if(T[ps.result]&&!isNaN(nm.A)&&!isNaN(nm.B)&&!isNaN(nm.C))show(nm,ps.result);
   }
 });
 </script>
