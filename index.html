@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
 <title>修仙靈根測驗 · 個人決策風格問卷</title>
 <meta name="description" content="三軸 × 27 型 × 靈根系統 · 30 題找出你的做事風格、能量來源、內心羅盤">
 <meta property="og:type" content="website">
@@ -10,482 +10,319 @@
 <meta property="og:description" content="30 題測出你的做事風格、能量來源、內心羅盤，對應五行靈根與 27 位修士角色。">
 <meta property="og:image" content="https://94mr-like.github.io/GT-V1/img/GES.webp">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0B1026">
+<link rel="preload" href="img/bg/home_mobile.webp" as="image" media="(max-width:767px)">
 <link rel="preload" href="kuangcao.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>☀</text></svg>">
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=Quicksand:wght@500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <style>
 /* 狂草字型已子集化（只含標題與 27 型名稱用字）；改名稱後需重新產生 kuangcao.woff2，見 CLAUDE.md */
 @font-face{font-family:'KuangCao';src:url('./kuangcao.woff2') format('woff2');font-display:swap}
 @property --bd-angle{syntax:"<angle>";initial-value:0deg;inherits:false}
 @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
-@keyframes pop{0%{transform:scale(.94);opacity:0}70%{transform:scale(1.01)}100%{transform:scale(1);opacity:1}}
+@keyframes pop{0%{transform:scale(.96);opacity:0}100%{transform:scale(1);opacity:1}}
 @keyframes barGrow{from{width:0}to{width:var(--w)}}
 @keyframes dotSlide{from{left:50%}to{left:var(--pos)}}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+@keyframes cspin{from{transform:translate(-50%,-50%) rotate(0)}to{transform:translate(-50%,-50%) rotate(-360deg)}}
 @keyframes shine{from{left:-100%}to{left:200%}}
-@keyframes glow{0%,100%{box-shadow:0 0 8px var(--gc)}50%{box-shadow:0 0 20px var(--gc)}}
-@keyframes orbit1{0%{transform:translate(0,0) scale(1);opacity:.6}25%{transform:translate(80px,-60px) scale(1.2);opacity:.9}50%{transform:translate(160px,10px) scale(.8);opacity:.5}75%{transform:translate(60px,50px) scale(1.1);opacity:.8}100%{transform:translate(0,0) scale(1);opacity:.6}}
-@keyframes orbit2{0%{transform:translate(0,0) scale(.8);opacity:.5}33%{transform:translate(-70px,-80px) scale(1.3);opacity:.9}66%{transform:translate(-140px,20px) scale(.7);opacity:.4}100%{transform:translate(0,0) scale(.8);opacity:.5}}
-@keyframes orbit3{0%{transform:translate(0,0);opacity:.7}50%{transform:translate(40px,-90px);opacity:1}100%{transform:translate(0,0);opacity:.7}}
-@keyframes sparkle{0%,100%{opacity:0;transform:scale(0) rotate(0)}50%{opacity:1;transform:scale(1) rotate(180deg)}}
-@keyframes runeGlow{0%,100%{text-shadow:0 0 10px rgba(249,115,22,.3),0 0 30px rgba(249,115,22,.1)}50%{text-shadow:0 0 20px rgba(249,115,22,.6),0 0 50px rgba(249,115,22,.2),0 0 80px rgba(217,70,239,.1)}}
-@keyframes runeMultiGlow{0%,100%{filter:drop-shadow(0 0 8px rgba(249,115,22,.4)) drop-shadow(0 0 20px rgba(249,115,22,.15));transform:translateY(0) scale(1)}50%{filter:drop-shadow(0 0 16px rgba(249,115,22,.6)) drop-shadow(0 0 35px rgba(217,70,239,.25)) drop-shadow(0 0 50px rgba(249,115,22,.1));transform:translateY(-6px) scale(1.03)}}
-@keyframes fireText{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
-@keyframes borderSpin{from{--bd-angle:0deg}to{--bd-angle:360deg}}
-@keyframes flipIn{0%{transform:rotateY(0)}100%{transform:rotateY(180deg)}}
-@keyframes variantFlicker{0%,100%{opacity:.5;transform:scale(.95)}50%{opacity:1;transform:scale(1.08)}}
-@keyframes mistDrift{0%{transform:translateX(0)}100%{transform:translateX(30px)}}
-@keyframes dividerPulse{0%,100%{opacity:.6}50%{opacity:1}}
+@keyframes borderSpin{to{--bd-angle:360deg}}
+@keyframes breathe{0%,100%{opacity:.55}50%{opacity:1}}
+@keyframes kenBurns{from{transform:scale(1.04) translateY(0)}to{transform:scale(1.12) translateY(-1.5%)}}
+@keyframes brushIn{from{clip-path:inset(0 100% 0 0);filter:blur(6px);opacity:0}to{clip-path:inset(0 0 0 0);filter:blur(0);opacity:1}}
+@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes orbBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@keyframes marquee{to{transform:translateX(-50%)}}
+@keyframes radarGrow{from{transform:scale(0);opacity:0}to{transform:scale(1);opacity:1}}
+@keyframes rayspin{from{transform:translate(-50%,-50%) rotate(0)}to{transform:translate(-50%,-50%) rotate(360deg)}}
+@keyframes ripple{from{transform:scale(0);opacity:.5}to{transform:scale(2.4);opacity:0}}
 
 :root{
---bg:#FFFBF5;--bg2:#FFF7ED;--bg3:#FFF1E0;--card:#FFF;--tx:#1a1a2e;--tx2:#4a4a6a;--tx3:#8888a0;--bd:#f0e8dd;--bd2:#e8ddd0;
---axA:#F97316;--axA2:#FDBA74;--axAl:#FFF7ED;
---axB:#06B6D4;--axB2:#67E8F9;--axBl:#ECFEFF;
---axC:#D946EF;--axC2:#E879F9;--axCl:#FDF4FF;
---acc:#F59E0B;--acc2:#FBBF24;--ok:#10B981;
---rJin:#C8A951;--rMu:#22C55E;--rHuo:#EF4444;--rShui:#3B82F6;--rTu:#B45309;--rYue:#A78BFA;
---rLei:#EAB308;--rFeng:#14B8A6;--rBing:#38BDF8;
---r:18px;--r2:14px;--sh:0 2px 12px rgba(0,0,0,.04),0 1px 3px rgba(0,0,0,.06);--sh2:0 4px 20px rgba(0,0,0,.06);
+--bg:#0B1026;--bg2:#111A33;--ink:#070B1C;
+--card:rgba(17,24,48,.72);--card2:rgba(24,34,66,.78);--glass:blur(12px) saturate(1.2);
+--tx:#F3EAD3;--tx2:#C3CCDE;--tx3:#93A0B8;
+--gold:#E8C36A;--gold2:#FFE6A3;--gold3:#B8862F;--jade:#5FD3B0;--cyan:#7FD6E8;
+--bd:rgba(232,195,106,.28);--bd2:rgba(232,195,106,.5);--bdui:#6B7A93;
+--axA:#FB923C;--axA2:#FDBA74;--axB:#22D3EE;--axB2:#67E8F9;--axC:#E879F9;--axC2:#F0ABFC;
+--ok:#5FD3B0;
+--r:18px;--r2:12px;
+--sh:0 8px 30px rgba(0,0,0,.35);
+--serif:"Noto Serif TC","Songti TC","PMingLiU",serif;
+--sans:"Noto Sans TC",system-ui,-apple-system,"PingFang TC","Microsoft JhengHei",sans-serif;
 }
-*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
-body{font-family:"Nunito",sans-serif;background:#FAFFF8;background-attachment:fixed;color:var(--tx);line-height:1.75;-webkit-font-smoothing:antialiased;min-height:100vh}
-body::before{content:'';position:fixed;top:-100px;right:-100px;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(134,239,172,.1),rgba(74,222,128,.04) 40%,transparent 70%);pointer-events:none;z-index:0}
-body::after{content:'';position:fixed;bottom:-100px;left:-100px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(134,239,172,.08),rgba(34,197,94,.03) 40%,transparent 70%);pointer-events:none;z-index:0}
-
-/* Clouds */
-@keyframes drift{from{transform:translateX(-20%)}to{transform:translateX(20%)}}
-.cloud{position:fixed;height:40px;width:200%;left:-50%;pointer-events:none;z-index:0;background:radial-gradient(ellipse,rgba(255,254,248,.3) 0%,transparent 70%)}
-.cloud-1{top:35%;animation:drift 100s linear infinite}
-.cloud-2{top:60%;animation:drift 130s linear infinite reverse;height:30px;opacity:.7}
-
-/* Rising spirit particles */
-@keyframes rise{from{transform:translateY(0);opacity:.6}to{transform:translateY(-400px);opacity:0}}
-.spirit-mote{position:fixed;bottom:10%;width:3px;height:3px;border-radius:50%;background:#FBBF24;pointer-events:none;z-index:0}
-.sm1{left:8%;animation:rise 10s linear infinite}.sm2{left:15%;animation:rise 12s linear infinite 2s;background:#FDE68A}
-.sm3{left:25%;animation:rise 9s linear infinite 4s}.sm4{left:38%;animation:rise 14s linear infinite 1s;background:#F59E0B}
-.sm5{left:52%;animation:rise 11s linear infinite 3s}.sm6{left:65%;animation:rise 13s linear infinite 5s;background:#FDE68A}
-.sm7{left:78%;animation:rise 10s linear infinite 2.5s}.sm8{left:88%;animation:rise 12s linear infinite 6s;background:#F59E0B}
-.sm9{left:45%;animation:rise 15s linear infinite 7s;width:4px;height:4px}.sm10{left:72%;animation:rise 8s linear infinite 1.5s;width:4px;height:4px;background:#FDE68A}
-
-/* Side decorations (desktop only) */
-.side-deco{position:fixed;top:0;width:30px;height:100%;pointer-events:none;z-index:0;opacity:.07}
-.side-deco-l{left:10px}
-.side-deco-r{right:10px}
-.side-deco svg{width:100%;height:100%}
-@media(max-width:768px){.side-deco{display:none}}
-.wrap{max-width:640px;margin:0 auto;padding:20px;position:relative;z-index:1}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:clip;background:var(--ink)}
+body{font-family:var(--sans);background:var(--ink);color:var(--tx);line-height:1.75;-webkit-font-smoothing:antialiased;min-height:100svh;overflow-x:clip}
 .hidden{display:none!important}
-.mono{font-family:"JetBrains Mono",monospace}
-.disp{font-family:"Quicksand",sans-serif;font-weight:700}
+.mono{font-family:"JetBrains Mono",ui-monospace,monospace}
+img{max-width:100%}
 
-/* BTN */
-.btn{display:block;width:100%;padding:16px;border:none;border-radius:var(--r2);font-size:1rem;font-weight:700;cursor:pointer;transition:all .25s;font-family:inherit;position:relative;overflow:hidden}
-.btn-go{background:linear-gradient(135deg,var(--axA),#FB923C);color:#fff;box-shadow:0 4px 16px rgba(249,115,22,.3)}
-.btn-go::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);animation:shine 3s infinite}
-.btn-go:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(249,115,22,.4)}
-.btn-go:disabled{background:#d4d4d8;color:#a1a1aa;cursor:not-allowed;transform:none;box-shadow:none}
+/* ===== 背景層 ===== */
+.bg-layer{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;background:var(--bg)}
+.bg-img{position:absolute;inset:-2%;background:url(img/bg/home_mobile.webp) center 30%/cover no-repeat;animation:kenBurns 40s ease-in-out infinite alternate;will-change:transform}
+body.v-result .bg-img{background-image:url(img/bg/result_mobile.webp);background-position:center bottom}
+.bg-veil{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 38%,rgba(11,16,38,.15),rgba(7,11,28,.55) 75%),linear-gradient(180deg,rgba(7,11,28,.25),rgba(7,11,28,.1) 40%,rgba(7,11,28,.55))}
+body.v-quiz .bg-veil,body.v-result .bg-veil{background:linear-gradient(180deg,rgba(7,11,28,.55),rgba(7,11,28,.4) 50%,rgba(7,11,28,.6))}
+#motes{position:fixed;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
+@media (min-width:768px) and (min-aspect-ratio:1/1){.bg-img{background-image:url(img/bg/home_desktop.webp);background-position:center 40%}}
+
+.wrap{max-width:680px;margin:0 auto;padding:16px max(16px,env(safe-area-inset-right)) calc(28px + env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left));position:relative;z-index:2}
+
+/* ===== 按鈕 ===== */
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;min-height:54px;padding:14px 18px;border:none;border-radius:999px;font-size:1.05rem;font-weight:700;letter-spacing:.12em;cursor:pointer;transition:transform .25s,box-shadow .25s,background .25s;font-family:var(--serif);position:relative;overflow:hidden;-webkit-tap-highlight-color:transparent}
+.btn-go{background:linear-gradient(135deg,#FFE6A3,#E8C36A 45%,#B8862F);color:#1A1206;box-shadow:0 0 0 1px rgba(255,230,163,.6) inset,0 6px 26px rgba(232,195,106,.45),0 0 60px rgba(232,195,106,.18)}
+.btn-go::after{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);animation:shine 3.2s ease-in-out infinite}
+.btn-go:hover{transform:translateY(-2px);box-shadow:0 0 0 1px rgba(255,230,163,.8) inset,0 10px 34px rgba(232,195,106,.6),0 0 80px rgba(232,195,106,.25)}
+.btn-go:active{transform:scale(.98)}
+.btn-go:disabled{background:#3A4258;color:#8B93A7;cursor:not-allowed;transform:none;box-shadow:none}
 .btn-go:disabled::after{display:none}
-.btn-alt{background:var(--card);color:var(--axA);border:2px solid var(--axA2);margin-top:10px;box-shadow:var(--sh)}
-.btn-alt:hover{background:var(--axAl)}
+.btn-alt,.btn-prev{background:rgba(17,24,48,.6);color:var(--gold2);border:1.5px solid var(--bd2);backdrop-filter:var(--glass);-webkit-backdrop-filter:var(--glass)}
+.btn-alt:hover,.btn-prev:hover{background:rgba(232,195,106,.12)}
+.btn-alt{margin-top:10px}
+@keyframes ctaGlow{0%,100%{box-shadow:0 0 0 1px rgba(255,230,163,.6) inset,0 6px 26px rgba(232,195,106,.45),0 0 40px rgba(232,195,106,.15)}50%{box-shadow:0 0 0 1px rgba(255,230,163,.9) inset,0 6px 30px rgba(232,195,106,.7),0 0 80px rgba(232,195,106,.35)}}
+.btn-xian{animation:ctaGlow 2.6s ease-in-out infinite}
+.btn:focus-visible,.opt:focus-visible{outline:3px solid var(--cyan);outline-offset:3px}
+.btn .ui-ico{width:20px;height:20px}
 
-/* WELCOME */
-.hero{text-align:center;padding:48px 0 32px;animation:fadeUp .7s ease-out}
-.hero-icon{font-size:2.8rem;margin-bottom:10px;animation:float 3s ease-in-out infinite}
-.hero-badge{display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border-radius:20px;background:rgba(249,115,22,.08);border:1.5px solid var(--acc2);font-size:.7rem;color:var(--axA);font-weight:700;letter-spacing:1px;margin-bottom:18px}
-.hero h1{font-size:2.2rem;line-height:1.25;margin-bottom:10px}
-.hero h1 em{font-style:normal;background:linear-gradient(135deg,var(--axA),var(--axC));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hero p{color:var(--tx2);font-size:.9rem;max-width:380px;margin:0 auto}
-.axes-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:24px 0;animation:fadeUp .7s ease-out .1s both}
-.ax-chip{background:var(--card);border-radius:var(--r2);padding:16px 10px;text-align:center;box-shadow:var(--sh);border:2px solid transparent;transition:all .3s}
-.ax-chip:nth-child(1){border-color:var(--axA2)}.ax-chip:nth-child(2){border-color:var(--axB2)}.ax-chip:nth-child(3){border-color:var(--axC2)}
-.ax-chip:hover{transform:translateY(-3px);box-shadow:var(--sh2)}
-.ax-chip .icon{font-size:1.4rem;margin-bottom:4px}
-.ax-chip .lbl{font-size:.8rem;font-weight:700;margin-bottom:2px}
-.ax-chip:nth-child(1) .lbl{color:var(--axA)}.ax-chip:nth-child(2) .lbl{color:var(--axB)}.ax-chip:nth-child(3) .lbl{color:var(--axC)}
-.ax-chip .rng{font-size:.65rem;color:var(--tx3)}
-.icard{background:var(--card);border-radius:var(--r);padding:20px;margin-bottom:10px;box-shadow:var(--sh);border:1px solid var(--bd);animation:fadeUp .7s ease-out .2s both}
-.icard h3{font-size:.88rem;font-weight:700;margin-bottom:8px}
-.icard p{color:var(--tx2);font-size:.82rem;padding-left:14px;margin-bottom:4px;position:relative}
-.icard p::before{content:'→';position:absolute;left:0;color:var(--acc)}
+/* ===== 首頁 ===== */
+.w-hero{min-height:calc(100svh - 32px);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:clamp(8px,2svh,18px);padding-top:env(safe-area-inset-top)}
+.w-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border-radius:999px;font-family:var(--serif);font-size:.78rem;letter-spacing:.3em;color:var(--gold2);background:rgba(11,16,38,.5);border:1px solid var(--bd2);backdrop-filter:var(--glass);-webkit-backdrop-filter:var(--glass);animation:fadeUp .8s ease-out both}
+.w-title{font-family:'KuangCao',var(--serif);font-weight:normal;font-size:clamp(3.6rem,19vw,7.5rem);line-height:1.05;display:flex;justify-content:center;gap:.02em;width:100%;
+ background:linear-gradient(180deg,#FFF6DA 10%,#F2CF73 55%,#B8862F 95%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+ filter:drop-shadow(0 0 18px rgba(232,195,106,.55)) drop-shadow(0 2px 2px rgba(0,0,0,.6))}
+.w-title span{display:inline-block;animation:brushIn 1.1s cubic-bezier(.2,.7,.2,1) both}
+.w-title span:nth-child(2){animation-delay:.18s}.w-title span:nth-child(3){animation-delay:.36s}.w-title span:nth-child(4){animation-delay:.54s}
+.w-sub{text-wrap:balance;font-family:var(--serif);color:var(--tx);font-size:clamp(.92rem,3.8vw,1.08rem);max-width:26em;text-shadow:0 2px 10px rgba(0,0,0,.8);animation:fadeUp .8s ease-out .6s both}
+.w-meta{font-size:.78rem;color:var(--tx2);letter-spacing:.2em;text-shadow:0 1px 6px rgba(0,0,0,.8)}
+.w-cta{width:min(100%,360px);animation:fadeUp .8s ease-out .9s both}
+.scroll-hint{font-size:.72rem;color:var(--tx3);letter-spacing:.3em;animation:floatY 2.4s ease-in-out infinite;margin-top:4px}
 
-/* PROGRESS */
-.prog{position:sticky;top:0;z-index:50;background:rgba(255,251,245,.94);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:12px 0 10px;border-bottom:1px solid var(--bd)}
+/* 太極五行陣（全部用百分比，手機不跑版） */
+.array{position:relative;width:min(70vw,340px,40svh);aspect-ratio:1;margin:clamp(4px,1svh,12px) auto;animation:fadeUp 1s ease-out .3s both}
+.array::before{content:'';position:absolute;inset:-18%;border-radius:50%;background:radial-gradient(circle,rgba(232,195,106,.32),rgba(127,214,232,.1) 45%,transparent 70%);animation:breathe 4s ease-in-out infinite}
+.array-rays{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:160%;aspect-ratio:1;border-radius:50%;background:repeating-conic-gradient(from 0deg,rgba(255,230,163,.13) 0 4deg,transparent 4deg 18deg);-webkit-mask:radial-gradient(circle,#000 20%,transparent 68%);mask:radial-gradient(circle,#000 20%,transparent 68%);animation:rayspin 90s linear infinite;pointer-events:none}
+.array-ring{position:absolute;inset:0;animation:spin 80s linear infinite}
+.array-ring svg{width:100%;height:100%;display:block}
+.wx-orbit{position:absolute;inset:0;animation:spin 60s linear infinite}
+.wx-node{position:absolute;width:21%;aspect-ratio:1;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;transform:translate(-50%,-50%);animation:cspin 60s linear infinite;background:radial-gradient(circle at 35% 30%,rgba(40,52,92,.95),rgba(11,16,38,.95));border:1.5px solid var(--c);box-shadow:0 0 14px color-mix(in srgb,var(--c) 60%,transparent),inset 0 0 12px color-mix(in srgb,var(--c) 35%,transparent)}
+.wx-node .el-ico{width:52%;height:52%}
+.wx-node b{font-family:var(--serif);font-size:clamp(.6rem,2.6vw,.8rem);color:var(--c);line-height:1;margin-top:2px}
+.wx-0{left:50%;top:6%}.wx-1{left:91.8%;top:36.4%}.wx-2{left:75.9%;top:85.6%}.wx-3{left:24.1%;top:85.6%}.wx-4{left:8.2%;top:36.4%}
+
+/* 首頁區塊 */
+.w-sec{margin:28px 0 8px;animation:fadeUp .8s ease-out both}
+.sec-title{display:flex;align-items:center;justify-content:center;gap:12px;font-family:var(--serif);font-weight:700;font-size:1.15rem;letter-spacing:.35em;color:var(--gold2);margin-bottom:6px;text-shadow:0 0 14px rgba(232,195,106,.5)}
+.sec-title::before,.sec-title::after{content:'';flex:0 1 60px;height:1px;background:linear-gradient(90deg,transparent,var(--gold))}
+.sec-title::after{transform:scaleX(-1)}
+.sec-sub{text-align:center;font-size:.82rem;color:var(--tx2);margin-bottom:14px}
+.root-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.root-card{position:relative;padding:14px 8px 12px;border-radius:var(--r2);text-align:center;background:var(--card);border:1px solid color-mix(in srgb,var(--c) 45%,transparent);backdrop-filter:var(--glass);-webkit-backdrop-filter:var(--glass);overflow:hidden;transition:transform .3s}
+.root-card::before{content:'';position:absolute;left:50%;top:-30%;width:120%;aspect-ratio:1;transform:translateX(-50%);background:radial-gradient(circle,color-mix(in srgb,var(--c) 30%,transparent),transparent 60%);pointer-events:none}
+.root-card:hover{transform:translateY(-3px)}
+.root-card .el-ico{width:38px;height:38px;margin:0 auto 4px;position:relative;filter:drop-shadow(0 0 8px color-mix(in srgb,var(--c) 70%,transparent))}
+.root-card b{display:block;font-family:var(--serif);font-size:.92rem;color:var(--c);position:relative}
+.root-card span{display:block;font-size:.7rem;color:var(--tx2);line-height:1.5;position:relative}
+.root-card.var{border-style:dashed}
+
+/* 二十七修士畫廊 */
+.gallery{position:relative;overflow:hidden;margin:0 calc(-1 * max(16px,env(safe-area-inset-left)));padding:8px 0 4px;-webkit-mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.g-track{display:flex;gap:12px;width:max-content;animation:marquee 70s linear infinite}
+.gallery:hover .g-track{animation-play-state:paused}
+.g-card{width:110px;flex-shrink:0;text-align:center}
+.g-pic{width:110px;aspect-ratio:2/3;border-radius:10px;overflow:hidden;background:#F4E9D2;border:1.5px solid var(--bd2);box-shadow:0 0 18px rgba(232,195,106,.2);position:relative}
+.g-pic img{width:100%;height:100%;object-fit:cover;object-position:top;mix-blend-mode:multiply;display:block}
+.g-name{font-family:'KuangCao',var(--serif);font-size:1.6rem;line-height:1.3;color:var(--gold2);text-shadow:0 0 10px rgba(232,195,106,.5)}
+.g-code{font-size:.66rem;color:var(--tx3);letter-spacing:.2em}
+
+/* ===== 問卷 ===== */
+.prog{position:sticky;top:0;z-index:50;margin:0 -4px;padding:calc(10px + env(safe-area-inset-top)) 4px 10px;background:linear-gradient(180deg,rgba(7,11,28,.92),rgba(7,11,28,.75));backdrop-filter:var(--glass);-webkit-backdrop-filter:var(--glass);border-bottom:1px solid var(--bd)}
 .prog-inner{display:flex;align-items:center;gap:12px}
-.prog-bar{flex:1;background:var(--bg3);border-radius:6px;height:7px;overflow:hidden}
-.prog-fill{background:linear-gradient(90deg,var(--axA),var(--axC));height:100%;width:0;transition:width .4s;border-radius:6px}
-.prog-num{font-size:.8rem;color:var(--tx3);font-weight:600}.prog-num b{color:var(--tx);font-weight:800}
-.page-ind{text-align:center;margin-bottom:14px;font-size:.78rem;color:var(--tx3);font-weight:600}
-
-/* QUESTIONS */
-.qcard{background:var(--card);border:2px solid var(--bd);border-radius:var(--r);padding:22px;margin-bottom:10px;box-shadow:var(--sh);transition:all .3s;animation:fadeUp .4s ease-out both}
-.qcard.done{border-color:var(--ok);border-color:rgba(16,185,129,.4)}
-.qnum{display:inline-block;padding:2px 10px;border-radius:8px;font-size:.68rem;font-weight:700;letter-spacing:1px;background:var(--bg3);color:var(--tx3);margin-bottom:8px}
-.qtxt{font-size:.93rem;font-weight:600;margin-bottom:14px;line-height:1.85}
-.opts{display:flex;flex-direction:column;gap:7px}
-.opt{display:flex;align-items:flex-start;padding:12px 14px;background:var(--bg);border-radius:var(--r2);cursor:pointer;border:2px solid transparent;transition:all .2s;-webkit-tap-highlight-color:transparent}
-.opt:hover{background:var(--bg2);border-color:var(--bd2)}
-.opt.sel{background:linear-gradient(135deg,rgba(249,115,22,.06),rgba(217,70,239,.06));border-color:var(--axA2);box-shadow:0 2px 10px rgba(249,115,22,.1)}
+.prog-bar{flex:1;background:rgba(255,255,255,.08);border-radius:6px;height:8px;overflow:hidden;border:1px solid rgba(232,195,106,.2)}
+.prog-fill{background:linear-gradient(90deg,#B8862F,#FFE6A3);height:100%;width:0;transition:width .4s;border-radius:6px;box-shadow:0 0 12px rgba(232,195,106,.8)}
+.prog-num{font-size:.85rem;color:var(--tx2);font-weight:600}.prog-num b{color:var(--gold2)}
+.page-ind{text-align:center;margin:14px 0;font-family:var(--serif);font-size:.85rem;letter-spacing:.3em;color:var(--gold2)}
+.qcard{position:relative;background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:20px 18px;margin-bottom:12px;box-shadow:var(--sh);backdrop-filter:var(--glass);-webkit-backdrop-filter:var(--glass);transition:border-color .3s,box-shadow .3s;animation:fadeUp .45s ease-out both}
+.qcard.done{border-color:rgba(95,211,176,.55);box-shadow:var(--sh),0 0 18px rgba(95,211,176,.12)}
+.qnum{display:inline-block;padding:2px 10px;border-radius:8px;font-size:.72rem;letter-spacing:.15em;background:rgba(232,195,106,.12);color:var(--gold2);border:1px solid var(--bd);margin-bottom:8px}
+.qtxt{font-family:var(--serif);font-size:1.02rem;font-weight:600;margin-bottom:14px;line-height:1.8;color:var(--tx)}
+.opts{display:flex;flex-direction:column;gap:9px}
+.opt{position:relative;display:flex;align-items:flex-start;min-height:48px;padding:12px 14px;background:rgba(7,11,28,.45);border-radius:var(--r2);cursor:pointer;border:1.5px solid rgba(107,122,147,.55);transition:all .2s;overflow:hidden;-webkit-tap-highlight-color:transparent}
+.opt:hover{border-color:var(--bd2);background:rgba(232,195,106,.07)}
+.opt.sel{background:linear-gradient(135deg,rgba(232,195,106,.2),rgba(232,195,106,.06));border-color:var(--gold);box-shadow:0 0 16px rgba(232,195,106,.25)}
+.opt.sel::after{content:'';position:absolute;left:var(--rx,50%);top:var(--ry,50%);width:120px;height:120px;margin:-60px 0 0 -60px;border-radius:50%;background:radial-gradient(circle,rgba(255,230,163,.55),transparent 65%);animation:ripple .7s ease-out forwards;pointer-events:none}
 .opt input{display:none}
-.dot{width:18px;height:18px;border:2.5px solid #d4d4d8;border-radius:50%;margin-right:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;transition:all .25s}
-.opt.sel .dot{border-color:var(--axA);background:var(--axA)}
-.opt.sel .dot::after{content:'';width:7px;height:7px;background:#fff;border-radius:50%}
-.opt-t{font-size:.85rem;color:var(--tx2);line-height:1.7;transition:color .2s}
+.dot{width:20px;height:20px;border:2px solid var(--bdui);border-radius:50%;margin-right:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;transition:all .25s}
+.opt.sel .dot{border-color:var(--gold);background:var(--gold);box-shadow:0 0 10px var(--gold)}
+.opt.sel .dot::after{content:'';width:7px;height:7px;background:#1A1206;border-radius:50%}
+.opt-t{font-size:.95rem;color:var(--tx2);line-height:1.65}
 .opt.sel .opt-t{color:var(--tx);font-weight:600}
-
-/* NAV */
 .nav-row{display:flex;gap:10px;margin-top:14px}
 .nav-row .btn{flex:1}
-.btn-prev{background:var(--card);color:var(--tx2);border:2px solid var(--bd)}
-.btn-prev:hover{border-color:var(--bd2);background:var(--bg2)}
 
-/* RESULTS */
-@keyframes auraGlow{0%,100%{transform:scale(1);opacity:.4}50%{transform:scale(1.08);opacity:.7}}
-@keyframes rootOrbit{from{transform:rotate(0deg) translateX(68px) rotate(0deg)}to{transform:rotate(360deg) translateX(68px) rotate(-360deg)}}
-@keyframes charFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-@keyframes cardShine{0%{background-position:200% 50%}100%{background-position:-200% 50%}}
-
-.res-enter{animation:pop .5s ease-out}
-.type-banner{text-align:center;padding:0;border-radius:var(--r);position:relative;overflow:hidden;margin-bottom:14px;border:2px solid var(--bd);box-shadow:var(--sh2)}
-.banner-bg{padding:30px 20px 24px;position:relative;overflow:hidden}
-.banner-bg::before{content:'';position:absolute;inset:0;opacity:.1}
-.banner-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent 30%,rgba(255,255,255,.5) 50%,transparent 70%);background-size:200% 100%;animation:cardShine 4s ease-in-out infinite}
-
-.char-stage{position:relative;width:160px;height:160px;margin:0 auto 12px;animation:charFloat 4s ease-in-out infinite}
-.char-aura{position:absolute;inset:8px;border-radius:50%;animation:auraGlow 3s ease-in-out infinite}
-.char-body{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:4.5rem;filter:drop-shadow(0 4px 12px rgba(0,0,0,.1))}
-.root-orbit{position:absolute;top:50%;left:50%;width:0;height:0}
-.root-orb{position:absolute;font-size:1.2rem;animation:rootOrbit var(--dur) linear infinite;animation-delay:var(--del);filter:drop-shadow(0 0 4px rgba(0,0,0,.15))}
-
-.type-badge{display:inline-block;padding:4px 14px;border-radius:10px;font-size:.68rem;font-weight:700;letter-spacing:2px;background:rgba(255,255,255,.75);color:var(--tx3);border:1px solid var(--bd);margin-bottom:4px;backdrop-filter:blur(4px);position:relative;z-index:2}
-.type-code{font-size:2.6rem;font-weight:800;letter-spacing:7px;margin-bottom:2px;position:relative;z-index:2;animation:fadeUp .5s ease-out .1s both}
-.type-name{font-size:1.6rem;font-weight:800;margin-bottom:2px;position:relative;z-index:2;animation:fadeUp .5s ease-out .15s both}
-.type-en{font-size:.82rem;color:var(--tx3);position:relative;z-index:2;animation:fadeUp .5s ease-out .2s both}
-.root-tags{display:flex;justify-content:center;flex-wrap:wrap;gap:5px;margin-top:10px;position:relative;z-index:2;animation:fadeUp .5s ease-out .25s both}
-.root-tag{display:inline-flex;align-items:center;gap:3px;padding:4px 10px;border-radius:8px;font-size:.72rem;font-weight:700;background:rgba(255,255,255,.75);backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,.6)}
-.variant-tag{background:rgba(255,255,255,.9);border:1.5px dashed}
-
-.rcard{background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:22px;margin-bottom:12px;box-shadow:var(--sh)}
-.rcard h3{font-size:.92rem;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:8px}
-
-/* SPIRIT ROOTS */
-.roots-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
-.root-chip{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:12px;font-size:.82rem;font-weight:700;border:2px solid;background:#fff}
-.root-chip .ri{font-size:1rem}
-.variant-banner{margin-top:14px;padding:14px 18px;border-radius:var(--r2);border:2px dashed;position:relative;overflow:hidden}
-.variant-banner::before{content:'';position:absolute;inset:0;opacity:.06}
-.variant-banner h4{font-size:.88rem;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:6px}
-.variant-banner p{font-size:.82rem;color:var(--tx2);line-height:1.8}
-
-/* AXIS VIS */
-.axis-vis{margin-bottom:20px;animation:fadeUp .5s ease-out both}
-.axis-vis:nth-child(2){animation-delay:.08s}.axis-vis:nth-child(3){animation-delay:.16s}
-.axis-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:7px}
-.axis-name{font-size:.82rem;font-weight:700}.axis-score{font-size:1.4rem;font-weight:800}
-.axis-track{position:relative;height:36px;background:var(--bg3);border-radius:18px;overflow:visible;margin-bottom:5px;border:2px solid var(--bd)}
-.axis-track-inner{position:absolute;inset:3px;border-radius:15px;overflow:hidden}
-.axis-mid{position:absolute;left:50%;top:3px;bottom:3px;width:2px;background:var(--bd2);z-index:2}
-.axis-bar{position:absolute;top:0;height:100%;border-radius:15px;animation:barGrow .8s cubic-bezier(.25,.46,.45,.94) forwards}
-.axis-marker{position:absolute;top:50%;width:18px;height:18px;border-radius:50%;transform:translate(-50%,-50%);z-index:3;border:3px solid #fff;animation:dotSlide .8s cubic-bezier(.25,.46,.45,.94) forwards}
-.axis-labels{display:flex;justify-content:space-between;font-size:.68rem;color:var(--tx3);font-weight:600;position:relative}
-.axis-labels .mid{position:absolute;left:50%;transform:translateX(-50%)}
-
-.type-prose{font-size:.9rem;color:var(--tx2);line-height:2;padding:18px;background:var(--bg);border-radius:var(--r2);margin-bottom:12px;border-left:4px solid var(--acc)}
-.dblock{margin-bottom:12px}
-.dblock h4{font-size:.86rem;font-weight:700;margin-bottom:6px;padding-bottom:6px;border-bottom:1px solid var(--bd)}
-.dblock p{font-size:.84rem;color:var(--tx2);line-height:1.85;padding:12px;background:var(--bg);border-radius:var(--r2)}
-.ax-exp{padding:14px 16px;background:var(--bg);border-radius:var(--r2);margin-bottom:8px;border-left:4px solid}
-.ax-exp h4{font-size:.84rem;font-weight:700;margin-bottom:4px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
-.ax-exp .str{font-size:.68rem;font-weight:600;padding:2px 8px;border-radius:8px;background:rgba(0,0,0,.06)}
-.ax-exp p{font-size:.82rem;color:var(--tx2);line-height:1.85}
-.share-area{text-align:center;padding:20px;background:var(--card);border:2px dashed var(--bd2);border-radius:var(--r);margin-bottom:12px}
-.share-area p{color:var(--tx3);font-size:.8rem;margin-bottom:10px;font-weight:600}
-.share-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:var(--r2);background:var(--bg);border:2px solid var(--axA2);color:var(--axA);font-size:1rem;font-weight:700;letter-spacing:3px;cursor:pointer;transition:all .25s;font-family:"JetBrains Mono",monospace}
-.share-btn:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(249,115,22,.15)}
-.share-btn.copied{background:rgba(16,185,129,.1);border-color:var(--ok);color:var(--ok)}
-.disc{font-size:.74rem;color:var(--tx3);line-height:1.85;padding:14px;border:1px solid var(--bd);border-radius:var(--r2);text-align:center;background:var(--card);margin-bottom:12px}
-/* PARTICLES */
-.particles{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:1}
-.orb{position:absolute;border-radius:50%;filter:blur(1px)}
-.orb-1{width:12px;height:12px;background:radial-gradient(circle,#FBBF24,#F97316);top:15%;left:10%;animation:orbit1 8s ease-in-out infinite}
-.orb-2{width:8px;height:8px;background:radial-gradient(circle,#FDE68A,#F59E0B);top:20%;right:15%;animation:orbit2 10s ease-in-out infinite}
-.orb-3{width:10px;height:10px;background:radial-gradient(circle,#FDBA74,#F97316);bottom:30%;left:20%;animation:orbit3 7s ease-in-out infinite}
-.orb-4{width:6px;height:6px;background:radial-gradient(circle,#FCD34D,#F59E0B);top:40%;right:10%;animation:orbit1 12s ease-in-out infinite reverse}
-.orb-5{width:9px;height:9px;background:radial-gradient(circle,#FCD34D,#F59E0B);bottom:20%;right:25%;animation:orbit2 9s ease-in-out infinite}
-.orb-6{width:7px;height:7px;background:radial-gradient(circle,#FBBF24,#D97706);top:60%;left:8%;animation:orbit3 11s ease-in-out infinite reverse}
-.sparkle-dot{position:absolute;width:4px;height:4px;background:#FBBF24;border-radius:50%}
-.sparkle-dot::before,.sparkle-dot::after{content:'';position:absolute;background:#FBBF24;border-radius:50%}
-.sparkle-dot::before{width:12px;height:2px;top:1px;left:-4px}
-.sparkle-dot::after{width:2px;height:12px;top:-4px;left:1px}
-.sp1{top:25%;left:25%;animation:sparkle 3s ease-in-out infinite}
-.sp2{top:15%;right:20%;animation:sparkle 4s ease-in-out infinite 1s}
-.sp3{bottom:35%;left:15%;animation:sparkle 3.5s ease-in-out infinite .5s}
-.sp4{bottom:25%;right:12%;animation:sparkle 4.5s ease-in-out infinite 1.5s}
-.sp5{top:50%;left:50%;animation:sparkle 3s ease-in-out infinite 2s}
-
-/* MIST EFFECT */
-.mist{position:fixed;top:0;pointer-events:none;z-index:0;width:200px;height:100%;opacity:.25}
-.mist-l{left:-40px;background:linear-gradient(90deg,rgba(134,239,172,.08),rgba(74,222,128,.04),transparent)}
-.mist-r{right:-40px;background:linear-gradient(-90deg,rgba(134,239,172,.06),rgba(74,222,128,.03),transparent)}
-.mist-l::after,.mist-r::after{content:'';position:absolute;inset:0;background:inherit;animation:mistDrift 8s ease-in-out infinite alternate;opacity:.6}
-
-/* HERO XIANXIA */
-.hero{position:relative;z-index:1}
-.hero h1{font-family:'KuangCao',cursive;font-weight:normal;font-size:clamp(3rem,18vw,7rem);background:linear-gradient(135deg,#DC2626,#F97316,#DC2626);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.15;margin-bottom:0;filter:drop-shadow(0 0 40px rgba(220,38,38,.3)) drop-shadow(0 4px 8px rgba(0,0,0,.1));display:flex;justify-content:space-between;width:100%;max-width:600px;margin:0 auto}
-
-/* Welcome landscape bg */
-.welcome-bg{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
-.welcome-bg svg{width:100%;height:100%}
-
-/* CORE VISUAL - Taiji + Wuxing Orbit */
-@keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
-@keyframes cspin{from{transform:rotate(0)}to{transform:rotate(-360deg)}}
-@keyframes pulse{0%,100%{box-shadow:0 0 8px var(--gc),0 0 16px var(--gc)}50%{box-shadow:0 0 16px var(--gc),0 0 32px var(--gc)}}
-
-.core-vis{position:relative;width:100%;height:640px;margin:10px auto;display:flex;align-items:center;justify-content:center;overflow:visible}
-.core-vis::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(249,115,22,.06),rgba(217,70,239,.03),transparent 70%);pointer-events:none}
-
-/* Taiji center */
-.taiji-wrap{position:absolute;top:50%;left:50%;width:450px;height:450px;margin-left:-225px;margin-top:-225px;animation:spin 60s linear infinite}
-.taiji-svg{width:100%;height:100%}
-
-/* Wuxing orbit ring */
-.wuxing-orbit{position:absolute;top:50%;left:50%;width:0;height:0;animation:spin 60s linear infinite}
-.wx-node{position:absolute;width:80px;height:80px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;animation:cspin 60s linear infinite;background:rgba(255,255,255,.85);backdrop-filter:blur(4px);box-shadow:var(--sh);border:2px solid;cursor:default;transition:box-shadow .3s}
-.wx-node svg{width:50px;height:50px;margin-bottom:2px}
-.wx-node .wx-lbl{font-size:.65rem;font-weight:700;line-height:1}
-/* Position each node at r=278px from center */
-.wx-jin{top:-308px;left:-40px;border-color:rgba(200,169,81,.5);--gc:rgba(200,169,81,.3)}.wx-jin .wx-lbl{color:#B8860B}
-.wx-mu{top:-116px;left:234px;border-color:rgba(34,197,94,.5);--gc:rgba(34,197,94,.3)}.wx-mu .wx-lbl{color:#15803D}
-.wx-shui{top:194px;left:137px;border-color:rgba(59,130,246,.5);--gc:rgba(59,130,246,.3)}.wx-shui .wx-lbl{color:#1D4ED8}
-.wx-huo{top:194px;left:-217px;border-color:rgba(239,68,68,.5);--gc:rgba(239,68,68,.3)}.wx-huo .wx-lbl{color:#DC2626}
-.wx-tu{top:-116px;left:-294px;border-color:rgba(180,83,9,.5);--gc:rgba(180,83,9,.3)}.wx-tu .wx-lbl{color:#92400E}
-.wx-node:hover{box-shadow:0 0 16px var(--gc),0 0 32px var(--gc)}
-
-/* Variant section */
-.variant-sec{margin:16px 0;animation:fadeUp .7s ease-out .2s both}
-.variant-sec h4{text-align:center;font-size:.88rem;font-weight:700;color:var(--tx2);margin-bottom:14px}
-.var-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-.var-card{background:var(--card);border-radius:var(--r2);padding:14px 8px;text-align:center;box-shadow:var(--sh);border:1px solid var(--bd);transition:all .3s}
-.var-card:hover{transform:translateY(-3px);box-shadow:var(--sh2)}
-.var-card .var-icon{font-size:2rem;margin-bottom:6px;display:block;animation:variantFlicker 3s ease-in-out infinite}
-.var-card:nth-child(2) .var-icon{animation-delay:.7s}
-.var-card:nth-child(3) .var-icon{animation-delay:1.4s}
-.var-card:nth-child(4) .var-icon{animation-delay:2.1s}
-.var-card .var-name{font-size:.78rem;font-weight:700;margin-bottom:2px}
-.var-card:nth-child(1) .var-name{color:#7C3AED}
-.var-card:nth-child(2) .var-name{color:#EAB308}
-.var-card:nth-child(3) .var-name{color:#14B8A6}
-.var-card:nth-child(4) .var-name{color:#38BDF8}
-.var-card .var-sub{font-size:.62rem;color:var(--tx3);line-height:1.4}
-
-/* ENHANCED BTN */
-.btn-xian{position:relative;z-index:1}
-.btn-xian::before{content:'';position:absolute;inset:-3px;border-radius:calc(var(--r2) + 3px);background:conic-gradient(from var(--bd-angle,0deg),var(--axA),var(--acc),var(--axC),var(--axB),var(--axA));z-index:-1;opacity:0;transition:opacity .3s;animation:borderSpin 3s linear infinite}
-.btn-xian:hover::before{opacity:1}
-.btn-xian:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 8px 30px rgba(249,115,22,.35)}
-
-/* ORB TRAILS */
-.orb{box-shadow:0 0 6px 2px currentColor}
-.orb-1{color:rgba(251,191,36,.4)}.orb-2{color:rgba(249,115,22,.3)}.orb-3{color:rgba(245,158,11,.35)}
-.orb-4{color:rgba(252,211,77,.3)}.orb-5{color:rgba(251,191,36,.3)}.orb-6{color:rgba(249,115,22,.25)}
-
-/* ICONS */
+/* ===== 結果頁 ===== */
+.res-enter{animation:pop .6s ease-out}
+.r-hero{position:relative;text-align:center;padding:10px 0 18px}
+.hc-badge{display:inline-block;padding:5px 16px;border-radius:999px;font-family:var(--serif);font-size:.78rem;letter-spacing:.3em;color:var(--gold2);background:rgba(11,16,38,.6);border:1px solid var(--bd2)}
+.stage{position:relative;width:min(300px,72vw);margin:26px auto 10px}
+.stage-rays{position:absolute;left:50%;top:48%;transform:translate(-50%,-50%);width:190%;aspect-ratio:1;border-radius:50%;background:repeating-conic-gradient(from 0deg,color-mix(in srgb,var(--g1) 30%,transparent) 0 5deg,transparent 5deg 15deg);-webkit-mask:radial-gradient(circle,#000 25%,transparent 66%);mask:radial-gradient(circle,#000 25%,transparent 66%);animation:rayspin 60s linear infinite;pointer-events:none}
+.stage-ring{position:absolute;left:50%;top:48%;width:150%;aspect-ratio:1;transform:translate(-50%,-50%);pointer-events:none}
+.stage-ring svg{width:100%;height:100%;animation:spin 50s linear infinite}
+.frame{position:relative;padding:3px;border-radius:14px;background:linear-gradient(160deg,#FFE6A3,#B8862F 35%,#F2CF73 60%,#8A6420);box-shadow:0 0 0 1px rgba(0,0,0,.4),0 0 40px rgba(232,195,106,.45),0 0 90px color-mix(in srgb,var(--g1) 45%,transparent);animation:floatY 6s ease-in-out infinite}
+.frame-in{position:relative;aspect-ratio:2/3;border-radius:11px;overflow:hidden;background:radial-gradient(ellipse at 50% 35%,#FBF4E2,#EBDDBE 70%,#D9C59B)}
+.frame-in::after{content:'';position:absolute;inset:0;box-shadow:inset 0 0 30px rgba(120,80,20,.35);border-radius:inherit;pointer-events:none}
+.portrait-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;mix-blend-mode:multiply;-webkit-mask-image:radial-gradient(ellipse 72% 78% at 50% 44%,#000 72%,transparent 100%);mask-image:radial-gradient(ellipse 72% 78% at 50% 44%,#000 72%,transparent 100%)}
+.portrait-fallback{display:none;position:absolute;inset:0;align-items:center;justify-content:center}
+.corner{position:absolute;width:34px;height:34px;pointer-events:none;z-index:3}
+.corner svg{width:100%;height:100%}
+.c-tl{left:-8px;top:-8px}.c-tr{right:-8px;top:-8px;transform:scaleX(-1)}.c-bl{left:-8px;bottom:-8px;transform:scaleY(-1)}.c-br{right:-8px;bottom:-8px;transform:scale(-1)}
+.orb-badge{position:absolute;width:44px;height:44px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#28345C,#0B1026);border:1.5px solid var(--c);box-shadow:0 0 16px color-mix(in srgb,var(--c) 70%,transparent);display:flex;align-items:center;justify-content:center;animation:orbBob 3.6s ease-in-out infinite;z-index:4}
+.orb-badge .el-ico{width:26px;height:26px}
+.ob0{left:-22px;top:12%}.ob1{right:-22px;top:26%}.ob2{left:-22px;top:46%}.ob3{right:-22px;top:60%}.ob4{left:-14px;top:78%}
+.hc-name{font-family:'KuangCao',var(--serif);font-weight:normal;font-size:clamp(3.4rem,17vw,4.6rem);line-height:1.1;margin-top:14px;background:linear-gradient(180deg,#FFF6DA,#F2CF73 55%,#B8862F);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 16px color-mix(in srgb,var(--g1) 70%,transparent)) drop-shadow(0 2px 2px rgba(0,0,0,.6))}
+.hc-en{font-size:.82rem;color:var(--tx2);letter-spacing:.2em;margin-bottom:12px}
+.chip-row{display:flex;justify-content:center;flex-wrap:wrap;gap:6px}
+.el-chip{display:inline-flex;align-items:center;gap:5px;padding:5px 12px;border-radius:999px;font-size:.8rem;font-weight:700;color:var(--c);background:rgba(11,16,38,.7);border:1.5px solid color-mix(in srgb,var(--c) 60%,transparent);box-shadow:0 0 12px color-mix(in srgb,var(--c) 25%,transparent)}
+.el-chip.var{border-style:dashed}
 .el-ico{width:1.15em;height:1.15em;flex-shrink:0;display:block}
 .ui-ico{width:18px;height:18px;flex-shrink:0}
-.var-card .var-icon{width:40px;height:40px;margin:0 auto 6px}
-.var-card .var-icon .el-ico{width:100%;height:100%;filter:drop-shadow(0 2px 6px rgba(0,0,0,.12))}
-.rcard h3 .ui-ico{color:var(--g1,var(--axA))}
-
-/* RESULT HERO */
-@keyframes orbBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
-@keyframes auraPulse{0%,100%{opacity:.55;transform:translate(-50%,-50%) scale(1)}50%{opacity:.85;transform:translate(-50%,-50%) scale(1.06)}}
-.hero-card{position:relative;text-align:center;padding:22px 18px 22px;border-radius:var(--r);border:1px solid var(--bd);box-shadow:var(--sh2);margin-bottom:12px;overflow:hidden}
-.hc-badge{display:inline-block;padding:4px 14px;border-radius:999px;font-size:.66rem;font-weight:700;letter-spacing:2px;color:var(--tx2);background:rgba(255,255,255,.8);border:1px solid var(--bd)}
-.portrait{position:relative;width:min(300px,78vw);margin:10px auto 4px}
-.portrait-aura{position:absolute;left:50%;top:48%;width:92%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,var(--g1) 34%,transparent),color-mix(in srgb,var(--g2) 14%,transparent) 55%,transparent 72%);animation:auraPulse 5s ease-in-out infinite;pointer-events:none}
-.portrait-img{position:relative;display:block;width:100%;height:auto;mix-blend-mode:multiply;-webkit-mask-image:radial-gradient(ellipse 52% 52% at 50% 47%,#000 74%,transparent 100%);mask-image:radial-gradient(ellipse 52% 52% at 50% 47%,#000 74%,transparent 100%)}
-.portrait-fallback{display:none}
-.portrait-fallback svg{margin:0 auto}
-.orb-badge{position:absolute;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.92);box-shadow:0 4px 14px rgba(0,0,0,.1);display:flex;align-items:center;justify-content:center;animation:orbBob 3.6s ease-in-out infinite;z-index:2}
-.orb-badge .el-ico{width:26px;height:26px}
-.ob0{left:-6px;top:18%}.ob1{right:-6px;top:30%}.ob2{left:-2px;top:52%}.ob3{right:-2px;top:64%}.ob4{left:6px;top:80%}
-.hc-name{font-family:'KuangCao','Nunito',serif;font-weight:normal;font-size:3.4rem;line-height:1.1;margin-top:4px;background:linear-gradient(135deg,var(--g1),color-mix(in srgb,var(--g1) 60%,#1a1a2e));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-.hc-en{font-size:.8rem;color:var(--tx3);letter-spacing:1px;margin-bottom:10px}
-.chip-row{display:flex;justify-content:center;flex-wrap:wrap;gap:6px}
-.el-chip{display:inline-flex;align-items:center;gap:5px;padding:5px 11px;border-radius:999px;font-size:.76rem;font-weight:700;color:color-mix(in srgb,var(--c) 62%,#1a1a2e);background:#fff;border:1.5px solid color-mix(in srgb,var(--c) 35%,transparent)}
-.el-chip.var{border-style:dashed}
 .hc-codes{display:flex;justify-content:center;flex-wrap:wrap;gap:6px;margin-top:12px}
-.code-pill{display:inline-flex;align-items:center;gap:6px;padding:4px 10px 4px 4px;border-radius:999px;font-size:.72rem;font-weight:700;color:var(--tx2);background:rgba(255,255,255,.8);border:1px solid var(--bd)}
-.code-pill b{display:inline-flex;width:22px;height:22px;border-radius:50%;align-items:center;justify-content:center;background:var(--c);color:#fff;font-size:.72rem}
+.code-pill{display:inline-flex;align-items:center;gap:6px;padding:4px 12px 4px 4px;border-radius:999px;font-size:.78rem;font-weight:600;color:var(--tx);background:rgba(11,16,38,.7);border:1px solid var(--bd)}
+.code-pill b{display:inline-flex;width:24px;height:24px;border-radius:50%;align-items:center;justify-content:center;background:var(--c);color:#0B1026;font-size:.75rem}
 
-/* RESULT SECTIONS */
-.dblock h4{display:flex;align-items:center;gap:8px}
-.h-ico{display:inline-flex;width:28px;height:28px;border-radius:9px;align-items:center;justify-content:center;color:var(--c);background:color-mix(in srgb,var(--c) 12%,#fff)}
+.rcard{position:relative;background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:20px 18px;margin-bottom:14px;box-shadow:var(--sh);backdrop-filter:var(--glass);-webkit-backdrop-filter:var(--glass);animation:fadeUp .6s ease-out both}
+.rcard::before{content:'';position:absolute;left:18px;right:18px;top:-1px;height:1px;background:linear-gradient(90deg,transparent,var(--gold2),transparent)}
+.rcard h3{font-family:var(--serif);font-size:1.05rem;font-weight:700;letter-spacing:.2em;margin-bottom:14px;display:flex;align-items:center;gap:8px;color:var(--gold2)}
+.rcard h3 .ui-ico{color:var(--gold)}
+
+/* 雷達圖 */
+.radar-wrap{width:min(100%,380px);margin:0 auto}
+.radar{width:100%;height:auto;display:block;overflow:visible}
+.radar .poly{transform-origin:0 0;animation:radarGrow 1s cubic-bezier(.2,.8,.2,1) .2s both}
+.radar text{font-family:var(--sans)}
+.radar-note{font-size:.78rem;color:var(--tx2);line-height:1.7;margin-top:8px;padding:10px 12px;border-radius:10px;background:rgba(7,11,28,.45);border:1px dashed rgba(232,195,106,.3)}
+.radar-note b{color:var(--gold2)}
+
+/* 三軸條 */
+.axis-vis{margin-bottom:18px}
+.axis-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}
+.axis-name{font-family:var(--serif);font-size:.9rem;font-weight:700}.axis-score{font-size:1.3rem;font-weight:700}
+.axis-track{position:relative;height:30px;background:rgba(7,11,28,.6);border-radius:16px;margin-bottom:5px;border:1px solid rgba(232,195,106,.25)}
+.axis-track-inner{position:absolute;inset:3px;border-radius:13px;overflow:hidden}
+.axis-band{position:absolute;top:0;bottom:0;left:41.5%;width:17%;background:repeating-linear-gradient(135deg,rgba(255,255,255,.08) 0 4px,transparent 4px 8px)}
+.axis-mid{position:absolute;left:50%;top:3px;bottom:3px;width:1px;background:rgba(232,195,106,.5);z-index:2}
+.axis-bar{position:absolute;top:0;height:100%;border-radius:13px;animation:barGrow .9s cubic-bezier(.25,.46,.45,.94) forwards}
+.axis-marker{position:absolute;top:50%;width:18px;height:18px;border-radius:50%;transform:translate(-50%,-50%);z-index:3;border:2px solid #fff;animation:dotSlide .9s cubic-bezier(.25,.46,.45,.94) forwards}
+.axis-labels{display:flex;justify-content:space-between;font-size:.74rem;color:var(--tx2);position:relative}
+.axis-labels .mid{position:absolute;left:50%;transform:translateX(-50%);color:var(--tx3)}
+
+.dblock{margin-bottom:14px}
+.dblock h4{font-family:var(--serif);font-size:.95rem;font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:8px;color:var(--tx)}
+.dblock p{font-size:.92rem;color:var(--tx2);line-height:1.9;padding:12px 14px;background:rgba(7,11,28,.4);border-radius:var(--r2);border-left:3px solid var(--c,var(--gold))}
+.h-ico{display:inline-flex;width:30px;height:30px;border-radius:9px;align-items:center;justify-content:center;color:var(--c);background:color-mix(in srgb,var(--c) 18%,transparent);border:1px solid color-mix(in srgb,var(--c) 40%,transparent)}
 .h-ico .ui-ico{width:17px;height:17px}
 .root-list{display:flex;flex-direction:column;gap:8px}
-.root-row{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:var(--r2);border:1px solid color-mix(in srgb,var(--c) 25%,transparent);background:#fff}
-.root-row .rr-ico{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:var(--bg)}
+.root-row{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:var(--r2);border:1px solid color-mix(in srgb,var(--c) 40%,transparent);background:rgba(7,11,28,.4)}
+.root-row .rr-ico{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:radial-gradient(circle,color-mix(in srgb,var(--c) 30%,transparent),rgba(7,11,28,.6));border:1px solid color-mix(in srgb,var(--c) 50%,transparent)}
 .root-row .rr-ico .el-ico{width:26px;height:26px}
-.root-row b{display:block;font-size:.88rem;color:color-mix(in srgb,var(--c) 62%,#1a1a2e)}
-.root-row span{font-size:.8rem;color:var(--tx2)}
+.root-row b{display:block;font-family:var(--serif);font-size:.95rem;color:var(--c)}
+.root-row span{font-size:.84rem;color:var(--tx2)}
+.variant-banner{margin-top:12px;padding:14px 16px;border-radius:var(--r2);border:1.5px dashed var(--c);background:color-mix(in srgb,var(--c) 10%,rgba(7,11,28,.5))}
+.variant-banner h4{font-family:var(--serif);font-size:.95rem;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;color:var(--c)}
+.variant-banner p{font-size:.88rem;color:var(--tx2);line-height:1.85}
 .vb-ico .el-ico{width:22px;height:22px}
-.vb-org{font-size:.72rem;color:var(--tx3);font-weight:500}
-.act-row{display:flex;flex-direction:column;gap:0;margin-top:4px}
-.act-row .btn{display:flex;align-items:center;justify-content:center;gap:8px}
-.btn.copied{background:linear-gradient(135deg,#10B981,#34D399)}
-.btn:focus-visible,.opt:focus-visible{outline:3px solid var(--axC);outline-offset:2px}
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}}
-
-.ftr{display:none}
+.vb-org{font-size:.76rem;color:var(--tx3);font-weight:500}
+.ax-exp{padding:14px 16px;background:rgba(7,11,28,.4);border-radius:var(--r2);margin-bottom:8px;border-left:3px solid var(--c)}
+.ax-exp h4{font-family:var(--serif);font-size:.92rem;font-weight:700;margin-bottom:4px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;color:var(--c)}
+.ax-exp .str{font-family:var(--sans);font-size:.72rem;font-weight:600;padding:2px 8px;border-radius:8px;background:rgba(255,255,255,.08);color:var(--tx2)}
+.ax-exp p{font-size:.88rem;color:var(--tx2);line-height:1.85}
+.act-row{display:flex;flex-direction:column;margin-top:4px}
+.btn.copied{background:linear-gradient(135deg,#5FD3B0,#2E9E7E);color:#05221A}
 
 @media(max-width:500px){
-.hc-name{font-size:2.9rem}.orb-badge{width:38px;height:38px}.orb-badge .el-ico{width:22px;height:22px}
-.wrap{padding:14px}
-.type-code{font-size:2.4rem;letter-spacing:5px}.type-name{font-size:1.3rem}
-.mist{width:100px;opacity:.15}
-.core-vis{height:420px}
-.taiji-wrap{width:262px;height:262px;margin-left:-131px;margin-top:-131px}
-.wx-node{width:56px;height:56px}
-.wx-node svg{width:32px;height:32px}
-.wx-node .wx-lbl{font-size:.52rem}
-.wx-jin{top:-180px;left:-28px}
-.wx-mu{top:-71px;left:134px}
-.wx-shui{top:111px;left:79px}
-.wx-huo{top:111px;left:-135px}
-.wx-tu{top:-71px;left:-190px}
-.var-grid{grid-template-columns:repeat(2,1fr)}
+.wrap{padding-left:max(14px,env(safe-area-inset-left));padding-right:max(14px,env(safe-area-inset-right))}
+.root-card span{font-size:.66rem}
+.g-card,.g-pic{width:92px}.g-name{font-size:1.35rem}
+.ob0,.ob2{left:-16px}.ob1,.ob3{right:-16px}.ob4{left:-10px}
+.orb-badge{width:38px;height:38px}.orb-badge .el-ico{width:22px;height:22px}
+.rcard{padding:18px 14px}
 }
-
-@supports(background:conic-gradient(red,blue)){
-.btn-xian::before{opacity:0}
+@media(min-width:900px){
+.wrap{max-width:760px}
+}
+@media(prefers-reduced-motion:reduce){
+*,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+#motes{display:none}
 }
 </style>
 </head>
-<body>
-<!-- Clouds -->
-<div class="cloud cloud-1"></div>
-<div class="cloud cloud-2"></div>
-<!-- Spirit motes -->
-<div class="spirit-mote sm1"></div><div class="spirit-mote sm2"></div><div class="spirit-mote sm3"></div>
-<div class="spirit-mote sm4"></div><div class="spirit-mote sm5"></div><div class="spirit-mote sm6"></div>
-<div class="spirit-mote sm7"></div><div class="spirit-mote sm8"></div><div class="spirit-mote sm9"></div>
-<div class="spirit-mote sm10"></div>
-<!-- Side decorations -->
-<div class="side-deco side-deco-l"><svg viewBox="0 0 30 800" xmlns="http://www.w3.org/2000/svg"><pattern id="yunwen" width="30" height="60" patternUnits="userSpaceOnUse"><path d="M15 5 Q25 5 25 15 Q25 25 15 25 Q5 25 5 15 Q5 5 15 5Z" fill="none" stroke="#B8860B" stroke-width="1"/><path d="M15 35 Q25 35 25 45 Q25 55 15 55 Q5 55 5 45 Q5 35 15 35Z" fill="none" stroke="#B8860B" stroke-width="1"/><line x1="15" y1="25" x2="15" y2="35" stroke="#B8860B" stroke-width=".5"/></pattern><rect width="30" height="800" fill="url(#yunwen)"/></svg></div>
-<div class="side-deco side-deco-r"><svg viewBox="0 0 30 800" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="800" fill="url(#yunwen)"/></svg></div>
+<body class="v-home">
+<div class="bg-layer" aria-hidden="true"><div class="bg-img"></div><div class="bg-veil"></div></div>
+<canvas id="motes" aria-hidden="true"></canvas>
 
 <div class="wrap">
-<div class="mist mist-l"></div>
-<div class="mist mist-r"></div>
-<div id="welcome" style="position:relative">
-<!-- Full-page landscape background -->
-<div class="welcome-bg">
-<svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
-<defs>
-<linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F0F7F0"/><stop offset=".35" stop-color="#FAFFF8"/><stop offset=".55" stop-color="#F5FAF5"/><stop offset="1" stop-color="#E8F5E8"/></linearGradient>
-<linearGradient id="fog" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="transparent"/><stop offset=".7" stop-color="#F5FAF5" stop-opacity=".8"/><stop offset="1" stop-color="#F5FAF5"/></linearGradient>
-<radialGradient id="sunG" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#FCD34D"/><stop offset=".6" stop-color="#F97316" stop-opacity=".5"/><stop offset="1" stop-color="#F97316" stop-opacity="0"/></radialGradient>
-</defs>
-<rect width="1440" height="900" fill="url(#sky)"/>
-<!-- Sun -->
-<circle cx="1080" cy="160" r="120" fill="#FCD34D" opacity=".07"/>
-<circle cx="1080" cy="160" r="45" fill="url(#sunG)" opacity=".55"/>
-<g stroke="#FCD34D" stroke-width="1.5" opacity=".12" stroke-linecap="round">
-<line x1="1080" y1="95" x2="1080" y2="65"/><line x1="1080" y1="225" x2="1080" y2="255"/>
-<line x1="1015" y1="160" x2="985" y2="160"/><line x1="1145" y1="160" x2="1175" y2="160"/>
-<line x1="1034" y1="114" x2="1014" y2="94"/><line x1="1126" y1="114" x2="1146" y2="94"/>
-<line x1="1034" y1="206" x2="1014" y2="226"/><line x1="1126" y1="206" x2="1146" y2="226"/>
+<div id="welcome">
+<header class="w-hero">
+<div class="w-badge">三軸 · 二十七型 · 五行靈根</div>
+<h1 class="w-title" aria-label="修仙靈根"><span>修</span><span>仙</span><span>靈</span><span>根</span></h1>
+<p class="w-sub">三十道問心之題，照見你的做事風格、能量來源與內心羅盤</p>
+
+<div class="array" aria-hidden="true">
+<div class="array-rays"></div>
+<div class="array-ring">
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+<defs><radialGradient id="tjL" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="#FFF6DA"/><stop offset="1" stop-color="#E8C36A"/></radialGradient></defs>
+<circle cx="100" cy="100" r="97" fill="none" stroke="#E8C36A" stroke-width=".8" stroke-dasharray="2 3" opacity=".8"/>
+<circle cx="100" cy="100" r="92" fill="none" stroke="#E8C36A" stroke-width="1.4" opacity=".9"/>
+<circle cx="100" cy="100" r="64" fill="none" stroke="#E8C36A" stroke-width=".8" opacity=".7"/>
+<g stroke="#FFE6A3" stroke-width="2.4" stroke-linecap="round" opacity=".95">
+<g transform="translate(100,22)"><line x1="-9" y1="-5" x2="9" y2="-5"/><line x1="-9" y1="0" x2="9" y2="0"/><line x1="-9" y1="5" x2="9" y2="5"/></g>
+<g transform="rotate(45 100 100) translate(100,22)"><line x1="-9" y1="-5" x2="-2" y2="-5"/><line x1="2" y1="-5" x2="9" y2="-5"/><line x1="-9" y1="0" x2="9" y2="0"/><line x1="-9" y1="5" x2="9" y2="5"/></g>
+<g transform="rotate(90 100 100) translate(100,22)"><line x1="-9" y1="-5" x2="9" y2="-5"/><line x1="-9" y1="0" x2="-2" y2="0"/><line x1="2" y1="0" x2="9" y2="0"/><line x1="-9" y1="5" x2="9" y2="5"/></g>
+<g transform="rotate(135 100 100) translate(100,22)"><line x1="-9" y1="-5" x2="-2" y2="-5"/><line x1="2" y1="-5" x2="9" y2="-5"/><line x1="-9" y1="0" x2="-2" y2="0"/><line x1="2" y1="0" x2="9" y2="0"/><line x1="-9" y1="5" x2="9" y2="5"/></g>
+<g transform="rotate(180 100 100) translate(100,22)"><line x1="-9" y1="-5" x2="9" y2="-5"/><line x1="-9" y1="0" x2="9" y2="0"/><line x1="-9" y1="5" x2="-2" y2="5"/><line x1="2" y1="5" x2="9" y2="5"/></g>
+<g transform="rotate(225 100 100) translate(100,22)"><line x1="-9" y1="-5" x2="-2" y2="-5"/><line x1="2" y1="-5" x2="9" y2="-5"/><line x1="-9" y1="0" x2="9" y2="0"/><line x1="-9" y1="5" x2="-2" y2="5"/><line x1="2" y1="5" x2="9" y2="5"/></g>
+<g transform="rotate(270 100 100) translate(100,22)"><line x1="-9" y1="-5" x2="9" y2="-5"/><line x1="-9" y1="0" x2="-2" y2="0"/><line x1="2" y1="0" x2="9" y2="0"/><line x1="-9" y1="5" x2="-2" y2="5"/><line x1="2" y1="5" x2="9" y2="5"/></g>
+<g transform="rotate(315 100 100) translate(100,22)"><line x1="-9" y1="-5" x2="-2" y2="-5"/><line x1="2" y1="-5" x2="9" y2="-5"/><line x1="-9" y1="0" x2="-2" y2="0"/><line x1="2" y1="0" x2="9" y2="0"/><line x1="-9" y1="5" x2="-2" y2="5"/><line x1="2" y1="5" x2="9" y2="5"/></g>
 </g>
-<!-- Mountain layer 1 (farthest, grey-green) -->
-<path d="M0,900 L0,420 Q100,350 220,390 Q380,310 520,370 Q680,290 840,360 Q1000,280 1160,340 Q1300,300 1440,380 L1440,900Z" fill="#B8D4B8" opacity=".3"/>
-<!-- Clouds between layer 1-2 -->
-<ellipse cx="350" cy="420" rx="280" ry="22" fill="white" opacity=".5">
-<animate attributeName="cx" values="350;400;350" dur="120s" repeatCount="indefinite"/>
-</ellipse>
-<ellipse cx="1050" cy="430" rx="220" ry="18" fill="white" opacity=".4">
-<animate attributeName="cx" values="1050;990;1050" dur="120s" repeatCount="indefinite"/>
-</ellipse>
-<!-- Mountain layer 2 (grass green) -->
-<path d="M0,900 L0,500 Q130,430 280,470 Q440,390 600,450 Q760,380 920,440 Q1080,370 1240,430 Q1360,400 1440,460 L1440,900Z" fill="#8BBF8B" opacity=".35"/>
-<!-- Clouds between layer 2-3 -->
-<ellipse cx="700" cy="510" rx="320" ry="20" fill="white" opacity=".55">
-<animate attributeName="cx" values="700;760;700" dur="100s" repeatCount="indefinite"/>
-</ellipse>
-<!-- Mountain layer 3 (deep green) -->
-<path d="M0,900 L0,590 Q150,520 320,560 Q500,480 680,540 Q860,470 1040,530 Q1200,480 1360,520 Q1420,510 1440,540 L1440,900Z" fill="#5A9E5A" opacity=".3"/>
-<!-- Mountain layer 4 (darkest, nearest) -->
-<path d="M0,900 L0,680 Q180,610 380,660 Q560,590 740,650 Q920,600 1100,645 Q1280,610 1440,670 L1440,900Z" fill="#3D7A3D" opacity=".25"/>
-<!-- Pine silhouettes -->
-<g fill="#2D5F2D" opacity=".1">
-<path d="M70,680 L80,630 L76,640 L86,600 L79,615 L89,570 L69,615 L63,600 L73,640 L66,630Z"/>
-<path d="M110,690 L118,650 L114,658 L124,620 L117,635 L126,590 L108,635 L104,620 L113,658 L107,650Z"/>
-<path d="M1330,670 L1340,620 L1336,630 L1346,590 L1339,605 L1349,560 L1329,605 L1323,590 L1333,630 L1326,620Z"/>
-<path d="M1370,685 L1378,640 L1374,650 L1384,615 L1377,628 L1386,590 L1368,628 L1364,615 L1373,650 L1367,640Z"/>
-</g>
-<!-- Bottom fade -->
-<rect y="750" width="1440" height="150" fill="url(#fog)"/>
+<circle cx="100" cy="100" r="44" fill="url(#tjL)" stroke="#FFE6A3" stroke-width="1.5"/>
+<path d="M100 56 A44 44 0 0 1 100 144 A22 22 0 0 1 100 100 A22 22 0 0 0 100 56Z" fill="#0B1026"/>
+<circle cx="100" cy="78" r="6" fill="#0B1026"/><circle cx="100" cy="122" r="6" fill="#FFF1C9"/>
 </svg>
 </div>
-<div class="particles">
-<div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div>
-<div class="orb orb-4"></div><div class="orb orb-5"></div><div class="orb orb-6"></div>
-<div class="sparkle-dot sp1"></div><div class="sparkle-dot sp2"></div><div class="sparkle-dot sp3"></div>
-<div class="sparkle-dot sp4"></div><div class="sparkle-dot sp5"></div>
-</div>
-<div class="hero" style="padding-bottom:10px">
-<h1><span>修</span><span>仙</span><span>靈</span><span>根</span></h1>
-</div>
-
-<!-- CORE VISUAL: Taiji + Wuxing Orbit -->
-<div class="core-vis">
-<div class="taiji-wrap">
-<svg class="taiji-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-<circle cx="100" cy="100" r="98" fill="none" stroke="#B8860B" stroke-width="1.5" stroke-dasharray="8 4"/>
-<circle cx="100" cy="100" r="92" fill="none" stroke="#B8860B" stroke-width="2"/>
-<circle cx="100" cy="100" r="60" fill="none" stroke="#B8860B" stroke-width="1"/>
-<!-- Taiji -->
-<circle cx="100" cy="100" r="50" fill="#f0e6d0" stroke="#B8860B" stroke-width="2"/>
-<path d="M100 50 A50 50 0 0 1 100 150 A25 25 0 0 1 100 100 A25 25 0 0 0 100 50Z" fill="#1a1a1a"/>
-<circle cx="100" cy="75" r="7" fill="#f0e6d0"/>
-<circle cx="100" cy="125" r="7" fill="#1a1a1a"/>
-<!-- 8 trigrams at r=76 -->
-<g transform="translate(100,24)" stroke="#B8860B" stroke-width="2.5" stroke-linecap="round"><line x1="-10" y1="-6" x2="10" y2="-6"/><line x1="-10" y1="0" x2="10" y2="0"/><line x1="-10" y1="6" x2="10" y2="6"/></g>
-<g transform="translate(154,46)" stroke="#B8860B" stroke-width="2.5" stroke-linecap="round"><line x1="-10" y1="-6" x2="-2" y2="-6"/><line x1="2" y1="-6" x2="10" y2="-6"/><line x1="-10" y1="0" x2="10" y2="0"/><line x1="-10" y1="6" x2="10" y2="6"/></g>
-<g transform="translate(176,100)" stroke="#B8860B" stroke-width="2.5" stroke-linecap="round"><line x1="-10" y1="-6" x2="10" y2="-6"/><line x1="-10" y1="0" x2="-2" y2="0"/><line x1="2" y1="0" x2="10" y2="0"/><line x1="-10" y1="6" x2="10" y2="6"/></g>
-<g transform="translate(154,154)" stroke="#B8860B" stroke-width="2.5" stroke-linecap="round"><line x1="-10" y1="-6" x2="-2" y2="-6"/><line x1="2" y1="-6" x2="10" y2="-6"/><line x1="-10" y1="0" x2="-2" y2="0"/><line x1="2" y1="0" x2="10" y2="0"/><line x1="-10" y1="6" x2="10" y2="6"/></g>
-<g transform="translate(100,176)" stroke="#B8860B" stroke-width="2.5" stroke-linecap="round"><line x1="-10" y1="-6" x2="10" y2="-6"/><line x1="-10" y1="0" x2="10" y2="0"/><line x1="-10" y1="6" x2="-2" y2="6"/><line x1="2" y1="6" x2="10" y2="6"/></g>
-<g transform="translate(46,154)" stroke="#B8860B" stroke-width="2.5" stroke-linecap="round"><line x1="-10" y1="-6" x2="-2" y2="-6"/><line x1="2" y1="-6" x2="10" y2="-6"/><line x1="-10" y1="0" x2="10" y2="0"/><line x1="-10" y1="6" x2="-2" y2="6"/><line x1="2" y1="6" x2="10" y2="6"/></g>
-<g transform="translate(24,100)" stroke="#B8860B" stroke-width="2.5" stroke-linecap="round"><line x1="-10" y1="-6" x2="10" y2="-6"/><line x1="-10" y1="0" x2="-2" y2="0"/><line x1="2" y1="0" x2="10" y2="0"/><line x1="-10" y1="6" x2="-2" y2="6"/><line x1="2" y1="6" x2="10" y2="6"/></g>
-<g transform="translate(46,46)" stroke="#B8860B" stroke-width="2.5" stroke-linecap="round"><line x1="-10" y1="-6" x2="-2" y2="-6"/><line x1="2" y1="-6" x2="10" y2="-6"/><line x1="-10" y1="0" x2="-2" y2="0"/><line x1="2" y1="0" x2="10" y2="0"/><line x1="-10" y1="6" x2="-2" y2="6"/><line x1="2" y1="6" x2="10" y2="6"/></g>
-</svg>
-</div>
-<!-- Wuxing orbit -->
-<div class="wuxing-orbit">
-<!-- 金 0° top -->
-<div class="wx-node wx-jin"><svg viewBox="0 0 50 50" fill="none"><defs><linearGradient id="wj" x1="25" y1="2" x2="25" y2="46" gradientUnits="userSpaceOnUse"><stop stop-color="#FFD700"/><stop offset="1" stop-color="#B8860B"/></linearGradient></defs><rect x="22" y="6" width="6" height="30" rx="1" fill="url(#wj)"/><rect x="24" y="6" width="1.5" height="28" rx=".5" fill="#fff" opacity=".4"/><polygon points="22,6 28,6 25,1" fill="#FFD700"/><rect x="17" y="35" width="16" height="3" rx="1.5" fill="#8B6914"/><rect x="21.5" y="38" width="7" height="8" rx="2" fill="#5C3310"/><line x1="25" y1="0" x2="25" y2="3" stroke="#FFD700" stroke-width=".8" opacity=".5"/><line x1="20" y1="3" x2="23" y2="6" stroke="#FFD700" stroke-width=".6" opacity=".4"/><line x1="30" y1="3" x2="27" y2="6" stroke="#FFD700" stroke-width=".6" opacity=".4"/></svg><span class="wx-lbl">金</span></div>
-<!-- 木 72° -->
-<div class="wx-node wx-mu"><svg viewBox="0 0 50 50" fill="none"><defs><radialGradient id="wm" cx="25" cy="18" r="16" gradientUnits="userSpaceOnUse"><stop stop-color="#4ADE80"/><stop offset="1" stop-color="#15803D"/></radialGradient></defs><rect x="22" y="28" width="6" height="14" rx="2" fill="#78350F"/><ellipse cx="25" cy="18" rx="18" ry="14" fill="url(#wm)"/><ellipse cx="18" cy="20" rx="10" ry="8" fill="#22C55E" opacity=".5"/><ellipse cx="32" cy="20" rx="10" ry="8" fill="#22C55E" opacity=".5"/><ellipse cx="25" cy="14" rx="11" ry="9" fill="#86EFAC" opacity=".35"/><path d="M22 40 Q18 44 14 46" stroke="#78350F" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M28 40 Q32 44 36 46" stroke="#78350F" stroke-width="2" fill="none" stroke-linecap="round"/></svg><span class="wx-lbl">木</span></div>
-<!-- 水 144° -->
-<div class="wx-node wx-shui"><svg viewBox="0 0 50 50" fill="none"><defs><radialGradient id="ww" cx="22" cy="20" r="18" gradientUnits="userSpaceOnUse"><stop stop-color="#60A5FA"/><stop offset="1" stop-color="#1D4ED8"/></radialGradient></defs><circle cx="25" cy="25" r="18" fill="url(#ww)"/><circle cx="25" cy="25" r="18" stroke="#3B82F6" stroke-width="1.5" opacity=".4"/><ellipse cx="20" cy="18" rx="6" ry="3" fill="#BFDBFE" opacity=".5" transform="rotate(-15,20,18)"/><path d="M14 28 Q20 24 25 28 Q30 32 36 28" stroke="#93C5FD" stroke-width="1" fill="none" opacity=".4"/><ellipse cx="20" cy="44" rx="3" ry="4" fill="#3B82F6" opacity=".4"/><ellipse cx="32" cy="46" rx="2" ry="3" fill="#1D4ED8" opacity=".35"/></svg><span class="wx-lbl">水</span></div>
-<!-- 火 216° -->
-<div class="wx-node wx-huo"><svg viewBox="0 0 50 50" fill="none"><path d="M25 2 Q30 12 32 18 Q35 12 37 16 Q40 24 35 32 Q32 36 29 38 Q27 40 25 42 Q23 40 21 38 Q18 36 15 32 Q10 24 13 16 Q15 12 18 18 Q20 12 25 2Z" fill="#DC2626" opacity=".9"/><path d="M25 12 Q28 18 30 22 Q32 18 33 20 Q35 26 31 32 Q29 34 25 36 Q21 34 19 32 Q15 26 17 20 Q18 18 20 22 Q22 18 25 12Z" fill="#F97316" opacity=".85"/><path d="M25 20 Q27 24 28 27 Q29 25 30 26 Q31 30 28 33 Q27 34 25 35 Q23 34 22 33 Q19 30 20 26 Q21 25 22 27 Q23 24 25 20Z" fill="#FCD34D" opacity=".8"/><ellipse cx="25" cy="34" rx="4" ry="2.5" fill="#FEF3C7" opacity=".4"/><circle cx="17" cy="38" r="1.2" fill="#F97316" opacity=".5"/><circle cx="33" cy="37" r="1" fill="#EF4444" opacity=".45"/></svg><span class="wx-lbl">火</span></div>
-<!-- 土 288° -->
-<div class="wx-node wx-tu"><svg viewBox="0 0 50 50" fill="none"><defs><linearGradient id="wt" x1="25" y1="8" x2="25" y2="42" gradientUnits="userSpaceOnUse"><stop stop-color="#D4A16A"/><stop offset="1" stop-color="#78350F"/></linearGradient></defs><path d="M8 40 L20 22 L32 40Z" fill="#92702A" opacity=".5"/><path d="M22 40 L38 18 L50 40Z" fill="#A0855A" opacity=".45"/><path d="M10 40 L25 8 L40 40Z" fill="url(#wt)"/><circle cx="25" cy="8" r="2.5" fill="#FDE68A" opacity=".6"/><line x1="25" y1="3" x2="25" y2="7" stroke="#FDE68A" stroke-width=".8" opacity=".5"/><line x1="21" y1="5" x2="24" y2="8" stroke="#FDE68A" stroke-width=".6" opacity=".4"/><line x1="29" y1="5" x2="26" y2="8" stroke="#FDE68A" stroke-width=".6" opacity=".4"/><ellipse cx="25" cy="40" rx="18" ry="4" fill="#f0e6d0" opacity=".3"/></svg><span class="wx-lbl">土</span></div>
+<div class="wx-orbit">
+<div class="wx-node wx-0" style="--c:#F2D27A"><span data-ico="金"></span><b>金</b></div>
+<div class="wx-node wx-1" style="--c:#5EE08A"><span data-ico="木"></span><b>木</b></div>
+<div class="wx-node wx-2" style="--c:#6FB2FF"><span data-ico="水"></span><b>水</b></div>
+<div class="wx-node wx-3" style="--c:#FF7A6B"><span data-ico="火"></span><b>火</b></div>
+<div class="wx-node wx-4" style="--c:#E3A35C"><span data-ico="土"></span><b>土</b></div>
 </div>
 </div>
 
-<!-- Variant Section -->
-<div class="variant-sec">
-<h4>超越五行 · 變異覺醒</h4>
-<div class="var-grid">
-<div class="var-card"><span class="var-icon" data-ico="月"></span><div class="var-name">月靈根</div><div class="var-sub">超越五行·他人導向</div></div>
-<div class="var-card"><span class="var-icon" data-ico="雷"></span><div class="var-name">雷靈根</div><div class="var-sub">金+月衝突</div></div>
-<div class="var-card"><span class="var-icon" data-ico="風"></span><div class="var-name">風靈根</div><div class="var-sub">木+土衝突</div></div>
-<div class="var-card"><span class="var-icon" data-ico="冰"></span><div class="var-name">冰靈根</div><div class="var-sub">水+月衝突</div></div>
-</div>
-</div>
+<div class="w-cta"><button class="btn btn-go btn-xian" onclick="go()">踏入問心陣</button></div>
+<div class="w-meta">30 題 · 約 5 分鐘 · 免註冊</div>
+<div class="scroll-hint" aria-hidden="true">往下看靈根 ︾</div>
+</header>
 
-<button class="btn btn-go btn-xian" onclick="go()">開始測試 ◈</button>
+<section class="w-sec">
+<h2 class="sec-title">六大靈根</h2>
+<p class="sec-sub">三軸各有兩端，每一端對應一種靈根</p>
+<div class="root-grid" id="rootGrid"></div>
+</section>
+
+<section class="w-sec">
+<h2 class="sec-title">變異覺醒</h2>
+<p class="sec-sub">兩股相衝的靈根同時強烈，便會變異</p>
+<div class="root-grid" id="varGrid"></div>
+</section>
+
+<section class="w-sec">
+<h2 class="sec-title">二十七修士</h2>
+<p class="sec-sub">測完就知道你是哪一位</p>
+<div class="gallery"><div class="g-track" id="gTrack"></div></div>
+</section>
+
+<div class="w-cta" style="margin:26px auto 8px"><button class="btn btn-go btn-xian" onclick="go()">開始測試</button></div>
 </div>
 
 <div id="quiz" class="hidden">
@@ -501,36 +338,36 @@ body::after{content:'';position:fixed;bottom:-100px;left:-100px;width:500px;heig
 <script src="types.js"></script>
 <script>
 var Q=[
-{id:1,q:"你想買一個特定的東西，到了之後你通常會怎麼做？",o:[{t:"直接去買，買完就走",s:{A:2}},{t:"買完之後順便到處看看",s:{A:1}},{t:"先到處逛逛，最後再去買",s:{A:-1}},{t:"找人一起去，逛街本身就是樂趣",s:{A:-1,B:2}}]},
-{id:2,q:"難得一整天完全沒安排，你最自然的反應是？",o:[{t:"太好了，把一直拖著的事處理掉",s:{A:2,C:1}},{t:"找人出去吃飯或做點什麼",s:{B:2}},{t:"終於可以一個人安靜待著",s:{B:-2}},{t:"先看看別人在幹嘛，有活動就跟",s:{B:1,C:-2}}]},
-{id:3,q:"你跟一群人要吃飯，一直決定不了，你通常會？",o:[{t:"直接說一家，走了再說",s:{A:2,C:1}},{t:"問每個人想吃什麼，找大家都能接受的",s:{A:-2}},{t:"都可以，你們決定就好",s:{C:-1}},{t:"找評價最好的那家，用資料決定",s:{A:1,C:1}}]},
-{id:4,q:"一個不錯的朋友約你去做一件你沒興趣的事，你通常會？",o:[{t:"直接說你沒興趣，建議改做別的",s:{C:2}},{t:"去，反正跟朋友在一起就好",s:{A:-1,B:2,C:-1}},{t:"找個理由推掉",s:{B:-1,C:1}},{t:"去，但心裡希望快點結束",s:{C:-2}}]},
-{id:5,q:"你看到一群人用很沒效率的方式在做事，你通常會？",o:[{t:"忍不住想說，而且通常會說",s:{A:1,C:2}},{t:"心裡有想法，但看情況再決定",s:{A:1}},{t:"不關我的事，不會去管",s:{C:1}},{t:"覺得不太對，但不想被認為多管閒事",s:{C:-2}}]},
-{id:6,q:"你在挑一樣要用很久的東西，最後讓你做決定的是？",o:[{t:"實用、耐用、CP 值高",s:{A:2,C:1}},{t:"自己看了喜歡就好",s:{C:2}},{t:"問朋友或上網看推薦",s:{B:1,C:-1}},{t:"不要太突出，跟大家用的差不多就好",s:{C:-2}}]},
-{id:7,q:"你剛忙完一件很累的事，接下來你最想做的是？",o:[{t:"找朋友出去慶祝或放鬆",s:{B:2}},{t:"一個人待著，什麼都不做",s:{B:-2}},{t:"開始處理下一件一直擱著的事",s:{A:2,C:1}},{t:"看看大家都在幹嘛，有人約就跟",s:{B:1,C:-1}}]},
-{id:8,q:"一個東西大家都說很棒，你試了之後覺得還好，你通常會？",o:[{t:"跟別人聊的時候也說還不錯",s:{C:-2}},{t:"直接說你覺得還好",s:{C:2}},{t:"不會特別提起，有人問才說",s:{B:-1,C:1}},{t:"想說是不是自己感受力不夠，再試一次",s:{C:-1}}]},
-{id:9,q:"你答應幫一個人忙，做到一半發現比想的麻煩很多，你通常會？",o:[{t:"繼續做，因為他已經在等了，半途丟下不太好",s:{A:-1,C:-1}},{t:"跟對方說你的狀況，看能不能調整",s:{A:1,C:1}},{t:"做完，但下次會更小心答應別人",s:{C:-1}},{t:"把最重要的部分做完，不重要的就省略",s:{A:2,C:1}}]},
-{id:10,q:"你今天要出門，挑衣服的時候你通常的考量是？",o:[{t:"乾淨舒服就好，不太在意搭配",s:{A:1,C:1}},{t:"會想今天見誰、去哪裡，穿合適的",s:{A:-1,C:-1}},{t:"穿自己喜歡的風格",s:{C:2}},{t:"不要太突出就好，跟大家差不多",s:{C:-2}}]},
-{id:11,q:"你安排好的計畫突然被打亂，你的第一個反應是？",o:[{t:"很煩，你已經排好了，不想改",s:{A:2,C:1}},{t:"看是什麼事，如果是朋友需要幫忙就去",s:{A:-2}},{t:"無所謂，反正計畫本來就會變",s:{A:-1}},{t:"有點煩，但又怕拒絕會讓對方不開心",s:{C:-2}}]},
-{id:12,q:"你在一個需要等很久的地方，你會怎麼打發時間？",o:[{t:"拿手機處理一些一直沒做的事",s:{A:2}},{t:"跟旁邊的人聊聊天",s:{B:2}},{t:"自己滑手機或發呆，享受放空",s:{B:-2}},{t:"看看周圍的人在做什麼",s:{B:1,C:-1}}]},
-{id:13,q:"如果完全照自己的意思過生日，你最想怎麼過？",o:[{t:"找一群朋友一起吃飯慶祝",s:{B:2}},{t:"跟最親近的一兩個人安靜吃頓飯",s:{B:-1,C:1}},{t:"自己一個人做喜歡的事，不用特別慶祝",s:{B:-2,C:1}},{t:"別人幫你安排就好，有驚喜更開心",s:{B:1,C:-1}}]},
-{id:14,q:"你的手機壞了整天沒辦法用，修好之後你第一個感覺是？",o:[{t:"趕快開機，看看有沒有人在等你回覆",s:{B:1,C:-1}},{t:"其實還滿清靜的，偶爾沒手機也不錯",s:{B:-1,C:1}},{t:"很不方便，很多事情沒辦法處理",s:{A:2}},{t:"有點不安，怕別人覺得你在故意不回訊息",s:{C:-2}}]},
-{id:15,q:"你到了一個完全陌生的地方，你通常會？",o:[{t:"主動跟人打招呼，盡快認識大家",s:{B:2}},{t:"先觀察一陣子，搞清楚狀況再說",s:{A:1,B:-1,C:1}},{t:"等別人來找你，不會主動出擊",s:{B:-1,C:-1}},{t:"找看起來友善的人靠近，慢慢融入",s:{A:-1,B:1}}]},
-{id:16,q:"有人當著很多人的面稱讚你做得很好，你的感覺是？",o:[{t:"開心，而且會想知道具體哪裡做得好",s:{A:1,C:1}},{t:"有點不好意思，希望不要太高調",s:{C:-1}},{t:"謝謝，但心裡更在意自己是不是真的做好了",s:{A:1,C:2}},{t:"很開心，被認可的感覺很重要",s:{C:-2}}]},
-{id:17,q:"你發現有個人開始模仿你的風格，你的反應是？",o:[{t:"無所謂，你又不是為了跟別人不同才那樣做",s:{C:2}},{t:"覺得有點不舒服，想要有自己的特色",s:{C:1}},{t:"有點開心，代表你的選擇被認可了",s:{C:-1}},{t:"不太會注意到，要別人說你才發現",s:{B:-1}}]},
-{id:18,q:"你要送一個朋友禮物，你通常會怎麼挑？",o:[{t:"想他需要什麼，買實用的",s:{A:2}},{t:"挑你自己覺得好的東西",s:{A:1,C:2}},{t:"問他想要什麼，照著買",s:{A:-1,C:-1}},{t:"看看最近流行什麼，或問其他朋友意見",s:{B:1,C:-2}}]},
-{id:19,q:"如果你可以自己決定旅行方式，你最想要的是？",o:[{t:"先排好行程，每天照計畫走",s:{A:2,C:1}},{t:"找一群朋友一起，去哪都好玩",s:{A:-1,B:2}},{t:"一個人走，想去哪就去哪",s:{B:-2,C:2}},{t:"跟著別人安排的團走，不用自己煩",s:{A:-1,B:1,C:-2}}]},
-{id:20,q:"你要做一件從來沒做過的事，你通常會怎麼開始？",o:[{t:"先查資料，搞懂流程再動手",s:{A:2,C:1}},{t:"直接動手做，做錯了再調整",s:{A:1,C:1}},{t:"找有經驗的人問一下再做",s:{B:1,C:-1}},{t:"找人一起做，比較不會出錯也比較有趣",s:{A:-1,B:2,C:-1}}]},
-{id:21,q:"你跟人約好了時間，對方遲到了二十分鐘，你心裡的想法是？",o:[{t:"很煩，浪費時間，下次要提醒他",s:{A:2,C:1}},{t:"還好，趁這段時間做點自己的事",s:{A:1,B:-1,C:1}},{t:"算了，可能他有事，等一下就好",s:{A:-1,C:-1}},{t:"有點不安，不知道是不是自己搞錯時間了",s:{C:-2}}]},
-{id:22,q:"你在場的時候兩個人吵起來了，你通常會？",o:[{t:"聽聽雙方的說法，幫忙分析誰比較有道理",s:{A:2,C:1}},{t:"先確認兩邊的人都還好，再看怎麼處理事情",s:{A:-2}},{t:"不介入，不是你的事",s:{B:-1,C:1}},{t:"站在你覺得對的那邊",s:{A:1,C:2}}]},
-{id:23,q:"最近有一個東西很紅，大家都在討論，你通常會？",o:[{t:"有興趣就去看看，沒興趣就算了",s:{C:2}},{t:"跟著試試看，不想跟不上話題",s:{B:1,C:-2}},{t:"別人推薦就看看，自己不會主動去找",s:{C:-1}},{t:"越多人喜歡你越沒興趣",s:{B:-1,C:1}}]},
-{id:24,q:"你負責的一件事最後搞砸了，你第一個念頭是？",o:[{t:"先想哪裡出錯，下次怎麼避免",s:{A:2,C:1}},{t:"擔心別人怎麼看你",s:{C:-2}},{t:"先去跟被影響到的人說明狀況，看怎麼補救",s:{A:-2}},{t:"算了，盡力了就好，不用太苛責自己",s:{C:1}}]},
-{id:25,q:"你要跟一群不太熟的人一起吃飯，你的心態是？",o:[{t:"有點期待，認識新朋友的機會",s:{B:2}},{t:"有點緊張，不知道要聊什麼",s:{B:-1,C:-1}},{t:"無所謂，去了就去了",s:{C:1}},{t:"能推就推，不太想去",s:{B:-2,C:1}}]},
-{id:26,q:"你沒問別人意見，但有人主動說「我覺得你應該這樣做」，你的反應是？",o:[{t:"聽聽看，有道理就參考",s:{}},{t:"有點煩，你又沒問他",s:{C:2}},{t:"會認真想他說的對不對，然後照自己判斷做",s:{A:1,C:1}},{t:"雖然沒問，但既然他說了就照做看看",s:{C:-2}}]},
-{id:27,q:"放假下大雨，原本的計畫全泡湯，你的感覺是？",o:[{t:"太好了，正好可以待在家做自己的事",s:{B:-2,C:1}},{t:"有點悶，想找人視訊或傳訊息聊天",s:{B:2}},{t:"很煩，本來排好的事都做不了了",s:{A:2}},{t:"看看有沒有人也在家沒事做，約一下",s:{B:2,C:-1}}]},
-{id:28,q:"一群人要一起完成一件事需要分工，你通常會？",o:[{t:"主動說你可以做哪個部分，趕快開始",s:{A:2,C:1}},{t:"先看看別人想做什麼，剩下的你來",s:{A:-1,C:-1}},{t:"覺得自己一個人做可能比較快",s:{A:1,B:-2,C:1}},{t:"等別人分配，叫你做什麼就做什麼",s:{A:-1,C:-2}}]},
-{id:29,q:"你花了很多時間做了一個決定，後來發現大多數有經驗的人都做了相反的選擇，你會？",o:[{t:"不管，你想過了，照自己的走",s:{C:2}},{t:"有點動搖，但還是先照原來的做",s:{C:1}},{t:"認真重新考慮一下，也許他們看到了你沒看到的",s:{C:-1}},{t:"改跟大多數人一樣，畢竟他們比較有經驗",s:{C:-2}}]},
-{id:30,q:"你選了跟大家不一樣的做法，結果真的出了問題。事後回想，你的感覺比較接近？",o:[{t:"下次還是會照自己的判斷，這次只是運氣不好",s:{C:2}},{t:"雖然錯了，但至少是自己決定的，不後悔",s:{C:1}},{t:"早知道就聽別人的了",s:{C:-2}},{t:"這讓你以後做決定時會多參考別人的意見",s:{A:1,C:-1}}]}
+{id:1,q:"一群人要吃飯，一直決定不了，時間也有點晚了，你通常會？",o:[{t:"先決定一個方向，邊走邊問大家意見",s:{A:1}},{t:"先問有沒有人不能吃什麼，等大家都說好再走",s:{A:-2}},{t:"直接挑一家最近的，先填飽肚子再說",s:{A:2}},{t:"看情況：大家很餓就直接挑，不急就慢慢問",s:{A:0}}]},
+{id:2,q:"難得一整天完全沒安排，你最想怎麼過？",o:[{t:"大部分時間自己過，傍晚也許見個朋友",s:{B:-1}},{t:"約一群人出去，越熱鬧越好",s:{B:2}},{t:"找一兩個朋友吃個飯、聊聊天",s:{B:1}},{t:"一整天自己待著，做自己的事",s:{B:-2}}]},
+{id:3,q:"你看中一樣東西很喜歡，但網路上的評價普遍不好，你會？",o:[{t:"評價這麼差，可能有自己沒想到的問題，先不買",s:{C:-1}},{t:"改買一個評價好的",s:{C:-2}},{t:"還是買，評價只是別人的經驗",s:{C:2}},{t:"看看負評在說什麼，沒踩到自己在意的點就買",s:{C:1}}]},
+{id:4,q:"你要挑一個人一起做一件很重要的事，你會選？",o:[{t:"感情最好的朋友，能力其次",s:{A:-2}},{t:"能力最強的，就算他不太好相處",s:{A:2}},{t:"能力不錯、也還算好相處的",s:{A:1}},{t:"能力普通，但跟你很合得來的",s:{A:-1}}]},
+{id:5,q:"你在一個需要等很久的地方，你會怎麼打發時間？",o:[{t:"打電話找朋友聊天",s:{B:2}},{t:"傳訊息跟朋友聊",s:{B:1}},{t:"看影片或滑新聞",s:{B:-1}},{t:"放空，享受沒人打擾的時間",s:{B:-2}}]},
+{id:6,q:"你怎麼判斷自己一件事做得好不好？",o:[{t:"以自己的標準為主，也看一下別人的反應",s:{C:1}},{t:"看有沒有達到自己訂的標準",s:{C:2}},{t:"以別人的反應為主，自己的感覺當參考",s:{C:-1}},{t:"別人覺得好，就是做得好",s:{C:-2}}]},
+{id:7,q:"你跟朋友一起玩球或桌遊，你的隊友一直失誤，你通常會？",o:[{t:"輸贏沒那麼重要，多鼓勵他",s:{A:-1}},{t:"教他一些技巧，想辦法把比數追回來",s:{A:1}},{t:"開心就好，乾脆不計分了",s:{A:-2}},{t:"想贏，提議調整位置或分工",s:{A:2}}]},
+{id:8,q:"工作或讀書時，你最喜歡的環境是？",o:[{t:"跟一群人在熱鬧的地方一起做",s:{B:2}},{t:"自己一個人的空間",s:{B:-2}},{t:"安靜的地方，旁邊有人也沒關係",s:{B:-1}},{t:"旁邊有人，偶爾可以聊兩句",s:{B:1}}]},
+{id:9,q:"最近有一個東西很紅，大家都在討論，你對它的看法通常是？",o:[{t:"會去看看，但喜不喜歡自己判斷",s:{C:1}},{t:"有時會跟著覺得好，有時不會，看是什麼",s:{C:0}},{t:"很多人說好，你試了通常也會覺得不錯",s:{C:-2}},{t:"大家怎麼說都不太影響你的看法",s:{C:2}}]},
+{id:10,q:"你排好時間要把一件事做完，好朋友突然打來說心情很差，你會？",o:[{t:"整個放下，直接去找他",s:{A:-2}},{t:"先放下手邊的事陪他聊，事情晚點再趕",s:{A:-1}},{t:"簡短聊一下，約晚一點再好好聊",s:{A:1}},{t:"先把事情做完，再回電話好好聽他說",s:{A:2}}]},
+{id:11,q:"你剛忙完一件很累的事，接下來最想做的是？",o:[{t:"一個人待著，暫時不想跟任何人說話",s:{B:-2}},{t:"自己看劇或玩遊戲，有人找也可以聊幾句",s:{B:-1}},{t:"跟朋友傳傳訊息、聊聊天",s:{B:1}},{t:"找朋友出去放鬆一下",s:{B:2}}]},
+{id:12,q:"你很喜歡一部電影，但朋友們都說很難看。之後你心裡的看法是？",o:[{t:"回想起來，確實有不少問題",s:{C:-2}},{t:"好像沒那麼好看了",s:{C:-1}},{t:"一樣喜歡，口味不同而已",s:{C:2}},{t:"還是喜歡，但好奇他們不喜歡哪裡",s:{C:1}}]},
+{id:13,q:"你跟朋友合辦一個活動，時間快不夠了，你比較能接受？",o:[{t:"延後一點，讓每個人把想法講完",s:{A:-1}},{t:"準時辦好，就算有一兩個人心裡不太舒服",s:{A:2}},{t:"照計畫走，事後再安撫有意見的人",s:{A:1}},{t:"改天再辦，先把大家的意見喬好",s:{A:-2}}]},
+{id:14,q:"你到一個新環境（新班級、新公司）一週了，這週下來你覺得？",o:[{t:"認識了好多人，很有趣、很有精神",s:{B:2}},{t:"很累，下課下班只想一個人待著",s:{B:-2}},{t:"有幾天很有精神、有幾天很累，大致打平",s:{B:0}},{t:"有幾個聊得來的人，感覺不錯",s:{B:1}}]},
+{id:15,q:"你覺得自己一件事做得不錯，但有人說「普通」，你心裡會？",o:[{t:"還是覺得做得不錯",s:{C:2}},{t:"那大概真的普通吧",s:{C:-2}},{t:"想想他的理由，但大致維持自己的看法",s:{C:1}},{t:"重新看一次，覺得他可能說得對",s:{C:-1}}]},
+{id:16,q:"小組報告明天要交，有個組員很努力但做得不太好，你會？",o:[{t:"跟他說哪裡要改，你再補一部分",s:{A:1}},{t:"保留他的部分，分數低一點沒關係",s:{A:-2}},{t:"保留他的部分稍微修飾，免得他難過",s:{A:-1}},{t:"直接重寫他的部分，品質優先",s:{A:2}}]},
+{id:17,q:"如果你可以自己決定旅行方式，你最想要的是？",o:[{t:"找兩三個好朋友一起",s:{B:1}},{t:"跟一個最熟的人去",s:{B:-1}},{t:"跟一大群朋友一起，越多人越好玩",s:{B:2}},{t:"自己一個人走，想去哪就去哪",s:{B:-2}}]},
+{id:18,q:"你沒問別人意見，但有人主動說「我覺得你應該這樣做」，你通常會？",o:[{t:"如果他懂這方面，就會認真考慮",s:{C:0}},{t:"照自己原本的判斷，他的話參考就好",s:{C:2}},{t:"通常就照他說的改",s:{C:-2}},{t:"既然他這麼說，大概有他的道理，會調整一下",s:{C:-1}}]},
+{id:19,q:"你在場的時候兩個人吵起來了，你通常會？",o:[{t:"先處理吵的那件事，順便顧一下兩人的情緒",s:{A:1}},{t:"先把事情的對錯釐清，情緒之後再說",s:{A:2}},{t:"事情誰對不重要，先讓兩個人和好",s:{A:-2}},{t:"先安撫兩人的情緒，事情之後再談",s:{A:-1}}]},
+{id:20,q:"跟一群朋友吃完飯回到家，你的狀態比較像？",o:[{t:"很累，需要一個人好好充電",s:{B:-2}},{t:"還很有精神，想再找人聊",s:{B:2}},{t:"開心，但需要安靜一下",s:{B:-1}},{t:"開心，精神還不錯",s:{B:1}}]},
+{id:21,q:"討論時你提出一個方法，大部分人都不贊成，但沒人說出具體理由。你心裡的想法是？",o:[{t:"還是覺得自己的方法比較好",s:{C:2}},{t:"這麼多人反對，應該是自己的方法不好",s:{C:-2}},{t:"大家都反對，可能是自己想漏了什麼",s:{C:-1}},{t:"願意先試他們的，但仍覺得自己的不差",s:{C:1}}]},
+{id:22,q:"回想一次很成功的合作，最讓你有成就感的是？",o:[{t:"事情做成了，也學到東西",s:{A:1}},{t:"成果普通也值得，因為大家感情變好了",s:{A:-2}},{t:"成果超出預期",s:{A:2}},{t:"過程中跟大家變熟，比成果更讓你記得",s:{A:-1}}]},
+{id:23,q:"放假下大雨，原本的計畫全泡湯，你會？",o:[{t:"約幾個人來家裡，或找個室內的地方一起玩",s:{B:2}},{t:"跟朋友視訊或傳訊息聊天",s:{B:1}},{t:"在家做自己的事，偶爾回個訊息",s:{B:-1}},{t:"太好了，正好一個人待著",s:{B:-2}}]},
+{id:24,q:"你做了一個人生決定（例如換工作、搬家），家人朋友大多不太支持，你會？",o:[{t:"大家都不支持，大概就不做了",s:{C:-2}},{t:"照自己的想法做",s:{C:2}},{t:"還是會做，但會多想想他們擔心的地方",s:{C:1}},{t:"重新考慮，也許他們看到你沒看到的",s:{C:-1}}]},
+{id:25,q:"你在一個團體裡，事情進展很慢，但大家感情很好，你會？",o:[{t:"看事情急不急，急的話才推",s:{A:0}},{t:"這樣很好，不想改變什麼",s:{A:-2}},{t:"慢一點沒關係，氣氛比較重要",s:{A:-1}},{t:"推動改變，就算氣氛會變僵",s:{A:2}}]},
+{id:26,q:"要想清楚一件事的時候，你通常會？",o:[{t:"自己想就好，不太需要跟人討論",s:{B:-2}},{t:"想到一半，找人討論一下",s:{B:1}},{t:"先自己想好，再找人說",s:{B:-1}},{t:"找人講一講，邊說邊想清楚",s:{B:2}}]},
+{id:27,q:"你花了很多時間做了一個決定，後來發現大多數有經驗的人都做了相反的選擇，你會？",o:[{t:"先照原計畫，但會留意他們提到的風險",s:{C:1}},{t:"可能他們看到了你沒看到的，重新評估一次",s:{C:-1}},{t:"大家都這樣選，就跟著改",s:{C:-2}},{t:"照自己的決定走",s:{C:2}}]},
+{id:28,q:"你負責的一件事最後搞砸了，你最先想處理的是？",o:[{t:"先止血，再跟被影響的人說明",s:{A:1}},{t:"找出錯在哪，把結果救回來",s:{A:2}},{t:"先顧好跟大家的關係，事情其次",s:{A:-2}},{t:"先跟被影響到的人道歉、說明",s:{A:-1}}]},
+{id:29,q:"如果連續一週每天晚上都有約，到了週末你會覺得？",o:[{t:"很累，接下來會開始推掉邀約",s:{B:-2}},{t:"有點累，想排一天空白給自己",s:{B:-1}},{t:"越來越有精神，週末還想再約",s:{B:2}},{t:"看約的是誰，跟合得來的人就不累",s:{B:0}}]},
+{id:30,q:"要做一個重要決定之前，你通常會？",o:[{t:"多問幾個人，選最多人建議的",s:{C:-2}},{t:"自己想清楚就決定",s:{C:2}},{t:"自己先有答案，再找一兩個人確認",s:{C:1}},{t:"先聽幾個人的看法，再整理出自己的",s:{C:-1}}]}
 ];
 
 
@@ -556,12 +393,13 @@ var axD={A:{h:"在需要做取捨的時候，你傾向先推進度、先解決�
 
 // === APP STATE ===
 var ans={},TOT=Q.length,PG=0,PAGES=6;
-var _saved=sessionStorage.getItem('gt_v1_answers');
+var _saved=sessionStorage.getItem('gt_v1_answers_v2');
 if(_saved)try{ans=JSON.parse(_saved)}catch(e){}
 
 function go(){
   document.getElementById('welcome').classList.add('hidden');
   document.getElementById('quiz').classList.remove('hidden');
+  setView('quiz');
   renderPage(0);
 }
 
@@ -601,7 +439,7 @@ function pk(qi,oi){
   c.querySelectorAll('.opt').forEach(function(o){o.classList.remove('sel');o.setAttribute('aria-checked','false')});c.querySelectorAll('.opt')[oi].setAttribute('aria-checked','true');
   c.querySelectorAll('.opt')[oi].classList.add('sel');c.classList.add('done');
   ans[qi]=oi;
-  sessionStorage.setItem('gt_v1_answers',JSON.stringify(ans));
+  sessionStorage.setItem('gt_v1_answers_v2',JSON.stringify(ans));
   updProg();
   if(PG===PAGES-1){var nb=document.getElementById('nxBtn');if(nb)nb.disabled=Object.keys(ans).length<TOT;}
 }
@@ -739,82 +577,135 @@ function ui(n){return '<svg class="ui-ico" viewBox="0 0 24 24" fill="none" strok
 function ico(n){return ICO[n].replace('<svg ','<svg class="el-ico" aria-hidden="true" ');}
 function vrList(t){return t.vr?[].concat(t.vr):[];}
 
+// 深色背景用的亮色（ROOT_INFO 原色在深底上太暗）
+var LT={"金":"#F2D27A","木":"#5EE08A","火":"#FF7A6B","水":"#6FB2FF","土":"#E3A35C","月":"#C4B5FD","雷":"#FDE047","風":"#5EEAD4","冰":"#7DD3FC","混沌":"#CBD5E1"};
+var CORNER='<svg viewBox="0 0 34 34" aria-hidden="true"><path d="M2 32V11Q2 2 11 2h21" fill="none" stroke="#FFE6A3" stroke-width="2"/><path d="M7 32V14q0-7 7-7h18" fill="none" stroke="#E8C36A" stroke-width="1"/><circle cx="11" cy="11" r="3" fill="#FFE6A3"/><path d="M5 11a6 6 0 1 1 6 6" fill="none" stroke="#E8C36A" stroke-width="1.2"/></svg>';
+function ringSvg(){
+  var s='<svg viewBox="-100 -100 200 200" aria-hidden="true"><circle r="96" fill="none" stroke="#E8C36A" stroke-width=".6" stroke-dasharray="1 3" opacity=".7"/><circle r="90" fill="none" stroke="#E8C36A" stroke-width=".8" opacity=".55"/><circle r="70" fill="none" stroke="#E8C36A" stroke-width=".5" stroke-dasharray="6 4" opacity=".45"/>';
+  for(var i=0;i<24;i++){var a=i*15*Math.PI/180,r1=i%3?91:86,x1=r1*Math.sin(a),y1=-r1*Math.cos(a),x2=95*Math.sin(a),y2=-95*Math.cos(a);s+='<line x1="'+x1.toFixed(1)+'" y1="'+y1.toFixed(1)+'" x2="'+x2.toFixed(1)+'" y2="'+y2.toFixed(1)+'" stroke="#FFE6A3" stroke-width="'+(i%3?.6:1.4)+'" opacity=".8"/>';}
+  return s+'</svg>';
+}
+
+function setView(v){document.body.className='v-'+v;}
+
 function show(nm,code){
   var t=T[code];if(!t)return;
   history.replaceState(null,'','#result='+code+'&A='+nm.A.toFixed(1)+'&B='+nm.B.toFixed(1)+'&C='+nm.C.toFixed(1));
   var vrs=vrList(t);
-  var primaryRoot=t.rt.length>0?t.rt[0]:null;
-  var rc=t.rt.map(function(rn){return ROOT_INFO[rn].color});
-  if(rc.length===0)rc=['#9CA3AF','#D1D5DB'];
+  var rc=t.rt.map(function(rn){return LT[rn]});
+  if(rc.length===0)rc=['#CBD5E1','#94A3B8'];
   var g1=rc[0],g2=rc[rc.length>1?1:0];
-  var heroBg=primaryRoot?ROOT_INFO[primaryRoot].bg:'#F3F4F6';
   var r='<div class="res-enter" style="--g1:'+g1+';--g2:'+g2+'">';
 
   // 1. 角色卡
-  r+='<section class="hero-card" style="background:linear-gradient(180deg,'+heroBg+',#fff 78%)">';
-  r+='<div class="hc-badge mono">YOUR TYPE · '+code+'</div>';
-  r+='<div class="portrait">';
-  r+='<div class="portrait-aura"></div>';
-  r+='<img class="portrait-img" src="img/'+code+'.webp" width="640" height="960" alt="'+t.n+'（'+code+'）角色立繪" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'block\'">';
+  r+='<section class="r-hero">';
+  r+='<div class="hc-badge">靈根覺醒 · <span class="mono">'+code+'</span></div>';
+  r+='<div class="stage"><div class="stage-rays"></div><div class="stage-ring">'+ringSvg()+'</div>';
+  r+='<div class="frame"><div class="frame-in">';
+  r+='<img class="portrait-img" src="img/card/'+code+'.webp" alt="'+t.n+'（'+code+'）角色立繪" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'">';
   r+='<div class="portrait-fallback">'+buildChar(code)+'</div>';
+  r+='</div>';
+  ['tl','tr','bl','br'].forEach(function(c){r+='<span class="corner c-'+c+'">'+CORNER+'</span>';});
+  r+='</div>';
   var orbs=(t.rt.length?t.rt.slice():['混沌']).concat(vrs);
-  orbs.forEach(function(n,i){r+='<span class="orb-badge ob'+i+'" style="animation-delay:'+(i*.6)+'s" title="'+(ROOT_INFO[n]||VARIANT_INFO[n]||{label:'混沌靈體'}).label+'">'+ico(n)+'</span>';});
+  orbs.forEach(function(n,i){r+='<span class="orb-badge ob'+i+'" style="--c:'+LT[n]+';animation-delay:'+(i*.6)+'s" title="'+(ROOT_INFO[n]||VARIANT_INFO[n]||{label:'混沌靈體'}).label+'">'+ico(n)+'</span>';});
   r+='</div>';
   r+='<h2 class="hc-name">'+t.n+'</h2>';
   r+='<div class="hc-en">'+t.en+'</div>';
   r+='<div class="chip-row">';
-  if(t.rt.length===0)r+='<span class="el-chip" style="--c:#6B7280">'+ico('混沌')+'混沌靈體 · 無偏</span>';
-  t.rt.forEach(function(rn){var ri=ROOT_INFO[rn];r+='<span class="el-chip" style="--c:'+ri.color+'">'+ico(rn)+ri.label+'</span>';});
-  vrs.forEach(function(vn){var vi=VARIANT_INFO[vn];r+='<span class="el-chip var" style="--c:'+vi.color+'">'+ico(vn)+vi.label+'覺醒</span>';});
+  if(t.rt.length===0)r+='<span class="el-chip" style="--c:'+LT['混沌']+'">'+ico('混沌')+'混沌靈體 · 無偏</span>';
+  t.rt.forEach(function(rn){r+='<span class="el-chip" style="--c:'+LT[rn]+'">'+ico(rn)+ROOT_INFO[rn].label+'</span>';});
+  vrs.forEach(function(vn){r+='<span class="el-chip var" style="--c:'+LT[vn]+'">'+ico(vn)+VARIANT_INFO[vn].label+'覺醒</span>';});
   r+='</div>';
   r+='<div class="hc-codes">';
   ['A','B','C'].forEach(function(a,i){r+='<span class="code-pill" style="--c:'+axC[a][0]+'"><b class="mono">'+code[i]+'</b>'+(nm[a]>=TH?axP[a]:nm[a]<=-TH?axNg[a]:'平衡')+'</span>';});
   r+='</div>';
   r+='</section>';
 
-  // 2. 三軸分數
+  // 2. 六靈根雷達
+  r+='<section class="rcard"><h3>'+ui('root')+'六靈根雷達</h3>'+radar(nm);
+  r+='<div class="radar-note">對角的兩個靈根是同一軸的兩端，<b>合計固定為 10</b>。圖形往哪一角伸出，代表你偏向那個靈根；越接近<b>正六邊形</b>，代表越沒有明顯偏好。斜紋帶是<b>中庸帶</b>（落在帶內＝不偏任一端）。</div></section>';
+
+  // 3. 三軸分數
   r+='<section class="rcard"><h3>'+ui('score')+'三軸分數</h3>';
   ['A','B','C'].forEach(function(a,i){r+=bAxis(a,nm[a],i);});
   r+='</section>';
 
-  // 3. 類型描述
-  var blocks=[['read','靈根解讀',t.d,'#F59E0B'],['style','行事風格',t.style,'#F97316'],['pain','最不舒服的情境',t.pain,'#EF4444'],['view','別人眼中的你',t.view,'#06B6D4'],['blind','盲點',t.blind,'#D946EF']];
-  r+='<section class="rcard">';
-  blocks.forEach(function(b){if(!b[2])return;r+='<div class="dblock"><h4><span class="h-ico" style="--c:'+b[3]+'">'+ui(b[0])+'</span>'+b[1]+'</h4><p>'+b[2]+'</p></div>';});
+  // 4. 類型描述
+  var blocks=[['read','靈根解讀',t.d,'#F2D27A'],['style','行事風格',t.style,'#FB923C'],['pain','最不舒服的情境',t.pain,'#FF7A6B'],['view','別人眼中的你',t.view,'#22D3EE'],['blind','盲點',t.blind,'#E879F9']];
+  r+='<section class="rcard"><h3>'+ui('read')+'修士圖鑑</h3>';
+  blocks.forEach(function(b){if(!b[2])return;r+='<div class="dblock" style="--c:'+b[3]+'"><h4><span class="h-ico">'+ui(b[0])+'</span>'+b[1]+'</h4><p>'+b[2]+'</p></div>';});
   r+='</section>';
 
-  // 4. 靈根解析
+  // 5. 靈根解析
   r+='<section class="rcard"><h3>'+ui('root')+'靈根解析</h3><div class="root-list">';
-  if(t.rt.length===0)r+='<div class="root-row" style="--c:#6B7280"><span class="rr-ico">'+ico('混沌')+'</span><div><b>混沌靈體</b><span>三軸皆在中間帶，五行未分化——不偏任何一根</span></div></div>';
-  t.rt.forEach(function(rn){var ri=ROOT_INFO[rn];r+='<div class="root-row" style="--c:'+ri.color+'"><span class="rr-ico" style="background:'+ri.bg+'">'+ico(rn)+'</span><div><b>'+ri.label+'</b><span>'+ri.desc+'</span></div></div>';});
+  if(t.rt.length===0)r+='<div class="root-row" style="--c:'+LT['混沌']+'"><span class="rr-ico">'+ico('混沌')+'</span><div><b>混沌靈體</b><span>三軸皆在中間帶，五行未分化——不偏任何一根</span></div></div>';
+  t.rt.forEach(function(rn){var ri=ROOT_INFO[rn];r+='<div class="root-row" style="--c:'+LT[rn]+'"><span class="rr-ico">'+ico(rn)+'</span><div><b>'+ri.label+'</b><span>'+ri.desc+'</span></div></div>';});
   r+='</div>';
   vrs.forEach(function(vn){var vi=VARIANT_INFO[vn];
-    r+='<div class="variant-banner" style="border-color:'+vi.bd+';background:'+vi.bg+'">';
-    r+='<h4><span class="vb-ico">'+ico(vn)+'</span><span style="color:'+vi.color+'">變異：'+vi.label+'</span><span class="vb-org">（'+vi.origin+'）</span></h4>';
+    r+='<div class="variant-banner" style="--c:'+LT[vn]+'">';
+    r+='<h4><span class="vb-ico">'+ico(vn)+'</span><span>變異：'+vi.label+'</span><span class="vb-org">（'+vi.origin+'）</span></h4>';
     r+='<p>'+vi.desc+'</p></div>';});
   r+='</section>';
 
-  // 5. 各軸解讀（描述與字母判定一致）
+  // 6. 各軸解讀（描述與字母判定一致）
   r+='<section class="rcard"><h3>'+ui('axis')+'各軸解讀</h3>';
-  ['A','B','C'].forEach(function(a,i){
+  ['A','B','C'].forEach(function(a){
     var v=nm[a],desc=v>=TH?axD[a].h:v<=-TH?axD[a].l:axD[a].m;
     var abs=Math.abs(v);
     var str=abs>=7?'非常明確':abs>=4?'清楚的傾向':abs>=TH?'有傾向但不強烈':'中間帶';
-    r+='<div class="ax-exp" style="border-color:'+axC[a][0]+';background:'+['var(--axAl)','var(--axBl)','var(--axCl)'][i]+'"><h4><span style="color:'+axC[a][0]+'">'+axN[a]+'</span><span class="str">'+str+'</span></h4><p>'+desc+'</p></div>';
+    r+='<div class="ax-exp" style="--c:'+axC[a][0]+'"><h4><span>'+axN[a]+'</span><span class="str">'+str+'</span></h4><p>'+desc+'</p></div>';
   });
   r+='</section>';
 
-  // 6. 分享與重測
+  // 7. 分享與重測
   r+='<div class="act-row"><button class="btn btn-go" id="shareBtn" onclick="shareRes()">'+ui('link')+'<span>複製結果連結</span></button>';
-  r+='<button class="btn btn-alt" onclick="sessionStorage.removeItem(\'gt_v1_answers\');location.href=location.pathname">'+ui('redo')+'<span>重新作答</span></button></div>';
+  r+='<button class="btn btn-alt" onclick="sessionStorage.removeItem(\'gt_v1_answers_v2\');location.href=location.pathname">'+ui('redo')+'<span>重新作答</span></button></div>';
   r+='</div>';
 
   document.getElementById('quiz').classList.add('hidden');
   document.getElementById('welcome').classList.add('hidden');
   document.getElementById('result').innerHTML=r;
   document.getElementById('result').classList.remove('hidden');
+  setView('result');
   document.title=t.n+'（'+code+'）· 修仙靈根測驗';
   window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// 六靈根雷達：對角為同一軸兩端（金↔木、火↔水、土↔月），每端 = (10 ± 分數) / 2
+var RADAR=[['金','目標','A',1],['火','外向','B',1],['土','自我','C',1],['木','關係','A',-1],['水','內向','B',-1],['月','他人','C',-1]];
+function radar(nm){
+  var R=100,band=[(10-TH)/2,(10+TH)/2];
+  function pt(i,v){var a=(i*60-90)*Math.PI/180;return [v/10*R*Math.cos(a),v/10*R*Math.sin(a)];}
+  function hex(v){return RADAR.map(function(_,i){return pt(i,v).map(function(n){return n.toFixed(1)}).join(',')}).join(' ');}
+  var vals=RADAR.map(function(d){return (10+d[3]*nm[d[2]])/2;});
+  var lbl=RADAR.map(function(d,i){return d[0]+d[1]+' '+vals[i].toFixed(1);}).join('、');
+  var s='<div class="radar-wrap"><svg class="radar" viewBox="-170 -166 340 336" role="img" aria-label="六靈根雷達：'+lbl+'">';
+  s+='<defs><radialGradient id="rdF" r=".6"><stop offset="0" stop-color="#FFE6A3" stop-opacity=".05"/><stop offset="1" stop-color="#FFE6A3" stop-opacity=".28"/></radialGradient><filter id="rdG" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>';
+  s+='<circle r="'+(R+8)+'" fill="rgba(7,11,28,.45)" stroke="rgba(232,195,106,.25)"/>';
+  // 中庸帶
+  var outer=RADAR.map(function(_,i){return pt(i,band[1]).join(',')}),inner=RADAR.map(function(_,i){return pt(i,band[0]).join(',')});
+  s+='<path d="M'+outer.join('L')+'Z M'+inner.reverse().join('L')+'Z" fill="rgba(255,255,255,.07)" fill-rule="evenodd" stroke="rgba(255,255,255,.25)" stroke-dasharray="3 3" stroke-width=".8"/>';
+  [2,4,6,8,10].forEach(function(v){s+='<polygon points="'+hex(v)+'" fill="none" stroke="rgba(232,195,106,'+(v===10?.55:.2)+')" stroke-width="'+(v===10?1.2:.8)+'"/>';});
+  RADAR.forEach(function(d,i){var p=pt(i,10);s+='<line x1="0" y1="0" x2="'+p[0].toFixed(1)+'" y2="'+p[1].toFixed(1)+'" stroke="rgba(232,195,106,.25)" stroke-width=".8"/>';});
+  [2,4,6,8].forEach(function(v){var p=pt(0,v);s+='<text x="'+(p[0]+4)+'" y="'+(p[1]+3)+'" font-size="8" fill="rgba(195,204,222,.55)">'+v+'</text>';});
+  var poly=vals.map(function(v,i){return pt(i,v).map(function(n){return n.toFixed(1)}).join(',')}).join(' ');
+  s+='<g class="poly"><polygon points="'+poly+'" fill="url(#rdF)" stroke="#FDE68A" stroke-width="2.2" stroke-linejoin="round" filter="url(#rdG)"/>';
+  vals.forEach(function(v,i){var p=pt(i,v),inBand=v>band[0]&&v<band[1],pref=v>=band[1];
+    s+='<circle cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="4.5" fill="'+(pref?LT[RADAR[i][0]]:'#0B1026')+'" stroke="'+(inBand?'#94A3B8':LT[RADAR[i][0]])+'" stroke-width="2"/>';});
+  s+='</g>';
+  RADAR.forEach(function(d,i){
+    var p=pt(i,11.8),x=p[0],y=p[1],side=i===0?'top':i===3?'bot':(x>0?'r':'l');
+    var anchor=side==='top'||side==='bot'?'middle':side==='r'?'start':'end';
+    if(side==='r')x+=6;if(side==='l')x-=6;
+    var iy,ny;
+    if(side==='top'){iy=y-44;ny=y-12;}else if(side==='bot'){iy=y-8;ny=y+26;}else{iy=y-32;ny=y-2;}
+    var ix=anchor==='middle'?x-9:anchor==='start'?x:x-18;
+    s+=ICO[d[0]].replace('<svg ','<svg x="'+ix.toFixed(1)+'" y="'+iy.toFixed(1)+'" width="18" height="18" ');
+    s+='<text x="'+x.toFixed(1)+'" y="'+ny.toFixed(1)+'" text-anchor="'+anchor+'" font-size="12.5" font-weight="700" fill="'+LT[d[0]]+'">'+d[0]+'・'+d[1]+'</text>';
+    s+='<text x="'+x.toFixed(1)+'" y="'+(ny+15).toFixed(1)+'" text-anchor="'+anchor+'" font-size="13" font-weight="700" fill="#F3EAD3" class="mono">'+vals[i].toFixed(1)+'</text>';
+  });
+  return s+'</svg></div>';
 }
 
 function shareRes(){
@@ -828,12 +719,50 @@ function bAxis(a,val,idx){
   var pct=(val+10)/20*100,c=axC[a],fl,fw;
   if(val>=0){fl=50;fw=pct-50}else{fl=pct;fw=50-pct}
   var dy=(.1+idx*.1)+'s';
-  return '<div class="axis-vis" style="animation-delay:'+dy+'"><div class="axis-head"><span class="axis-name" style="color:'+c[0]+'">'+axN[a]+'</span><span class="axis-score mono" style="color:'+c[0]+'">'+(val>=0?'+':'')+val.toFixed(1)+'</span></div><div class="axis-track"><div class="axis-mid"></div><div class="axis-track-inner"><div class="axis-bar" style="left:'+fl+'%;--w:'+fw+'%;background:linear-gradient(90deg,'+c[0]+','+c[1]+');opacity:.3"></div></div><div class="axis-marker" style="--pos:'+pct+'%;background:'+c[0]+';box-shadow:0 0 10px '+c[0]+'44"></div></div><div class="axis-labels"><span>'+axNg[a]+'</span><span class="mid" style="position:absolute;left:50%;transform:translateX(-50%)">0</span><span>'+axP[a]+'</span></div></div>';
+  return '<div class="axis-vis"><div class="axis-head"><span class="axis-name" style="color:'+c[0]+'">'+axN[a]+'</span><span class="axis-score mono" style="color:'+c[0]+'">'+(val>=0?'+':'')+val.toFixed(1)+'</span></div><div class="axis-track"><div class="axis-track-inner"><div class="axis-band" title="中庸帶"></div><div class="axis-bar" style="left:'+fl+'%;--w:'+fw+'%;background:linear-gradient(90deg,'+c[0]+','+c[1]+');opacity:.55;animation-delay:'+dy+'"></div></div><div class="axis-mid"></div><div class="axis-marker" style="--pos:'+pct+'%;background:'+c[0]+';box-shadow:0 0 12px '+c[0]+';animation-delay:'+dy+'"></div></div><div class="axis-labels"><span>'+axNg[a]+'</span><span class="mid">中庸帶</span><span>'+axP[a]+'</span></div></div>';
 }
 
+// 首頁：靈根卡、變異卡、二十七修士畫廊
+function initHome(){
+  var rg='';
+  [['金','目標導向'],['木','關係導向'],['火','外向充電'],['水','內向充電'],['土','自我導向'],['月','他人導向']].forEach(function(d){rg+='<div class="root-card" style="--c:'+LT[d[0]]+'">'+ico(d[0])+'<b>'+ROOT_INFO[d[0]].label+'</b><span>'+d[1]+'<br>'+ROOT_INFO[d[0]].desc+'</span></div>';});
+  document.getElementById('rootGrid').innerHTML=rg;
+  var vg='';
+  ['雷','風','冰'].forEach(function(n){var v=VARIANT_INFO[n];vg+='<div class="root-card var" style="--c:'+LT[n]+'">'+ico(n)+'<b>'+v.label+'</b><span>'+v.origin+'</span></div>';});
+  document.getElementById('varGrid').innerHTML=vg;
+  var cards=Object.keys(T).map(function(k){return '<div class="g-card"><div class="g-pic"><img src="img/thumb/'+k+'.webp" alt="'+T[k].n+'" loading="lazy" width="240" height="360"></div><div class="g-name">'+T[k].n+'</div><div class="g-code mono">'+k+'</div></div>';}).join('');
+  document.getElementById('gTrack').innerHTML=cards+cards.replace(/alt="[^"]*"/g,'alt="" aria-hidden="true"');
+}
+
+// 靈光粒子
+function initMotes(){
+  if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  var cv=document.getElementById('motes');if(!cv||!cv.getContext)return;
+  var cx=cv.getContext('2d'),W,H,dpr=Math.min(window.devicePixelRatio||1,2),P=[],N=window.innerWidth<600?26:48;
+  var cols=['255,230,163','232,195,106','127,214,232','255,246,218'];
+  function rs(){W=cv.width=innerWidth*dpr;H=cv.height=innerHeight*dpr;}
+  function mk(init){return {x:Math.random()*W,y:init?Math.random()*H:H+20*dpr,r:(Math.random()*1.8+.6)*dpr,v:(Math.random()*.35+.15)*dpr,d:Math.random()*Math.PI*2,c:cols[Math.random()*cols.length|0],t:Math.random()*Math.PI*2};}
+  rs();addEventListener('resize',rs);
+  for(var i=0;i<N;i++)P.push(mk(true));
+  (function loop(){
+    if(!document.hidden){
+      cx.clearRect(0,0,W,H);
+      P.forEach(function(p,i){
+        p.y-=p.v;p.t+=.02;p.x+=Math.sin(p.t+p.d)*.3*dpr;
+        if(p.y<-20)P[i]=mk(false);
+        var a=.45+.45*Math.sin(p.t*2),g=cx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*5);
+        g.addColorStop(0,'rgba('+p.c+','+a+')');g.addColorStop(1,'rgba('+p.c+',0)');
+        cx.fillStyle=g;cx.beginPath();cx.arc(p.x,p.y,p.r*5,0,Math.PI*2);cx.fill();
+      });
+    }
+    requestAnimationFrame(loop);
+  })();
+}
 
 document.addEventListener('DOMContentLoaded',function(){
-  document.querySelectorAll('[data-ico]').forEach(function(el){el.innerHTML=ico(el.getAttribute('data-ico'));});
+  initHome();
+  document.querySelectorAll('[data-ico]').forEach(function(el){el.outerHTML=ico(el.getAttribute('data-ico'));});
+  initMotes();
   var h=window.location.hash;
   if(h.indexOf('result=')>-1){
     var ps={};h.replace('#','').split('&').forEach(function(p){var kv=p.split('=');ps[kv[0]]=kv[1];});
